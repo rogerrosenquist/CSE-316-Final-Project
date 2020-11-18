@@ -1,0 +1,33 @@
+{
+  "name": "cse316_finalproject",
+  "version": "1.0.0",
+  "description": "CSE 316 final project",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client \""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zharnite/mmcneill_zhppan_CSE316_FinalProject.git"
+  },
+  "author": "Zhen Yi Pan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Zharnite/mmcneill_zhppan_CSE316_FinalProject/issues"
+  },
+  "homepage": "https://github.com/Zharnite/mmcneill_zhppan_CSE316_FinalProject#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.15"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
