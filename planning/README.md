@@ -73,7 +73,9 @@
 
 > Here are all the things to do.
 
-- [x] Crying in front of HonorLock proctor
-- [ ] Look into either Context API or Redux to manage the state.
+- [x] Crying in front of HonorLock proctor.
+- [x] Look into either Context API or Redux to manage the state. Decided to go with Redux for this project.
+- [ ] Set up application routes and server side details.
+- [ ] Go to sleep.
 - [ ] MERN stack videos to learn about login.
-- [ ] Everything
+- [ ] Everything.
