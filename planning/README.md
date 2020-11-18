@@ -15,6 +15,7 @@
 - **email** - unique key
 - **firstName**
 - **lastName**
+- **password**
 
 ### EmployeeTest
 
