@@ -1,14 +1,14 @@
 # CSE 316: Final Project Planning
 
-> This is the planning document.
+This is the planning document.
 
 ## Database objects
 
-> Here are the database objects.
+Here are the database objects.
 
 ### Employee
 
-> This is object represents the employee.
+This is object represents the employee.
 
 - **employeeID** - primary key
   - Can be represented as the auto-assigned ObjectId in MongoDB
@@ -19,7 +19,7 @@
 
 ### EmployeeTest
 
-> This is object represents an employee covid test.
+This is object represents an employee covid test.
 
 - **testBarcode** - primary key
 - **employeeID** - foreign key to `Employee:employeeID`; not null
@@ -32,21 +32,21 @@
 
 ### Pool Map
 
-> This object represents the pool map, which maps the employee test to the pool barcode.
+This object represents the pool map, which maps the employee test to the pool barcode.
 
 - **testBarcode** - foreign key to `EmployeeTest:testBarcode`
 - **poolBarcode** - foreign key to `Pool:poolBarcode`
 
 ### Pool
 
-> This object represents the pool.
+This object represents the pool.
 
 - **poolBarcode** - primary key
   - Can be represented as the auto-assigned ObjectId in MongoDB
 
 ### WellTesting
 
-> This object represents a well covid test.
+This object represents a well covid test.
 
 - **poolBarcode** - foreign key to `Pool:poolBarcode`
 - **wellBarcode** - foreign key to `Well:wellBarcode`
@@ -58,24 +58,28 @@
 
 ### Well
 
-> This object represents a well.
+This object represents a well.
 
 - **wellBarcode** - primary key
 
 ## Additional Notes
 
-> Here are some additional notes for the final project.
+Here are some additional notes for the final project.
 
 - We are allowed to use any database for this final project.
   - https://piazza.com/class/ke1ckdikw1kuz?cid=185
+- Example dataset:
+  - https://docs.google.com/spreadsheets/d/17A0-Qcu6JmT0qmpJoFPt9JvWocpp2_huelIIpb9EcMg/edit#gid=0
 
 ## TODOS
 
-> Here are all the things to do.
+Here are all the things to do.
 
 - [x] Crying in front of HonorLock proctor.
 - [x] Look into either Context API or Redux to manage the state. Decided to go with Redux for this project.
-- [ ] Set up application routes and server side details.
+- [x] Create an example dataset.
+- [ ] Set up application routes.
+- [ ] Set up server side details (I don't know what this means yet).
 - [ ] Go to sleep.
 - [ ] MERN stack videos to learn about login.
 - [ ] Everything.
