@@ -9,30 +9,42 @@ function App() {
   return (
     <div className="App">
       <AppNavbar />
-      <h1>hello</h1>
 
       <Switch>
         <Route
-          path={["/", "/labtech"]}
-          render={() => {
+          path={["/"]}
+          render={() => (
             <div>
-              <h1>Labtech page placeholder</h1>
-              <h2>Placeholder for a react component</h2>
-              <p>Enclose this section with '()' for a react component</p>
-            </div>;
-          }}
+              <h4>Home page placeholder for component</h4>
+            </div>
+          )}
+          exact
+        />
+        <Route
+          path={["/labtech"]}
+          render={() => (
+            <div>
+              <h4>Labtech page placeholder for a react component</h4>
+            </div>
+          )}
           exact
         />
         <Route
           path="/employee"
-          render={() => {
+          render={() => (
             <div>
-              <h1>Employee page placeholder</h1>
-              <h2>Placeholder for a react component</h2>
-              <p>Enclose this section with '()' for a react component</p>
-            </div>;
-          }}
+              <h4>Employee page placeholder for a react component</h4>
+            </div>
+          )}
           exact
+        />
+        <Route
+          path="/"
+          render={() => (
+            <div>
+              <h4>404 Page not found component placeholder</h4>
+            </div>
+          )}
         />
       </Switch>
     </div>
