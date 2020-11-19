@@ -83,6 +83,7 @@ Here are all the things to do.
 - [x] Set up application routes for the backend.
 - [ ] Set up server side details (I don't know what this means yet).
 - [ ] Set up client side routes.
+- [ ] Setup instructions
 - [ ] Go to sleep 11/19/2020.
 - [ ] MERN stack videos to learn about login.
 - [ ] Complete.
