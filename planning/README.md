@@ -72,6 +72,12 @@ Here are some additional notes for the final project.
   - https://docs.google.com/spreadsheets/d/17A0-Qcu6JmT0qmpJoFPt9JvWocpp2_huelIIpb9EcMg/edit#gid=0
 - `items` dataset is for testing purposes
 
+### Some things that might need to be changed later on.
+
+- WellTesting model schema has `testingEndTime` set to default value of `Data.now`
+- The proxy in client package.json is `http://localhost:5000`
+-
+
 ## TODOS
 
 Here are all the things to do.

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 // bring in routes
-const items = require("./routes/api/items");
+const items = require("./routes/api/items"); // TESTING PURPOSES
 const employees = require("./routes/api/employees");
 const employeeTests = require("./routes/api/employee-tests");
 const poolMaps = require("./routes/api/pool-maps");
@@ -26,7 +26,7 @@ mongoose
   .catch((err) => console.log(err));
 
 // use routes
-app.use("/api/items", items);
+app.use("/api/items", items); // TESTING PURPOSES
 app.use("/api/employees", employees);
 app.use("/api/employee-tests", employeeTests);
 app.use("/api/pool-maps", poolMaps);

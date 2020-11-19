@@ -1,3 +1,7 @@
+/**
+ * THIS FILE IS FOR TESTING PURPOSES ONLY
+ */
+
 const express = require("express");
 const router = express.Router();
 
