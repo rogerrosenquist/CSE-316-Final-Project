@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import ItemList from "./components/ItemList";
 import AppNavbar from "./components/AppNavbar";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           )}
           exact
         />
+        <Route path={["/test", "/items"]} render={() => <ItemList />} exact />
         <Route
           path="/"
           render={() => (
