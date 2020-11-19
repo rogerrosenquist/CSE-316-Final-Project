@@ -78,8 +78,10 @@ Here are all the things to do.
 - [x] Crying in front of HonorLock proctor.
 - [x] Look into either Context API or Redux to manage the state. Decided to go with Redux for this project.
 - [x] Create an example dataset.
-- [ ] Set up application routes.
+- [x] Go to sleep 11/18/2020.
+- [x] Set up application routes for the backend.\
 - [ ] Set up server side details (I don't know what this means yet).
-- [ ] Go to sleep.
+- [ ] Set up client side routes.
+- [ ] Go to sleep 11/19/2020.
 - [ ] MERN stack videos to learn about login.
-- [ ] Everything.
+- [ ] Complete.
