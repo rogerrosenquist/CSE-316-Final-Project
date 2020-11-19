@@ -70,6 +70,7 @@ Here are some additional notes for the final project.
   - https://piazza.com/class/ke1ckdikw1kuz?cid=185
 - Example dataset:
   - https://docs.google.com/spreadsheets/d/17A0-Qcu6JmT0qmpJoFPt9JvWocpp2_huelIIpb9EcMg/edit#gid=0
+- `items` dataset is for testing purposes
 
 ## TODOS
 
@@ -79,7 +80,7 @@ Here are all the things to do.
 - [x] Look into either Context API or Redux to manage the state. Decided to go with Redux for this project.
 - [x] Create an example dataset.
 - [x] Go to sleep 11/18/2020.
-- [x] Set up application routes for the backend.\
+- [x] Set up application routes for the backend.
 - [ ] Set up server side details (I don't know what this means yet).
 - [ ] Set up client side routes.
 - [ ] Go to sleep 11/19/2020.
