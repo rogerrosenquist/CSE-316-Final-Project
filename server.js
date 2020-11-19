@@ -8,6 +8,8 @@ const employees = require("./routes/api/employees");
 const employeeTests = require("./routes/api/employee-tests");
 const poolMaps = require("./routes/api/pool-maps");
 const pools = require("./routes/api/pools");
+const wellTestings = require("./routes/api/well-testings");
+const wells = require("./routes/api/wells");
 
 const app = express();
 
@@ -29,6 +31,8 @@ app.use("/api/employees", employees);
 app.use("/api/employee-tests", employeeTests);
 app.use("/api/pool-maps", poolMaps);
 app.use("/api/pools", pools);
+app.use("/api/well-testings", wellTestings);
+app.use("/api/wells", wells);
 
 const port = process.env.PORT || 5000;
 
