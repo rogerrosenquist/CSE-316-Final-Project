@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const items = require("./routes/api/items");
 const employees = require("./routes/api/employees");
 const employeeTests = require("./routes/api/employee-tests");
+const poolMaps = require("./routes/api/pool-maps");
+const pools = require("./routes/api/pools");
 
 const app = express();
 
@@ -25,6 +27,8 @@ mongoose
 app.use("/api/items", items);
 app.use("/api/employees", employees);
 app.use("/api/employee-tests", employeeTests);
+app.use("/api/pool-maps", poolMaps);
+app.use("/api/pools", pools);
 
 const port = process.env.PORT || 5000;
 
