@@ -2,7 +2,6 @@
  * THIS FILE IS FOR TESTING PURPOSES ONLY
  */
 
-import { v4 as uuid } from "uuid";
 import * as actions from "../actions/types";
 
 const initialState = {

@@ -2,9 +2,10 @@
  * THIS FILE IS FOR TESTING PURPOSES ONLY
  */
 
+import axios from "axios";
 import * as actions from "./types";
 
-export const getEmployees = () => {
+export const getEmployees = () => (dispatch) => {
   return {
     type: actions.GET_EMPLOYEES,
   };

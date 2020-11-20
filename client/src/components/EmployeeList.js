@@ -6,10 +6,9 @@
  * The backend is not hooked up, so adding/deleting is ok as of now.
  */
 
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { v4 as uuid } from "uuid";
 import { connect } from "react-redux";
 import { getEmployees, deleteEmployee } from "../actions/employeeActions";
 import PropTypes from "prop-types";
