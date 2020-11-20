@@ -1,4 +1,4 @@
-# mmcneill_zhppan_CSE316_FinalProject
+# CSE316_FinalProject
 
 ## Setup Instructions
 
