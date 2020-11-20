@@ -56,7 +56,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         employees: state.employees.filter(
-          (employee) => employee._id !== action.payload._id
+          (employee) => employee._id !== action.payload.id
         ),
       };
     case actions.ADD_EMPLOYEE:

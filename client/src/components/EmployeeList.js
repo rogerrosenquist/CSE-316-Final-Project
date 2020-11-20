@@ -21,6 +21,10 @@ const EmployeeList = (props) => {
     props.getEmployees();
   }, [employees]);
 
+  let onDeleteClick = (id) => {
+    props.deleteEmployee(id);
+  };
+
   return (
     <Container>
       <ListGroup>
@@ -41,7 +45,7 @@ const EmployeeList = (props) => {
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    // onClick={}
+                    onClick={onDeleteClick.bind(this, _id)}
                   >
                     &times;
                   </Button>
@@ -60,54 +64,6 @@ const EmployeeList = (props) => {
     </Container>
   );
 };
-
-// class EmployeeList extends Component {
-//   componentDidMount() {
-//     this.props.getEmployees();
-//   }
-
-//   render() {
-//     const { employees } = this.props.employee;
-//     return (
-//       <Container>
-//         <ListGroup>
-//           <TransitionGroup className="employee-list">
-//             {employees.map(
-//               ({
-//                 isLabWorker,
-//                 _id,
-//                 employeeID,
-//                 email,
-//                 firstName,
-//                 lastName,
-//                 passcode,
-//               }) => (
-//                 <CSSTransition key={_id} timeout={500} classNames="fade">
-//                   <ListGroupItem>
-//                     <Button
-//                       className="remove-btn"
-//                       color="danger"
-//                       size="sm"
-//                       // onClick={}
-//                     >
-//                       &times;
-//                     </Button>
-//                     {firstName} {lastName} <br />
-//                     _id: {_id} <br />
-//                     employeeID: {employeeID} <br />
-//                     email: {email} <br />
-//                     passcode: {passcode} <br />
-//                     isLabWorker: {String(isLabWorker)} <br />
-//                   </ListGroupItem>
-//                 </CSSTransition>
-//               )
-//             )}
-//           </TransitionGroup>
-//         </ListGroup>
-//       </Container>
-//     );
-//   }
-// }
 
 EmployeeList.propTypes = {
   getEmployees: PropTypes.func.isRequired,
