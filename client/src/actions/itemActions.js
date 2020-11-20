@@ -18,3 +18,12 @@ export const deleteItem = (id) => {
     },
   };
 };
+
+export const addItem = (item) => {
+  return {
+    type: actions.ADD_ITEM,
+    payload: {
+      item: item,
+    },
+  };
+};
