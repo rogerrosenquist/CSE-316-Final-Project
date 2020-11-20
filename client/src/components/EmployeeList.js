@@ -18,7 +18,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const EmployeeList = () => {
-  return <div></div>;
+  return (
+    <Container>
+      <ListGroup></ListGroup>
+    </Container>
+  );
 };
 
 EmployeeList.propTypes = {};
