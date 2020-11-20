@@ -1,5 +1,7 @@
 # CSE316_FinalProject
 
+### zhppan, mmcneill, [netid], [netid]
+
 ## Setup Instructions
 
 1. Run one of the below:
@@ -9,4 +11,4 @@
 3. `npm run server-install`
 4. `npm run client-install`
 
-## IMPORTANT: test setup instructions with VPN. figure out how to allow access by either invite or IP address. IP address may have to be added after sharing invite to be able to connect.
+## IMPORTANT - note to self: test setup instructions with VPN. figure out how to allow access by either invite or IP address. IP address may have to be added after sharing invite to be able to connect.
