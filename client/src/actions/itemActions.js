@@ -9,3 +9,12 @@ export const getItems = () => {
     type: actions.GET_ITEMS,
   };
 };
+
+export const deleteItem = (id) => {
+  return {
+    type: actions.DELETE_ITEM,
+    payload: {
+      id: id,
+    },
+  };
+};

@@ -1,6 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 
 import ItemList from "./components/ItemList";
+import EmployeeList from "./components/EmployeeList";
 import AppNavbar from "./components/AppNavbar";
 
 import { Provider } from "react-redux";
@@ -44,6 +45,11 @@ function App() {
             exact
           />
           <Route path={["/test", "/items"]} render={() => <ItemList />} exact />
+          {/* <Route
+            path={["/employee-list"]}
+            render={() => <EmployeeList />}
+            exact
+          /> */}
           <Route
             path="/"
             render={() => (
