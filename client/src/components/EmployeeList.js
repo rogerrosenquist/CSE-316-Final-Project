@@ -46,7 +46,12 @@ class EmployeeList extends Component {
                     >
                       &times;
                     </Button>
-                    {firstName} {lastName}
+                    {firstName} {lastName} <br />
+                    _id: {_id} <br />
+                    employeeID: {employeeID} <br />
+                    email: {email} <br />
+                    passcode: {passcode} <br />
+                    isLabWorker: {String(isLabWorker)} <br />
                   </ListGroupItem>
                 </CSSTransition>
               )
