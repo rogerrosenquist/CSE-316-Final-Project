@@ -19,11 +19,11 @@ export const deleteEmployee = (id) => {
   };
 };
 
-export const addEmploeyee = (employee) => {
+export const addEmployee = (employee) => {
   return {
     type: actions.ADD_EMPLOYEE,
     payload: {
-      item: item,
+      employee: employee,
     },
   };
 };

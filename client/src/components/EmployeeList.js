@@ -11,83 +11,89 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { v4 as uuid } from "uuid";
 import { connect } from "react-redux";
-import { getItems } from "../actions/itemActions";
+import { getEmployees, deleteEmployee } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 
-import React from "react";
-import PropTypes from "prop-types";
+// const EmployeeList = () => {
+class EmployeeList extends Component {
+  componentDidMount() {
+    this.props.getEmployees();
+  }
 
-const EmployeeList = () => {
-  return (
-    <Container>
-      <ListGroup></ListGroup>
-    </Container>
-  );
+  render() {
+    const { employees } = this.props.employee;
+    return (
+      <Container>
+        <ListGroup>
+          <TransitionGroup className="employee-list">
+            {employees.map(
+              ({
+                isLabWorker,
+                _id,
+                employeeID,
+                email,
+                firstName,
+                lastName,
+                passcode,
+              }) => (
+                <CSSTransition key={_id} timeout={500} classNames="fade">
+                  <ListGroupItem>
+                    <Button
+                      className="remove-btn"
+                      color="danger"
+                      size="sm"
+                      // onClick={}
+                    >
+                      &times;
+                    </Button>
+                    {firstName} {lastName}
+                  </ListGroupItem>
+                </CSSTransition>
+              )
+            )}
+          </TransitionGroup>
+        </ListGroup>
+      </Container>
+    );
+  }
+
+  // const { employees } = this.props.employee;
+
+  // return (
+  //   <Container>
+  //     <ListGroup>
+  //       <TransitionGroup className="employee-list">
+  //         {employees.map((employee) => (
+  //           <CSSTransition key={employee._id} timeout={500} classNames="fade">
+  //             <ListGroupItem>
+  //               <Button
+  //                 className="remove-btn"
+  //                 color="danger"
+  //                 size="sm"
+  //                 onClick={}
+  //               >
+  //                 &times;
+  //               </Button>
+  //               {employee}
+  //             </ListGroupItem>
+  //           </CSSTransition>
+  //         ))}
+  //       </TransitionGroup>
+  //     </ListGroup>
+  //   </Container>
+  // );
+}
+
+EmployeeList.propTypes = {
+  getEmployees: PropTypes.func.isRequired,
+  deleteEmployee: PropTypes.func.isRequired,
+  employee: PropTypes.object.isRequired,
 };
 
-EmployeeList.propTypes = {};
+const mapStateToProps = (state) => ({
+  employee: state.employee,
+});
 
-export default EmployeeList;
-
-// class ItemList extends Component {
-//   componentDidMount() {
-//     this.props.getItems();
-//   }
-
-//   onDeleteClick = (id) => {
-//     this.props.deleteItem(id);
-//   };
-
-//   render() {
-//     const { items } = this.props.item;
-//     return (
-//       <Container>
-//         <Button
-//           color="dark"
-//           style={{ marginBottom: "2rem" }}
-//           onClick={() => {
-//             const name = prompt("item: ");
-//             if (name) {
-//               this.setState((state) => ({
-//                 items: [...state.items, { id: uuid(), name }],
-//               }));
-//             }
-//           }}
-//         >
-//           Add Item
-//         </Button>
-
-//         <ListGroup>
-//           <TransitionGroup className="item-list">
-//             {items.map(({ id, name }) => (
-//               <CSSTransition key={id} timeout={500} classNames="fade">
-//                 <ListGroupItem>
-//                   <Button
-//                     className="remove-btn"
-//                     color="danger"
-//                     size="sm"
-//                     onClick={this.onDeleteClick.bind(this, id)}
-//                   >
-//                     &times;
-//                   </Button>
-//                   {name}
-//                 </ListGroupItem>
-//               </CSSTransition>
-//             ))}
-//           </TransitionGroup>
-//         </ListGroup>
-//       </Container>
-//     );
-//   }
-// }
-
-// ItemList.propTypes = {
-//   getItems: PropTypes.func.isRequired,
-//   item: PropTypes.object.isRequired,
-// };
-
-// const mapStateToProps = (state) => ({
-//   item: state.item,
-// });
-
-// export default connect(mapStateToProps, { getItems, deleteItem })(ItemList);
+export default connect(mapStateToProps, { getEmployees, deleteEmployee })(
+  EmployeeList
+);
