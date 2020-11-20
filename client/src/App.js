@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 
 import ItemModal from "./components/ItemModal";
 import ItemList from "./components/ItemList";
+import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
 import AppNavbar from "./components/AppNavbar";
 
@@ -61,7 +62,12 @@ function App() {
           />
           <Route
             path={["/employee-list"]}
-            render={() => <EmployeeList />}
+            render={() => (
+              <Container>
+                <EmployeeModal />
+                <EmployeeList />
+              </Container>
+            )}
             exact
           />
           <Route
