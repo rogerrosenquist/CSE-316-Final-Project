@@ -1,6 +1,6 @@
 # CSE316_FinalProject
 
-### zhppan, mmcneill, [netid], [netid]
+### Zhen Yi Pan, Mike McNeill, Michael Carpenzano, Roger Rosenquist
 
 ## Setup Instructions
 
