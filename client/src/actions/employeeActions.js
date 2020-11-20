@@ -6,9 +6,26 @@ import axios from "axios";
 import * as actions from "./types";
 
 export const getEmployees = () => (dispatch) => {
-  return {
-    type: actions.GET_EMPLOYEES,
-  };
+  dispatch(setEmployeesLoading());
+  axios.get("/api/employees").then((res) =>
+    dispatch({
+      type: actions.GET_EMPLOYEES,
+      payload: {
+        employees: res.data,
+      },
+    })
+  );
+};
+
+export const addEmployee = (employee) => (dispatch) => {
+  axios.post("/api/employees", employee).then((res) =>
+    dispatch({
+      type: actions.ADD_EMPLOYEE,
+      payload: {
+        employee: res.data,
+      },
+    })
+  );
 };
 
 export const deleteEmployee = (id) => {
@@ -20,11 +37,8 @@ export const deleteEmployee = (id) => {
   };
 };
 
-export const addEmployee = (employee) => {
+export const setEmployeesLoading = () => {
   return {
-    type: actions.ADD_EMPLOYEE,
-    payload: {
-      employee: employee,
-    },
+    type: actions.EMPLOYEES_LOADING,
   };
 };

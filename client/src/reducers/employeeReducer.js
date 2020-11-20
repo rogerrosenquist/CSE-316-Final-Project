@@ -5,44 +5,8 @@
 import * as actions from "../actions/types";
 
 const initialState = {
-  employees: [
-    {
-      isLabWorker: true,
-      _id: "5fb5bbd364d0638ab388c0b0",
-      employeeID: 4,
-      email: "cup@gmail.com",
-      firstName: "Iron",
-      lastName: "Cup",
-      passcode: "hematite",
-    },
-    {
-      isLabWorker: false,
-      _id: "5fb5bbd364d0638ab388c0af",
-      employeeID: 3,
-      email: "chair@gmail.com",
-      firstName: "Zinc",
-      lastName: "Chair",
-      passcode: "sphalerite",
-    },
-    {
-      isLabWorker: false,
-      _id: "5fb5bbd364d0638ab388c0ae",
-      employeeID: 2,
-      email: "table@gmail.com",
-      firstName: "Lead",
-      lastName: "Table",
-      passcode: "galena",
-    },
-    {
-      isLabWorker: false,
-      _id: "5fb5bbd364d0638ab388c0ad",
-      employeeID: 1,
-      email: "door@gmail.com",
-      firstName: "Copper",
-      lastName: "Door",
-      passcode: "chalcopyrite",
-    },
-  ],
+  employees: [],
+  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -50,6 +14,8 @@ export default function (state = initialState, action) {
     case actions.GET_EMPLOYEES:
       return {
         ...state,
+        employees: action.payload.employees,
+        loading: false,
       };
     case actions.DELETE_EMPLOYEE:
       return {
@@ -62,6 +28,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         employees: [action.payload.employee, ...state.employees],
+      };
+    case actions.EMPLOYEES_LOADING:
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return state;

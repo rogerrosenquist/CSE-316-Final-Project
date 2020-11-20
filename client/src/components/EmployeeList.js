@@ -18,7 +18,7 @@ const EmployeeList = (props) => {
 
   useEffect(() => {
     props.getEmployees();
-  }, [employees]);
+  }, []);
 
   let onDeleteClick = (id) => {
     props.deleteEmployee(id);

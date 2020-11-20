@@ -11,7 +11,7 @@ export const getItems = () => (dispatch) => {
     dispatch({
       type: actions.GET_ITEMS,
       payload: {
-        data: res.data,
+        items: res.data,
       },
     })
   );

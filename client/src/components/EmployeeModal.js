@@ -16,6 +16,7 @@ import {
 import { connect } from "react-redux";
 import { addEmployee } from "../actions/employeeActions";
 import { v4 as uuid } from "uuid";
+import axios from "axios";
 
 const EmployeeModal = (props) => {
   const [modal, setModal] = useState(false);
@@ -29,7 +30,14 @@ const EmployeeModal = (props) => {
 
   let onSubmit = (e) => {
     e.preventDefault();
-    const newEmployee = { _id: uuid(), firstName: firstName };
+    const newEmployee = {
+      employeeID: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
+      email: "default",
+      firstName: firstName,
+      lastName: "default",
+      passcode: "default",
+    };
+
     props.addEmployee(newEmployee);
     toggle();
   };
