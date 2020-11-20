@@ -87,9 +87,14 @@ Here are all the things to do.
 - [x] Create an example dataset.
 - [x] Go to sleep 11/18/2020.
 - [x] Set up application routes for the backend.
-- [ ] Set up server side details (I don't know what this means yet).
-- [ ] Set up client side routes.
-- [ ] Setup instructions
-- [ ] Go to sleep 11/19/2020.
+- [x] Set up an example server with redux details and no db.
+- [x] Start setting up client side routes.
+- [x] Setup instructions
+- [x] Go to sleep 11/19/2020.
+- [ ] Connect to backend.
+- [ ] Working backend example.
+- [ ] What are the needed client side routes.
+- [ ] Prepare repo for meeting.
+- [ ] Go to sleep 11/20/2020.
 - [ ] MERN stack videos to learn about login.
 - [ ] Complete.
