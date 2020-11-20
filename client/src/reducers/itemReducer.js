@@ -3,6 +3,7 @@
  */
 
 import { v4 as uuid } from "uuid";
+import * as actions from "../actions/types";
 
 const initialState = {
   items: [
@@ -12,3 +13,14 @@ const initialState = {
     { id: uuid(), name: "chalcedony" },
   ],
 };
+
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case actions.GET_ITEMS:
+      return {
+        ...state,
+      };
+    default:
+      return state;
+  }
+}

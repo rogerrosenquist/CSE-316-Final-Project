@@ -6,17 +6,10 @@ import React, { Component } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { v4 as uuid } from "uuid";
+import { connect } from "react-redux";
+import { getItems } from "../actions/itemActions";
 
 class ItemList extends Component {
-  state = {
-    items: [
-      { id: uuid(), name: "amethyst" },
-      { id: uuid(), name: "jasper" },
-      { id: uuid(), name: "agate" },
-      { id: uuid(), name: "chalcedony" },
-    ],
-  };
-
   render() {
     const { items } = this.state;
     return (
@@ -64,4 +57,8 @@ class ItemList extends Component {
   }
 }
 
-export default ItemList;
+const mapStateToProps = (state) => ({
+  item: state.item,
+});
+
+export default connect(mapStateToProps, { getItems })(ItemList);
