@@ -1,5 +1,9 @@
 /**
  * THIS FILE IS FOR TESTING PURPOSES ONLY
+ *
+ * This file displays a list of all employees.
+ * There is an option to add and delete new employees.
+ * The backend is not hooked up, so adding/deleting is ok as of now.
  */
 
 import React, { Component } from "react";
@@ -9,6 +13,17 @@ import { v4 as uuid } from "uuid";
 import { connect } from "react-redux";
 import { getItems } from "../actions/itemActions";
 import PropTypes from "prop-types";
+
+import React from "react";
+import PropTypes from "prop-types";
+
+const EmployeeList = () => {
+  return <div></div>;
+};
+
+EmployeeList.propTypes = {};
+
+export default EmployeeList;
 
 // class ItemList extends Component {
 //   componentDidMount() {

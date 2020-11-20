@@ -59,11 +59,11 @@ function App() {
             )}
             exact
           />
-          {/* <Route
+          <Route
             path={["/employee-list"]}
             render={() => <EmployeeList />}
             exact
-          /> */}
+          />
           <Route
             path="/"
             render={() => (
