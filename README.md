@@ -11,3 +11,7 @@
 3. `npm run server-install`
 4. `npm run client-install`
 5. IP address must be added to the network access to use the database.
+
+## Running the application for development
+
+1. `npm run dev`

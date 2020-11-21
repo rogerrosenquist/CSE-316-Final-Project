@@ -93,8 +93,8 @@ Here are all the things to do.
 - [x] Go to sleep 11/19/2020.
 - [x] Connect to backend.
 - [x] Working backend example.
-- [ ] Prepare repo for meeting.
-- [ ] Go to sleep 11/20/2020.
+- [x] Prepare repo for meeting.
+- [x] Go to sleep 11/20/2020.
 - [ ] What are the needed client side pages.
 - [ ] Learn about login and authentication.
 - [ ] Complete.
