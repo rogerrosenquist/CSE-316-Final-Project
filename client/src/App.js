@@ -72,9 +72,45 @@ function App() {
             exact
           />
           <Route
-            path="/test1"
+            path="/PoolMapping"
             render={() => (
               <PoolMapping/>
+            )}
+            exact
+          />
+          <Route
+            path="/Zhen"
+            render={() => (
+              <PoolMapping/>
+            )}
+            exact
+          />
+          <Route
+            path="/AEMike"
+            render={() => (
+              <Container>
+               {/* <WellTesting/> */}
+              </Container>
+            )}
+            exact
+          />
+          <Route
+            path="/Mike"
+            render={() => (
+              <Container>
+                {/* <TestCollection/> */}
+                {/* <Results/> */}
+              </Container>
+            )}
+            exact
+          />
+          <Route
+            path="/Roger"
+            render={() => (
+              <Container>
+                {/* <Login/> */}
+                {/* <EmployeeLogin/> */}
+              </Container>
             )}
             exact
           />
