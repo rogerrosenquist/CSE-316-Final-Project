@@ -5,7 +5,7 @@
 ## Setup Instructions
 
 1. Run one of the below:
-   1. HTTPS: `https://github.com/Zharnite/CSE316_FinalProject.git`
+   1. HTTPS: `git clone https://github.com/Zharnite/CSE316_FinalProject.git`
    2. SSH: `git clone git@github.com:Zharnite/CSE316_FinalProject.git`
 2. `cd CSE316_FinalProject`
 3. `npm run server-install`
