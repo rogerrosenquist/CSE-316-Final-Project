@@ -10,5 +10,4 @@
 2. `cd CSE316_FinalProject`
 3. `npm run server-install`
 4. `npm run client-install`
-
-## IMPORTANT - note to self: test setup instructions with VPN. figure out how to allow access by either invite or IP address. IP address may have to be added after sharing invite to be able to connect.
+5. IP address must be added to the network access to use the database.
