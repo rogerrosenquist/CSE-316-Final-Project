@@ -11,6 +11,7 @@
 3. `npm run server-install`
 4. `npm run client-install`
 5. IP address must be added to the network access to use the database.
+6. Install [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 
 ## Running the application for development
 
