@@ -1,6 +1,6 @@
 import React from "react";
 
-const PoolMap = () => {
+const PoolMapping = () => {
     return <div><p>Pain.</p></div>
 };
 

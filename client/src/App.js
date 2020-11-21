@@ -15,6 +15,7 @@ import { Container } from "reactstrap";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import PoolMapping from "./components/PoolMapping";
 
 function App() {
   return (
@@ -67,6 +68,13 @@ function App() {
                 <EmployeeModal />
                 <EmployeeList />
               </Container>
+            )}
+            exact
+          />
+          <Route
+            path="/test1"
+            render={() => (
+              <PoolMapping/>
             )}
             exact
           />
