@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // bring in routes
 const items = require("./routes/api/items"); // TESTING PURPOSES
@@ -12,6 +13,16 @@ const wellTestings = require("./routes/api/well-testings");
 const wells = require("./routes/api/wells");
 
 const app = express();
+
+// cors middleware
+// app.use(cors({ origin: CLIENT_LOCAL_ORIGIN, credentials: true }));
+const corsPolicy = async (req, res, next) => {
+  console.log(req.headers.origin);
+  res.set("Access-Control-Allow-Origin", req.headers.origin);
+  next();
+};
+app.options("*", cors());
+app.use(corsPolicy);
 
 // bodyparser middleware
 app.use(bodyParser.json());

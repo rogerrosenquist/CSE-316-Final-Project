@@ -28,13 +28,26 @@ export const addEmployee = (employee) => (dispatch) => {
   );
 };
 
-export const deleteEmployee = (id) => {
-  return {
-    type: actions.DELETE_EMPLOYEE,
-    payload: {
-      id: id,
-    },
-  };
+export const updateEmployee = (employee) => (dispatch) => {
+  axios.put(`/api/employees/${employee._id}`, employee).then((res) => {
+    dispatch({
+      type: actions.UPDATE_EMPLOYEE,
+      payload: {
+        employee: employee,
+      },
+    });
+  });
+};
+
+export const deleteEmployee = (id) => (dispatch) => {
+  axios.delete(`/api/employees/${id}`).then((res) =>
+    dispatch({
+      type: actions.DELETE_EMPLOYEE,
+      payload: {
+        id: id,
+      },
+    })
+  );
 };
 
 export const setEmployeesLoading = () => {

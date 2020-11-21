@@ -2,7 +2,7 @@
  * THIS FILE IS FOR TESTING PURPOSES ONLY
  */
 
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -14,15 +14,37 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addEmployee } from "../actions/employeeActions";
+import {
+  setEmployeesLoading,
+  updateEmployee,
+} from "../actions/employeeActions";
 
-const EmployeeModal = (props) => {
+import PropTypes from "prop-types";
+
+const EmployeeEditModal = (props) => {
+  const employee = props.employee.employees.filter(
+    (employee) => employee._id === props.id
+  )[0];
+
   const [modal, setModal] = useState(false);
+  const [employeeID, setEmployeeID] = useState(0);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [passcode, setPasscode] = useState("");
+  const [isLabWorker, setIsLabWorker] = useState(false);
   const toggle = () => setModal(!modal);
+
+  useEffect(() => {
+    if (employee) {
+      setEmployeeID(employee.employeeID);
+      setFirstName(employee.firstName);
+      setLastName(employee.lastName);
+      setEmail(employee.email);
+      setPasscode(employee.passcode);
+      setIsLabWorker(employee.isLabWorker);
+    }
+  }, [employee]);
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
@@ -31,26 +53,34 @@ const EmployeeModal = (props) => {
 
   let onSubmit = (e) => {
     e.preventDefault();
-    const newEmployee = {
-      employeeID: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER),
+    const updatedEmployee = {
+      _id: employee._id,
+      employeeID: employeeID,
       email: email,
       firstName: firstName,
       lastName: lastName,
       passcode: passcode,
+      isLabWorker: isLabWorker,
     };
 
-    props.addEmployee(newEmployee);
+    props.updateEmployee(updatedEmployee);
     toggle();
   };
 
   return (
-    <div>
-      <Button color="dark" style={{ marginBottom: "2rem" }} onClick={toggle}>
-        Add Employee
+    <div style={{ float: "right" }}>
+      <Button
+        className="edit-btn"
+        color="dark"
+        size="sm"
+        style={{ marginBottom: "2rem" }}
+        onClick={toggle}
+      >
+        Edit Employee
       </Button>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add an Employee</ModalHeader>
+        <ModalHeader toggle={toggle}>Edit an Employee</ModalHeader>
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
@@ -60,6 +90,7 @@ const EmployeeModal = (props) => {
                 name="FirstName"
                 id="firstName"
                 placeholder="First Name"
+                value={firstName}
                 onChange={onChange}
               />
               <Label for="lastName">Last Name</Label>
@@ -68,6 +99,7 @@ const EmployeeModal = (props) => {
                 name="LastName"
                 id="lastName"
                 placeholder="Last Name"
+                value={lastName}
                 onChange={onChange}
               />
               <Label for="email">Email</Label>
@@ -76,6 +108,7 @@ const EmployeeModal = (props) => {
                 name="Email"
                 id="email"
                 placeholder="Email"
+                value={email}
                 onChange={onChange}
               />
               <Label for="firstName">Passcode</Label>
@@ -84,10 +117,11 @@ const EmployeeModal = (props) => {
                 name="Passcode"
                 id="passcode"
                 placeholder="Passcode"
+                value={passcode}
                 onChange={onChange}
               />
               <Button color="dark" style={{ marginTop: "2rem" }} block>
-                Add Employee
+                Update Employee
               </Button>
             </FormGroup>
           </Form>
@@ -97,8 +131,10 @@ const EmployeeModal = (props) => {
   );
 };
 
+EmployeeEditModal.propTypes = {};
+
 const mapStateToProps = (state) => ({
   employee: state.employee,
 });
 
-export default connect(mapStateToProps, { addEmployee })(EmployeeModal);
+export default connect(mapStateToProps, { updateEmployee })(EmployeeEditModal);

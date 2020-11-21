@@ -1,4 +1,5 @@
 const express = require("express");
+const { connection } = require("mongoose");
 const router = express.Router();
 
 // employee model
@@ -39,6 +40,29 @@ router.delete("/:id", (req, res) => {
         .then(() => res.json({ message: "successfully deleted" }))
     )
     .catch((err) => res.status(404).json({ message: "unsuccessful delete" }));
+});
+
+// @route PUT api/employees
+// @desc Update an Employee
+// @access Public
+router.put("/:id", (req, res) => {
+  const updatedEmployee = req.body;
+
+  Employee.findByIdAndUpdate(
+    updatedEmployee._id,
+    updatedEmployee,
+    (err, updemp) => {
+      if (err) {
+        res.json({
+          updatedEmployee,
+          success: false,
+          msg: "Failed to update employee",
+        });
+      } else {
+        res.json({ updatedEmployee, success: true, msg: "Employee updated" });
+      }
+    }
+  );
 });
 
 module.exports = router;

@@ -12,6 +12,8 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getEmployees, deleteEmployee } from "../actions/employeeActions";
 import PropTypes from "prop-types";
+import EmployeeModal from "./EmployeeModal";
+import EmployeeEditModal from "./EmployeeEditModal";
 
 const EmployeeList = (props) => {
   const { employees } = props.employee;
@@ -40,6 +42,8 @@ const EmployeeList = (props) => {
             }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
+                  <EmployeeEditModal id={_id} />
+                  &nbsp;
                   <Button
                     className="remove-btn"
                     color="danger"

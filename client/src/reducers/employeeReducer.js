@@ -29,6 +29,15 @@ export default function (state = initialState, action) {
         ...state,
         employees: [action.payload.employee, ...state.employees],
       };
+    case actions.UPDATE_EMPLOYEE:
+      return {
+        ...state,
+        employees: state.employees.map((employee) =>
+          employee._id === action.payload.employee._id
+            ? action.payload.employee
+            : employee
+        ),
+      };
     case actions.EMPLOYEES_LOADING:
       return {
         ...state,
