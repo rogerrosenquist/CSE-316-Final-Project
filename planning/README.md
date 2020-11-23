@@ -76,7 +76,36 @@ Here are some additional notes for the final project.
 
 - WellTesting model schema has `testingEndTime` set to default value of `Data.now`
 - The proxy in client package.json is `http://localhost:5000`
--
+
+### About login without authentication
+
+- String matching based on email and password. Also `isLabWorker` for lab workers in the other login page.
+- If the password matches, bring the user to their screen with their `_id` and information stored in the local state?
+- This should take care of `EmployeeLogin` and Lab `Login`
+
+### Other pages with data entry and updates
+
+- For the Employee `Results` page:
+  - Take `_id` from the state and look up `employeeID`
+  - Use the `employeeID` to look up the other testing information in `EmployeeTests` and render it.
+- For the `LabHome` page:
+  - It just looks like a screen with links to click on to lead to other pages.
+  - Static render with links.
+- For the `TestCollection` page:
+  - Render existing employee tests from the database.
+    - collection: `EmployeeTest`
+  - Seems like it only needs **add** and **delete** without updates.
+  - **add** - `onClick` redux action. Add it to employee tests database and to the screen.
+  - **delete** - `onClick` redux action. Delete it from employee tests and from the screen.
+    - checkbox - `onChange` update the state, which checkboxes are checked
+- For the `PoolMapping` page:
+  - Render existing pool mappings from the database:
+    - collection: `PoolMap`
+    - For debugging purposes, log testBarcodes that do not exist in the collection. This makes it easier to keep track of what to add.
+  - Also check if user is logged in and if user is a lab worker.
+  - Selection circles instead of checkboxes
+  - Modals for add and delete by copying other modal template.
+  - Update local state, then send changes to database after `onClick` or `onSubmit`
 
 ## TODOS
 
@@ -95,6 +124,6 @@ Here are all the things to do.
 - [x] Working backend example.
 - [x] Prepare repo for meeting.
 - [x] Go to sleep 11/20/2020.
-- [ ] What are the needed client side pages.
-- [ ] Learn about login and authentication.
+- [ ] Client side pages.
+- [ ] Learn about login and authentication (maybe).
 - [ ] Complete.
