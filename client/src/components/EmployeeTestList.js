@@ -14,8 +14,8 @@ import {
   deleteEmployeeTest,
 } from "../actions/employeeTestActions";
 import PropTypes from "prop-types";
-// import EmployeeTestModal from "./EmployeeTestModal";
-// import EmployeeTestEditModal from "./EmployeeTestEditModal";
+import EmployeeTestModal from "./EmployeeTestModal";
+import EmployeeTestEditModal from "./EmployeeTestEditModal";
 
 const EmployeeTestList = (props) => {
   console.log(props.employeeTest);

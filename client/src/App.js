@@ -77,8 +77,8 @@ function App() {
             path={["/employee-test-list"]}
             render={() => (
               <Container>
-                {/* <EmployeeTestModal /> */}
-                <EmployeeTestList />
+                {/* <EmployeeTestModal />
+                <EmployeeTestList /> */}
               </Container>
             )}
             exact
