@@ -7,7 +7,7 @@ export const getPoolMaps = () => (dispatch) => {
     dispatch({
       type: actions.GET_POOL_MAPS,
       payload: {
-        PoolMaps: res.data,
+        poolMaps: res.data,
       },
     })
   );

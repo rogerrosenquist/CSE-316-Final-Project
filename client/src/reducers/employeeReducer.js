@@ -1,7 +1,3 @@
-/**
- * THIS FILE IS FOR TESTING PURPOSES ONLY
- */
-
 import * as actions from "../actions/types";
 
 const initialState = {

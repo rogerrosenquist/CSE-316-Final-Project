@@ -3,7 +3,7 @@ import itemReducer from "./itemReducer"; // TESTING PURPOSES
 import employeeReducer from "./employeeReducer";
 import employeeTestReducer from "./employeeTestReducer";
 import poolMapReducer from "./poolMapReducer";
-// import poolReducer from "./poolReducer";
+import poolReducer from "./poolReducer";
 // import wellTestingReducer from "./wellTestingReducer";
 // import wellReducer from "./wellReducer";
 
@@ -12,7 +12,7 @@ export default combineReducers({
   employee: employeeReducer,
   employeeTest: employeeTestReducer,
   poolMap: poolMapReducer,
-  // pool: poolReducer,
+  pool: poolReducer,
   // wellTesting: wellTestingReducer,
   // well: wellReducer,
 });
