@@ -1,23 +1,22 @@
 import React from "react";
-
 import { Route, Switch } from "react-router-dom";
-
-import ItemModal from "./components/ItemModal";
-import ItemList from "./components/ItemList";
-import EmployeeModal from "./components/EmployeeModal";
-import EmployeeList from "./components/EmployeeList";
-import AppNavbar from "./components/AppNavbar";
-
 import { Provider } from "react-redux";
 import store from "./store";
-
 import { Container } from "reactstrap";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Components
+import AppNavbar from "./components/AppNavbar";
+import ItemModal from "./components/ItemModal"; // TESTING PURPOSES
+import ItemList from "./components/ItemList"; // TESTING PURPOSES
+import EmployeeModal from "./components/EmployeeModal";
+import EmployeeList from "./components/EmployeeList";
+
 import PoolMapping from "./components/PoolMapping";
 
+// Redux testing component
 import TestComponent from "./components/TestComponent"; // TESTING PURPOSES
 
 function App() {

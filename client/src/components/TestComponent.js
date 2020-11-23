@@ -12,12 +12,12 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import {
-  getPools as getTestComponents,
-  deletePool as deleteTestComponent,
-} from "../actions/poolActions"; // update here
+  getWells as getTestComponents,
+  deleteWell as deleteTestComponent,
+} from "../actions/wellActions"; // update here
 
 const TestComponent = (props) => {
-  const { pools: testComponents } = props.testComponent; // update here
+  const { wells: testComponents } = props.testComponent; // update here
 
   useEffect(() => {
     props.getTestComponents();
@@ -59,7 +59,7 @@ TestComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  testComponent: state.pool, // update here
+  testComponent: state.well, // update here
 });
 
 export default connect(mapStateToProps, {
