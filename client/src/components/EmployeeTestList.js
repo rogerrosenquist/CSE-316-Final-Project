@@ -1,8 +1,8 @@
 /**
  * THIS FILE IS FOR TESTING PURPOSES ONLY
  *
- * This file displays a list of all employees.
- * There is an option to add and delete new employees.
+ * This file displays a list of all employee tests.
+ * There is an option to add and delete new employee tests.
  */
 
 import React, { useEffect } from "react";

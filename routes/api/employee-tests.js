@@ -40,4 +40,31 @@ router.delete("/:id", (req, res) => {
     .catch((err) => res.status(404).json({ message: "unsuccessful delete" }));
 });
 
+// @route PUT api/employee-tests
+// @desc Update an EmployeeTest
+// @access Public
+router.put("/:id", (req, res) => {
+  const updatedEmployeeTest = req.body;
+
+  EmployeeTest.findByIdAndUpdate(
+    updatedEmployeeTest._id,
+    updatedEmployeeTest,
+    (err, updatedValue) => {
+      if (err) {
+        res.json({
+          updatedEmployeeTest,
+          success: false,
+          msg: "Failed to update EmployeeTest",
+        });
+      } else {
+        res.json({
+          updatedEmployeeTest,
+          success: true,
+          msg: "EmployeeTest updated",
+        });
+      }
+    }
+  );
+});
+
 module.exports = router;

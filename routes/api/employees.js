@@ -51,12 +51,12 @@ router.put("/:id", (req, res) => {
   Employee.findByIdAndUpdate(
     updatedEmployee._id,
     updatedEmployee,
-    (err, updemp) => {
+    (err, updatedValue) => {
       if (err) {
         res.json({
           updatedEmployee,
           success: false,
-          msg: "Failed to update employee",
+          msg: "Failed to update Employee",
         });
       } else {
         res.json({ updatedEmployee, success: true, msg: "Employee updated" });
