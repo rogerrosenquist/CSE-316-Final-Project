@@ -71,27 +71,11 @@ function App() {
             )}
             exact
           />
-          <Route
-            path="/PoolMapping"
-            render={() => (
-              <PoolMapping/>
-            )}
-            exact
-          />
-          <Route
-            path="/Zhen"
-            render={() => (
-              <PoolMapping/>
-            )}
-            exact
-          />
+          <Route path="/PoolMapping" render={() => <PoolMapping />} exact />
+          <Route path="/Zhen" render={() => <Container></Container>} exact />
           <Route
             path="/AEMike"
-            render={() => (
-              <Container>
-               {/* <WellTesting/> */}
-              </Container>
-            )}
+            render={() => <Container>{/* <WellTesting/> */}</Container>}
             exact
           />
           <Route
