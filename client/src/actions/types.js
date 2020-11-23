@@ -20,3 +20,9 @@ export const ADD_POOL_MAP = "ADD_POOL_MAP";
 export const DELETE_POOL_MAP = "DELETE_POOL_MAP";
 export const UPDATE_POOL_MAP = "UPDATE_POOL_MAP";
 export const POOL_MAPS_LOADING = "POOL_MAPS_LOADING";
+
+export const GET_POOLS = "GET_POOLS";
+export const ADD_POOL = "ADD_POOL";
+export const DELETE_POOL = "DELETE_POOL";
+export const UPDATE_POOL = "UPDATE_POOL";
+export const POOLS_LOADING = "POOLS_LOADING";
