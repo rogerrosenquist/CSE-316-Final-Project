@@ -4,7 +4,7 @@ import employeeReducer from "./employeeReducer";
 import employeeTestReducer from "./employeeTestReducer";
 import poolMapReducer from "./poolMapReducer";
 import poolReducer from "./poolReducer";
-// import wellTestingReducer from "./wellTestingReducer";
+import wellTestingReducer from "./wellTestingReducer";
 // import wellReducer from "./wellReducer";
 
 export default combineReducers({
@@ -13,6 +13,6 @@ export default combineReducers({
   employeeTest: employeeTestReducer,
   poolMap: poolMapReducer,
   pool: poolReducer,
-  // wellTesting: wellTestingReducer,
+  wellTesting: wellTestingReducer,
   // well: wellReducer,
 });

@@ -9,14 +9,15 @@ import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
-import {
-  getPoolMaps as getTestComponents,
-  deletePoolMap as deleteTestComponent,
-} from "../actions/poolMapActions"; // update here
 import PropTypes from "prop-types";
 
+import {
+  getPools as getTestComponents,
+  deletePool as deleteTestComponent,
+} from "../actions/poolActions"; // update here
+
 const TestComponent = (props) => {
-  const { poolMaps: testComponents } = props.testComponent; // update here
+  const { pools: testComponents } = props.testComponent; // update here
 
   useEffect(() => {
     props.getTestComponents();
@@ -58,7 +59,7 @@ TestComponent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  testComponent: state.poolMap, // update here
+  testComponent: state.pool, // update here
 });
 
 export default connect(mapStateToProps, {
