@@ -14,6 +14,7 @@ import ItemList from "./components/ItemList"; // TESTING PURPOSES
 import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
 
+// Application screens
 import PoolMapping from "./components/PoolMapping";
 
 // Redux testing component
