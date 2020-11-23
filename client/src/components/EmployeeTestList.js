@@ -9,40 +9,36 @@ import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
-import { getEmployees, deleteEmployee } from "../actions/employeeActions";
+import {
+  getEmployeeTests,
+  deleteEmployeeTest,
+} from "../actions/employeeTestActions";
 import PropTypes from "prop-types";
-import EmployeeModal from "./EmployeeModal";
-import EmployeeEditModal from "./EmployeeEditModal";
+// import EmployeeTestModal from "./EmployeeTestModal";
+// import EmployeeTestEditModal from "./EmployeeTestEditModal";
 
-const EmployeeList = (props) => {
-  const { employees } = props.employee;
+const EmployeeTestList = (props) => {
+  console.log(props.employeeTest);
+  const { employeeTests } = props.employeeTest;
 
   useEffect(() => {
-    props.getEmployees();
+    props.getEmployeeTests();
   }, []);
 
   let onDeleteClick = (id) => {
-    props.deleteEmployee(id);
+    props.deleteEmployeeTest(id);
   };
 
   return (
     <Container>
       <ListGroup>
-        <TransitionGroup className="employee-list">
-          {employees.map(
-            ({
-              isLabWorker,
-              _id,
-              employeeID,
-              email,
-              firstName,
-              lastName,
-              passcode,
-            }) => (
+        <TransitionGroup className="employee-test-list">
+          {employeeTests.map(
+            ({ _id, testBarcode, employeeID, collectionTime, collectedBy }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
-                  <EmployeeEditModal id={_id} />
-                  &nbsp;
+                  {/* <EmployeeTestEditModal id={_id} />
+                  &nbsp; */}
                   <Button
                     className="remove-btn"
                     color="danger"
@@ -51,12 +47,11 @@ const EmployeeList = (props) => {
                   >
                     &times;
                   </Button>
-                  {firstName} {lastName} <br />
                   _id: {_id} <br />
+                  testBarcode: {testBarcode} <br />
                   employeeID: {employeeID} <br />
-                  email: {email} <br />
-                  passcode: {passcode} <br />
-                  isLabWorker: {String(isLabWorker)} <br />
+                  collectionTime: {collectionTime} <br />
+                  collectedBy: {collectedBy} <br />
                 </ListGroupItem>
               </CSSTransition>
             )
@@ -67,16 +62,17 @@ const EmployeeList = (props) => {
   );
 };
 
-EmployeeList.propTypes = {
-  getEmployees: PropTypes.func.isRequired,
-  deleteEmployee: PropTypes.func.isRequired,
-  employee: PropTypes.object.isRequired,
+EmployeeTestList.propTypes = {
+  getEmployeeTests: PropTypes.func.isRequired,
+  deleteEmployeeTest: PropTypes.func.isRequired,
+  employeeTest: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  employee: state.employee,
+  employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, { getEmployees, deleteEmployee })(
-  EmployeeList
-);
+export default connect(mapStateToProps, {
+  getEmployeeTests,
+  deleteEmployeeTest,
+})(EmployeeTestList);
