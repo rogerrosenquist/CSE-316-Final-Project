@@ -1,10 +1,3 @@
-/**
- * THIS FILE IS FOR TESTING PURPOSES ONLY
- *
- * This file displays a list of all employees.
- * There is an option to add and delete new employees.
- */
-
 import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";

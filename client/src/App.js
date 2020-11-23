@@ -15,7 +15,10 @@ import { Container } from "reactstrap";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import PoolMapping from "./components/PoolMapping";
+
+import TestComponent from "./components/TestComponent"; // TESTING PURPOSES
 
 function App() {
   return (
@@ -72,7 +75,15 @@ function App() {
             exact
           />
           <Route path="/PoolMapping" render={() => <PoolMapping />} exact />
-          <Route path="/Zhen" render={() => <Container></Container>} exact />
+          <Route
+            path="/Zhen"
+            render={() => (
+              <Container>
+                <TestComponent />
+              </Container>
+            )}
+            exact
+          />
           <Route
             path="/AEMike"
             render={() => <Container>{/* <WellTesting/> */}</Container>}
