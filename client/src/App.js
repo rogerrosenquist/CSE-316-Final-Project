@@ -6,8 +6,6 @@ import ItemModal from "./components/ItemModal";
 import ItemList from "./components/ItemList";
 import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
-import EmployeeTestList from "./components/EmployeeTestList";
-import EmployeeTestModal from "./components/EmployeeTestModal";
 import AppNavbar from "./components/AppNavbar";
 
 import { Provider } from "react-redux";
@@ -69,16 +67,6 @@ function App() {
               <Container>
                 <EmployeeModal />
                 <EmployeeList />
-              </Container>
-            )}
-            exact
-          />
-          <Route
-            path={["/employee-test-list"]}
-            render={() => (
-              <Container>
-                {/* <EmployeeTestModal />
-                <EmployeeTestList /> */}
               </Container>
             )}
             exact
