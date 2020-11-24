@@ -13,6 +13,8 @@ import ItemModal from "./components/ItemModal"; // TESTING PURPOSES
 import ItemList from "./components/ItemList"; // TESTING PURPOSES
 import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
+import Login from "./components/Login"; //Testing Login layout
+import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin layout
 
 // Application screens
 import PoolMapping from "./components/PoolMapping";
@@ -53,6 +55,24 @@ function App() {
               <div>
                 <h4>Employee page placeholder for a react component</h4>
               </div>
+            )}
+            exact
+          />
+          <Route
+            path="/Login"
+            render={() => (
+              <Container>
+                <Login />
+              </Container>
+            )}
+            exact
+          />
+          <Route
+            path="/EmployeeLogin"
+            render={() => (
+              <Container>
+                <EmployeeLogin />
+              </Container>
             )}
             exact
           />
@@ -112,8 +132,6 @@ function App() {
             path="/Roger"
             render={() => (
               <Container>
-                {/* <Login/> */}
-                {/* <EmployeeLogin/> */}
               </Container>
             )}
             exact

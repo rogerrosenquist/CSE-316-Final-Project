@@ -2,29 +2,32 @@ import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
-import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
+import { getWellTestings, deleteWellTesting } from "../actions/wellTestingActions";
 import PropTypes from "prop-types";
 
-const PoolMapping = (props) => {
-    const { poolMaps } = props.poolMap;
+const WellTesting = (props) => {
+    const { wellTestings } = props.wellTesting;
 
     useEffect(() => {
-      props.getPoolMaps();
+      props.getWellTestings();
     }, []);
   
     let onDeleteClick = (id) => {
-      props.deletePoolMap(id);
+      props.deleteWellTesting(id);
     };
 
     return (
         <Container>
           <ListGroup>
-            <TransitionGroup className="poolMap-list">
-              {poolMaps.map(
+            <TransitionGroup className="wellTesting-list">
+              {wellTestings.map(
                 ({
+                  result,
                   _id,
-                  testBarcode,
                   poolBarcode,
+                  wellBarcode,
+                  testingStartTime,
+                  testingEndTime,
                 }) => (
                     <CSSTransition key={_id} timeout={500} classNames="fade">
                     <ListGroupItem>
@@ -36,8 +39,13 @@ const PoolMapping = (props) => {
                         onClick={onDeleteClick.bind(this, _id)}
                       >
                         &times;
-                      </Button>
-                      Pool: {poolBarcode}    Test: {testBarcode}
+                      </Button> <br />
+                      Result: {result} <br />
+                      _id: {_id} <br />
+                      poolBarcode: {poolBarcode} <br />
+                      wellBarcode: {wellBarcode} <br /> 
+                      testingStartTime: {testingStartTime} <br />   
+                      testingEndTime: {testingEndTime} <br />                 
                     </ListGroupItem>
                   </CSSTransition>
                 )
@@ -48,18 +56,16 @@ const PoolMapping = (props) => {
       );
 };
 
-//export default PoolMapping;
-
-PoolMapping.propTypes = {
-    getPoolMaps: PropTypes.func.isRequired,
-    deletePoolMap: PropTypes.func.isRequired,
-    poolMap: PropTypes.object.isRequired,
+WellTesting.propTypes = {
+    getWellTestings: PropTypes.func.isRequired,
+    deleteWellTesting: PropTypes.func.isRequired,
+    wellTesting: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-    poolMap: state.poolMap,
+    wellTesting: state.wellTesting
 });
 
-export default connect(mapStateToProps, { getPoolMaps, deletePoolMap })(
-    PoolMapping
+export default connect(mapStateToProps, { getWellTestings, deleteWellTesting })(
+    WellTesting
 );
