@@ -20,12 +20,12 @@ const PoolMapping = (props) => {
         <Container>
           <ListGroup>
             <TransitionGroup className="poolMap-list">
-              {poolMaps.map(
+                {poolMaps.map(
                 ({
                   _id,
                   testBarcode,
                   poolBarcode,
-                }) => (
+                }) => ( 
                     <CSSTransition key={_id} timeout={500} classNames="fade">
                     <ListGroupItem>
                       &nbsp;
@@ -48,6 +48,7 @@ const PoolMapping = (props) => {
       );
 };
 
+//{poolMaps.aggregate(({$group:{"_id":"$poolBarcode", "testBarcodes":{$push:"$testBarcode"}}}) => (
 //export default PoolMapping;
 
 PoolMapping.propTypes = {
