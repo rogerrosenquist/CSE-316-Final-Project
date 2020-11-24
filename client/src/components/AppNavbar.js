@@ -26,16 +26,6 @@ const AppNavbar = () => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink tag={Link} to="/Login">
-                  Login
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} to="/EmployeeLogin">
-                  Employee Login
-                </NavLink>
-              </NavItem>
-              <NavItem>
                 <NavLink tag={Link} to="/labtech">
                   LabTech
                 </NavLink>
