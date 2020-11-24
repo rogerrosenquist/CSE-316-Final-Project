@@ -17,7 +17,6 @@ const EmployeeTestSchema = new Schema({
   },
   collectedBy: {
     type: String,
-    required: true,
   },
 });
 
