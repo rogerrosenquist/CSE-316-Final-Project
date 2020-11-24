@@ -13,6 +13,8 @@ import ItemModal from "./components/ItemModal"; // TESTING PURPOSES
 import ItemList from "./components/ItemList"; // TESTING PURPOSES
 import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
+import Login from "./components/Login"; //Testing Login layout
+import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin layout
 
 // Application screens
 import PoolMapping from "./components/PoolMapping";
@@ -103,8 +105,8 @@ function App() {
             path="/Roger"
             render={() => (
               <Container>
-                {/* <Login/> */}
-                {/* <EmployeeLogin/> */}
+                <Login/>
+                <EmployeeLogin/>
               </Container>
             )}
             exact
