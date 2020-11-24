@@ -16,6 +16,8 @@ import EmployeeList from "./components/EmployeeList";
 
 // Application screens
 import PoolMapping from "./components/PoolMapping";
+import Results from "./components/Results.js";
+import TestCollection from "./components/TestCollection.js";
 
 // Redux testing component
 import TestComponent from "./components/TestComponent"; // TESTING PURPOSES
@@ -90,11 +92,18 @@ function App() {
             exact
           />
           <Route
-            path="/Mike"
+            path="/TestCollection"
+            render={() => 
+            <Container>
+                <TestCollection />
+            </Container>}
+            exact
+          />
+          <Route
+            path="/Results"
             render={() => (
               <Container>
-                {/* <TestCollection/> */}
-                {/* <Results/> */}
+                <Results />
               </Container>
             )}
             exact
