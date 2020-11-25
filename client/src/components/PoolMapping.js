@@ -48,7 +48,7 @@ const PoolMapping = (props) => {
                     >
                       &times;
                     </Button>
-                    Pool: {key}
+                    Pool: {key} <br /><br />
                     <ListGroup>
                       {values.map(({ _id, testBarcode, poolBarcode }) => (
                         <CSSTransition
