@@ -6,87 +6,84 @@ import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
 import PropTypes from "prop-types";
 
 const PoolMapping = (props) => {
-    let { poolMaps } = props.poolMap;
+  let { poolMaps } = props.poolMap;
 
-    useEffect(() => {
-      props.getPoolMaps();
-    }, []);
-  
-    let onDeleteClick = (id) => {
-      props.deletePoolMap(id);
-    };
+  useEffect(() => {
+    props.getPoolMaps();
+  }, []);
 
-    // Group data by key
-    let groupBy = (data, key) => {
-      return data.reduce((storage, item) => {
-        let group = item[key];
-        storage[group] = storage[group] || [];
-        storage[group].push(item);
-        return storage;
-      }, {});
-    };
+  let onDeleteClick = (id) => {
+    props.deletePoolMap(id);
+  };
 
-    let grouped = groupBy(poolMaps, "poolBarcode");
-    console.log(grouped);
+  // Group data by key
+  let groupBy = (data, key) => {
+    return data.reduce((storage, item) => {
+      let group = item[key];
+      storage[group] = storage[group] || [];
+      storage[group].push(item);
+      return storage;
+    }, {});
+  };
 
-    return (
-        <Container>
-          <ListGroup>
-            <TransitionGroup className="poolMap-list">
-            {
-              ((poolMaps = groupBy(poolMaps, "poolBarcode")),
-              Object.entries(poolMaps).map(([key, values]) => {
-                return (
-                  <CSSTransition key={key} timeout={500} classNames="fade">
-                    <ListGroupItem>
-                      &nbsp;
-                      <Button
-                        className="remove-btn"
-                        color="danger"
-                        size="sm"
-                        onClick={onDeleteClick.bind(this, key)}
-                      >
+  let grouped = groupBy(poolMaps, "poolBarcode");
+  console.log(grouped);
+
+  return (
+    <Container>
+      <ListGroup>
+        <TransitionGroup className="poolMap-list">
+          {
+            ((poolMaps = groupBy(poolMaps, "poolBarcode")),
+            Object.entries(poolMaps).map(([key, values]) => {
+              return (
+                <CSSTransition key={key} timeout={500} classNames="fade">
+                  <ListGroupItem>
+                    &nbsp;
+                    <Button
+                      className="remove-btn"
+                      color="danger"
+                      size="sm"
+                      onClick={onDeleteClick.bind(this, key)}
+                    >
                       &times;
-                      </Button>
-                        Pool: {key}
-                      <Container> 
-                        {values.map(
-                          ({
-                            _id,
-                            testBarcode,
-                            poolBarcode,
-                          }) => (
-                          <CSSTransition key={_id} timeout={500} classNames="fade">
-                            Test: {testBarcode}
-                          </CSSTransition>
-                          )
-                        )}
-                        <hr />
-                      </Container>
-                    </ListGroupItem>
-                  </CSSTransition>
-                  );
-                }))
-              }
-            </TransitionGroup>
-          </ListGroup>
-        </Container>
-      );
+                    </Button>
+                    Pool: {key}
+                    <ListGroup>
+                      {values.map(({ _id, testBarcode, poolBarcode }) => (
+                        <CSSTransition
+                          key={_id}
+                          timeout={500}
+                          classNames="fade"
+                        >
+                          <ListGroupItem>Test: {testBarcode}</ListGroupItem>
+                        </CSSTransition>
+                      ))}
+                    </ListGroup>
+                  </ListGroupItem>
+                </CSSTransition>
+              );
+            }))
+          }
+        </TransitionGroup>
+      </ListGroup>
+    </Container>
+  );
 };
 
 //{poolMaps.aggregate(({$group:{"_id":"$poolBarcode", "testBarcodes":{$push:"$testBarcode"}}}) => (
 //export default PoolMapping;
 
 PoolMapping.propTypes = {
-    getPoolMaps: PropTypes.func.isRequired,
-    deletePoolMap: PropTypes.func.isRequired,
-    poolMap: PropTypes.object.isRequired,
+  getPoolMaps: PropTypes.func.isRequired,
+  deletePoolMap: PropTypes.func.isRequired,
+  poolMap: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-    poolMap: state.poolMap,
+  poolMap: state.poolMap,
 });
 
 export default connect(mapStateToProps, { getPoolMaps, deletePoolMap })(
-    PoolMapping
+  PoolMapping
 );
