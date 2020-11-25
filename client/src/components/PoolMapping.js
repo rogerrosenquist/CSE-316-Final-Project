@@ -16,6 +16,16 @@ const PoolMapping = (props) => {
       props.deletePoolMap(id);
     };
 
+    // Group data by key
+    let groupBy = (data, key) => {
+      return data.reduce((storage, item) => {
+        let group = item[key];
+        storage[group] = storage[group] || [];
+        storage[group].push(item);
+        return storage;
+      }, {});
+    };
+
     return (
         <Container>
           <ListGroup>
