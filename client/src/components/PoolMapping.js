@@ -6,7 +6,7 @@ import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
 import PropTypes from "prop-types";
 
 const PoolMapping = (props) => {
-    const { poolMaps } = props.poolMap;
+    let { poolMaps } = props.poolMap;
 
     useEffect(() => {
       props.getPoolMaps();
@@ -26,32 +26,48 @@ const PoolMapping = (props) => {
       }, {});
     };
 
+    let grouped = groupBy(poolMaps, "poolBarcode");
+    console.log(grouped);
+
     return (
         <Container>
           <ListGroup>
             <TransitionGroup className="poolMap-list">
-                {poolMaps.map(
-                ({
-                  _id,
-                  testBarcode,
-                  poolBarcode,
-                }) => ( 
-                    <CSSTransition key={_id} timeout={500} classNames="fade">
+            {
+              ((poolMaps = groupBy(poolMaps, "poolBarcode")),
+              Object.entries(poolMaps).map(([key, values]) => {
+                return (
+                  <CSSTransition key={key} timeout={500} classNames="fade">
                     <ListGroupItem>
                       &nbsp;
                       <Button
                         className="remove-btn"
                         color="danger"
                         size="sm"
-                        onClick={onDeleteClick.bind(this, _id)}
+                        onClick={onDeleteClick.bind(this, key)}
                       >
-                        &times;
+                      &times;
                       </Button>
-                      Pool: {poolBarcode}    Test: {testBarcode}
+                        Pool: {key}
+                      <Container> 
+                        {values.map(
+                          ({
+                            _id,
+                            testBarcode,
+                            poolBarcode,
+                          }) => (
+                          <CSSTransition key={_id} timeout={500} classNames="fade">
+                            Test: {testBarcode}
+                          </CSSTransition>
+                          )
+                        )}
+                        <hr />
+                      </Container>
                     </ListGroupItem>
                   </CSSTransition>
-                )
-              )}
+                  );
+                }))
+              }
             </TransitionGroup>
           </ListGroup>
         </Container>
