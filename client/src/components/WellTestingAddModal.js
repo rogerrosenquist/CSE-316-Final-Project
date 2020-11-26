@@ -55,7 +55,7 @@ const WellTestingAddModal = (props) => {
                 id="result"
                 onChange={onChange}
               >
-                <option value="in progress">In progress</option>
+                <option value="inProgress">In progress</option>
                 <option value="negative">Negative</option>
                 <option value="postive">Positive</option>
               </Input>
