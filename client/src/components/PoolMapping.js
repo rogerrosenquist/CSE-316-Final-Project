@@ -12,6 +12,14 @@ const PoolMapping = (props) => {
     props.getPoolMaps();
   }, []);
 
+  let onDeleteClickPool = (id) => {
+    console.log(id);
+    id.map(element => {
+      console.log(element._id);
+      props.deletePoolMap(element._id);
+    });
+  };
+
   let onDeleteClick = (id) => {
     props.deletePoolMap(id);
   };
@@ -27,7 +35,7 @@ const PoolMapping = (props) => {
   };
 
   let grouped = groupBy(poolMaps, "poolBarcode");
-  console.log(grouped);
+  //console.log(grouped);
 
   return (
     <Container>
@@ -44,7 +52,7 @@ const PoolMapping = (props) => {
                       className="remove-btn"
                       color="danger"
                       size="sm"
-                      onClick={onDeleteClick.bind(this, key)}
+                      onClick={onDeleteClickPool.bind(this, values)}
                     >
                       &times;
                     </Button>
@@ -56,7 +64,17 @@ const PoolMapping = (props) => {
                           timeout={500}
                           classNames="fade"
                         >
-                          <ListGroupItem>Test: {testBarcode}</ListGroupItem>
+                          <ListGroupItem>
+                            <Button
+                              className="remove-btn"
+                              color="danger"
+                              size="sm"
+                              onClick={onDeleteClick.bind(this, _id)}
+                            >
+                              &times;
+                            </Button>
+                            Test: {testBarcode}
+                          </ListGroupItem>
                         </CSSTransition>
                       ))}
                     </ListGroup>
