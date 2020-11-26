@@ -66,8 +66,12 @@ const WellTestingEditModal = (props) => {
 
   return (
     <div>
-      <Button color="dark" style={{ marginBottom: "2rem" }} onClick={toggle}>
-        Add Well Testing
+      <Button
+        color="dark"
+        style={{ marginBottom: "2rem", float: "right" }}
+        onClick={toggle}
+      >
+        Edit Well Testing
       </Button>
 
       <Modal isOpen={modal} toggle={toggle}>
