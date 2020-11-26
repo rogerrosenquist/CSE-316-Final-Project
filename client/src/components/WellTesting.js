@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getWellTestings, deleteWellTesting } from "../actions/wellTestingActions";
 import PropTypes from "prop-types";
 import WellTestingAddModal from "./WellTestingAddModal";
+import WellTestingEditModal from "./WellTestingEditModal";
 
 const WellTesting = (props) => {
     const { wellTestings } = props.wellTesting;
@@ -33,7 +34,6 @@ const WellTesting = (props) => {
                 }) => (
                     <CSSTransition key={_id} timeout={500} classNames="fade">
                     <ListGroupItem>
-                      &nbsp;
                       <Button
                         className="remove-btn"
                         color="danger"
@@ -41,7 +41,7 @@ const WellTesting = (props) => {
                         onClick={onDeleteClick.bind(this, _id)}
                       >
                         &times;
-                      </Button> <br />
+                      </Button> <br /> 
                       Result: {result} <br />
                       _id: {_id} <br />
                       poolBarcode: {poolBarcode} <br />
