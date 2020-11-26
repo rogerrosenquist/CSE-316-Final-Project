@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 // @access Public
 router.post("/", (req, res) => {
   const newWellTesting = new WellTesting({
-    poolBarcode: req.body.pollBarcode,
+    poolBarcode: req.body.poolBarcode,
     wellBarcode: req.body.wellBarcode,
     testingStartTime: req.body.testingStartTime,
     testingEndTime: req.body.testingEndTime,

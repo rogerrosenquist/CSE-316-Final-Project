@@ -26,6 +26,7 @@ const WellTestingAddModal = (props) => {
 
   let onSubmit = (e) => {
     e.preventDefault();
+
     const newWellTest = {
       result: result,
       poolBarcode: poolBarcode,
@@ -48,10 +49,15 @@ const WellTestingAddModal = (props) => {
           <Form onSubmit={onSubmit}>
             <FormGroup>
               <Label for="result">Result</Label>
-              <Input type="select" name="Result" id="result" onChange={onChange}>
-                  <option value="in progress">In progress</option>
-                  <option value="negative">Negative</option>
-                  <option value="postive">Positive</option>
+              <Input
+                type="select"
+                name="Result"
+                id="result"
+                onChange={onChange}
+              >
+                <option value="in progress">In progress</option>
+                <option value="negative">Negative</option>
+                <option value="postive">Positive</option>
               </Input>
               <Label for="poolBarcode">Pool Barcode</Label>
               <Input
@@ -84,4 +90,6 @@ const mapStateToProps = (state) => ({
   WellTesting: state.WellTesting,
 });
 
-export default connect(mapStateToProps, { addWellTesting })(WellTestingAddModal);
+export default connect(mapStateToProps, { addWellTesting })(
+  WellTestingAddModal
+);

@@ -3,13 +3,13 @@ const Schema = mongoose.Schema;
 
 // create schema
 const WellTestingSchema = new Schema({
-  poolBarcode: {
-    type: Number,
-    required: true,
-  },
   wellBarcode: {
     type: Number,
     required: true,
+  },
+  poolBarcode: {
+    type: Number,
+    // required: true,
   },
   testingStartTime: {
     type: Date,
