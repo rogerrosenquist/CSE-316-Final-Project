@@ -56,43 +56,6 @@ const EmployeeLogin = (props) => {
             search: "",
             state: { currentEmployeeID: employeeID },
           });
-          // return (
-          // <Redirect
-          //   to={{
-          //     pathname: "/results",
-          //     search: "",
-          //     state: { currentEmployeeID: employeeID },
-          //   }}
-          // />;
-          // );
-
-          console.log(props);
-          // return (
-          // <Route
-          //   render={({ location }) => (
-          //     <Redirect
-          //       to={{
-          //         pathname: "/results",
-          //         state: { currentEmployeeID: employeeID },
-          //       }}
-          //     />
-          //   )}
-          // />;
-          // );
-
-          // <Route
-          //   exact
-          //   path="/results"
-          //   render={() =>
-          //     true ? (
-          //       <Redirect to="results" />
-          //     ) : (
-          //       <Results currentEmployeeID={employeeID} />
-          //     )
-          //   }
-          // />;
-
-          console.log("after redirect");
         }
       }
     );

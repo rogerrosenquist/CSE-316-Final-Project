@@ -19,24 +19,9 @@ const Results = (props) => {
   if (!props.location.state) {
     console.log(props);
     return <Redirect to="/employee" />;
-    // return (
-    //   <Route
-    //     render={({ location }) => (
-    //       <Redirect
-    //         to={{
-    //           pathname: "/employee",
-    //           state: { from: location },
-    //         }}
-    //       />
-    //     )}
-    //   />
-    // );
   }
 
-  let currentEmployeeID = 1;
-  // let currentEmployeeID = props.location.state.currentEmployeeID;
-
-  // console.log(currentEmployeeID);
+  let currentEmployeeID = props.location.state.currentEmployeeID;
 
   return (
     <Container>
