@@ -20,6 +20,7 @@ import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin
 import PoolMapping from "./components/PoolMapping";
 import Results from "./components/Results.js";
 import TestCollection from "./components/TestCollection.js";
+import WellTesting from "./components/WellTesting.js"
 
 // Redux testing component
 import TestComponent from "./components/TestComponent"; // TESTING PURPOSES
@@ -89,8 +90,11 @@ function App() {
             exact
           />
           <Route
-            path="/AEMike"
-            render={() => <Container>{/* <WellTesting/> */}</Container>}
+            path="/WellTesting"
+            render={() => 
+            <Container>
+               <WellTesting/>
+            </Container>}
             exact
           />
           <Route
