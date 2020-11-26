@@ -14,7 +14,7 @@ import { addWellTesting } from "../actions/wellTestingActions";
 
 const WellTestingAddModal = (props) => {
   const [modal, setModal] = useState(false);
-  const [result, setResult] = useState("");
+  let [result, setResult] = useState("");
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [wellBarcode, setWellBarcode] = useState(0);
   const toggle = () => setModal(!modal);
@@ -26,6 +26,10 @@ const WellTestingAddModal = (props) => {
 
   let onSubmit = (e) => {
     e.preventDefault();
+
+    if (result == "") {
+      result = "in progress";
+    }
 
     const newWellTest = {
       result: result,
@@ -55,7 +59,7 @@ const WellTestingAddModal = (props) => {
                 id="result"
                 onChange={onChange}
               >
-                <option value="inProgress">In progress</option>
+                <option value="in progress">In progress</option>
                 <option value="negative">Negative</option>
                 <option value="postive">Positive</option>
               </Input>
