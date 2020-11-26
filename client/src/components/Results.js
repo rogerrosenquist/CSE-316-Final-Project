@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory, Redirect } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
@@ -8,13 +9,21 @@ import store from "../store";
 
 const Results = (props) => {
   let { employeeTests } = props.employeeTest;
+  const history = useHistory();
+  console.log(props)
 
   useEffect(() => {
     props.getEmployeeTests();
   }, []);
 
-  let currentEmployeeID = props.currentEmployeeID;
-  currentEmployeeID = 1; // PLACEHOLDER
+  if (!props.location){
+    return <Redirect to='/employee' />
+  }
+
+  let currentEmployeeID = 1;
+  // let currentEmployeeID = props.location.state.currentEmployeeID;
+
+  // console.log(currentEmployeeID);
 
   return (
     <Container>

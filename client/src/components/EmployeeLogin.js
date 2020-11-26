@@ -1,5 +1,5 @@
 import React, { useEffect, useState, } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button, Col, Form, FormGroup, Label, Input,} from "reactstrap"
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
@@ -40,8 +40,12 @@ const EmployeeLogin = (props) => {
       }) => {
         if (emailInput === email && passcodeInput === passcode){
           isCorrect = true;
-          let path = "results";
-          history.push(path);
+          return <Redirect
+              to={{
+              pathname: "/results",
+              state: { currentEmployeeID: employeeID }
+            }}
+          />
         }
       })
 
