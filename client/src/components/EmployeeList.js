@@ -16,6 +16,7 @@ const EmployeeList = (props) => {
   }, []);
 
   let onDeleteClick = (id) => {
+    console.log(id);
     props.deleteEmployee(id);
   };
 

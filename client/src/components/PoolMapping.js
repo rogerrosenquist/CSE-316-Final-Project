@@ -14,13 +14,14 @@ const PoolMapping = (props) => {
 
   let onDeleteClickPool = (id) => {
     console.log(id);
-    id.map(element => {
+    id.map((element) => {
       console.log(element._id);
       props.deletePoolMap(element._id);
     });
   };
 
   let onDeleteClick = (id) => {
+    console.log(id);
     props.deletePoolMap(id);
   };
 
@@ -56,7 +57,8 @@ const PoolMapping = (props) => {
                     >
                       &times;
                     </Button>
-                    Pool: {key} <br /><br />
+                    Pool: {key} <br />
+                    <br />
                     <ListGroup>
                       {values.map(({ _id, testBarcode, poolBarcode }) => (
                         <CSSTransition
