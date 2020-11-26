@@ -107,8 +107,11 @@ function App() {
             exact
           />
           <Route
-            path="/AEMike"
-            render={() => <Container>{/* <WellTesting/> */}</Container>}
+            path="/WellTesting"
+            render={() => 
+            <Container>
+               <WellTesting/>
+            </Container>}
             exact
           />
           <Route
@@ -124,14 +127,6 @@ function App() {
             render={() => (
               <Container>
                 <Results />
-              </Container>
-            )}
-            exact
-          />
-          <Route
-            path="/Roger"
-            render={() => (
-              <Container>
               </Container>
             )}
             exact
