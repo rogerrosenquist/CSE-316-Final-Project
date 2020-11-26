@@ -15,6 +15,7 @@ import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
 import Login from "./components/Login"; //Testing Login layout
 import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin layout
+import LabHome from "./components/LabHome"; // Testing LabHome
 
 // Application screens
 import PoolMapping from "./components/PoolMapping";
@@ -46,6 +47,8 @@ function App() {
             render={() => (
               <Container>
                 <Login />
+                <br></br>
+                <LabHome />
               </Container>
             )}
             exact
