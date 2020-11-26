@@ -1,17 +1,27 @@
-import React, { useEffect, useState, } from "react";
-import { useHistory, Redirect } from "react-router-dom";
-import { Container, ListGroup, ListGroupItem, Button, Col, Form, FormGroup, Label, Input,} from "reactstrap"
+import React, { useEffect, useState } from "react";
+import { useHistory, Redirect, Route, withRouter } from "react-router-dom";
+import {
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
-import { getEmployees} from "../actions/employeeActions";
+import { getEmployees } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 import store from "../store";
-import Results from "./Results"
+import Results from "./Results";
 
 const EmployeeLogin = (props) => {
   const [emailInput, setEmail] = useState("");
   const [passcodeInput, setPasscode] = useState("");
-  
+
   let { employees } = props.employee;
   const history = useHistory();
 
@@ -27,7 +37,7 @@ const EmployeeLogin = (props) => {
   let onSubmit = (e) => {
     let isCorrect = false;
     e.preventDefault();
-    console.log(emailInput, passcodeInput)
+    console.log(emailInput, passcodeInput);
     employees.map(
       ({
         isLabWorker,
@@ -38,28 +48,64 @@ const EmployeeLogin = (props) => {
         lastName,
         passcode,
       }) => {
-        if (emailInput === email && passcodeInput === passcode){
+        if (emailInput === email && passcodeInput === passcode) {
           isCorrect = true;
-          return <Redirect
-              to={{
-              pathname: "/results",
-              state: { currentEmployeeID: employeeID }
-            }}
-          />
+
+          history.push({
+            pathname: "/results",
+            search: "",
+            state: { currentEmployeeID: employeeID },
+          });
+          // return (
+          // <Redirect
+          //   to={{
+          //     pathname: "/results",
+          //     search: "",
+          //     state: { currentEmployeeID: employeeID },
+          //   }}
+          // />;
+          // );
+
+          console.log(props);
+          // return (
+          // <Route
+          //   render={({ location }) => (
+          //     <Redirect
+          //       to={{
+          //         pathname: "/results",
+          //         state: { currentEmployeeID: employeeID },
+          //       }}
+          //     />
+          //   )}
+          // />;
+          // );
+
+          // <Route
+          //   exact
+          //   path="/results"
+          //   render={() =>
+          //     true ? (
+          //       <Redirect to="results" />
+          //     ) : (
+          //       <Results currentEmployeeID={employeeID} />
+          //     )
+          //   }
+          // />;
+
+          console.log("after redirect");
         }
-      })
-
-      if (!isCorrect){
-        alert("Incorrect email or password")
       }
+    );
 
-  }
-  
+    if (!isCorrect) {
+      alert("Incorrect email or password");
+    }
+  };
+
   return (
     <Container className="EmployeeLogin">
       <h2>Employee Login Page for Results </h2>
-      <Form className="form"
-      onSubmit = {onSubmit}>
+      <Form className="form" onSubmit={onSubmit}>
         <Col>
           <FormGroup>
             <Label>Email:</Label>
@@ -99,6 +145,6 @@ const mapStateToProps = (state) => ({
   employee: state.employee,
 });
 
-export default connect(mapStateToProps, { getEmployees})(
-  EmployeeLogin
+export default withRouter(
+  connect(mapStateToProps, { getEmployees })(EmployeeLogin)
 );

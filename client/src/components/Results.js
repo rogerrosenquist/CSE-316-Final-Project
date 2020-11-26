@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect, withRouter } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
@@ -10,14 +10,27 @@ import store from "../store";
 const Results = (props) => {
   let { employeeTests } = props.employeeTest;
   const history = useHistory();
-  console.log(props)
+  console.log(props);
 
   useEffect(() => {
     props.getEmployeeTests();
   }, []);
 
-  if (!props.location){
-    return <Redirect to='/employee' />
+  if (!props.location.state) {
+    console.log(props);
+    return <Redirect to="/employee" />;
+    // return (
+    //   <Route
+    //     render={({ location }) => (
+    //       <Redirect
+    //         to={{
+    //           pathname: "/employee",
+    //           state: { from: location },
+    //         }}
+    //       />
+    //     )}
+    //   />
+    // );
   }
 
   let currentEmployeeID = 1;
@@ -35,8 +48,8 @@ const Results = (props) => {
               return (
                 <CSSTransition key={_id} timeout={500} classNames="fade">
                   <ListGroupItem>
-                      Collection Time: {collectionTime}, <br></br>
-                      Result: {result}
+                    Collection Time: {collectionTime}, <br></br>
+                    Result: {result}
                   </ListGroupItem>
                 </CSSTransition>
               );
@@ -57,6 +70,8 @@ const mapStateToProps = (state) => ({
   employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, {
-  getEmployeeTests,
-})(Results);
+export default withRouter(
+  connect(mapStateToProps, {
+    getEmployeeTests,
+  })(Results)
+);
