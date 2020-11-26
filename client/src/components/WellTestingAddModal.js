@@ -13,8 +13,9 @@ import { connect } from "react-redux";
 import { addWellTesting } from "../actions/wellTestingActions";
 
 const WellTestingAddModal = (props) => {
+  //console.log("from add:" + props.WellTesting);
   const [modal, setModal] = useState(false);
-  let [result, setResult] = useState("");
+  const [result, setResult] = useState("");
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [wellBarcode, setWellBarcode] = useState(0);
   const toggle = () => setModal(!modal);
@@ -24,12 +25,17 @@ const WellTestingAddModal = (props) => {
     change(e.target.value);
   };
 
+  let reset = () => {
+    let change = eval([setResult][0]);
+    change("in progress");
+    change = eval([setPoolBarcode][0]);
+    change(-1);
+    change = eval([setWellBarcode][0]);
+    change(-1);
+  };
+
   let onSubmit = (e) => {
     e.preventDefault();
-
-    if (result == "") {
-      result = "in progress";
-    }
 
     const newWellTest = {
       result: result,
@@ -37,7 +43,15 @@ const WellTestingAddModal = (props) => {
       wellBarcode: wellBarcode,
     };
 
-    props.addWellTesting(newWellTest);
+    if (newWellTest.result == "") {
+      newWellTest.result = "in progress";
+    }
+
+    if (newWellTest.poolBarcode > -1 && newWellTest.wellBarcode > -1) {
+      props.addWellTesting(newWellTest);
+    }
+    console.log(newWellTest);
+    reset();
     toggle();
   };
 
@@ -88,7 +102,7 @@ const WellTestingAddModal = (props) => {
       </Modal>
     </div>
   );
-};
+}
 
 const mapStateToProps = (state) => ({
   WellTesting: state.WellTesting,
