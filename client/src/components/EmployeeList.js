@@ -46,6 +46,7 @@ const EmployeeList = (props) => {
 
   return (
     <Container>
+      <EmployeeModal />
       <ListGroup>
         <TransitionGroup className="employee-list">
           {

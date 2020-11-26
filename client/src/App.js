@@ -20,7 +20,7 @@ import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin
 import PoolMapping from "./components/PoolMapping";
 import Results from "./components/Results.js";
 import TestCollection from "./components/TestCollection.js";
-import WellTesting from "./components/WellTesting.js"
+import WellTesting from "./components/WellTesting.js";
 
 // Redux testing component
 import TestComponent from "./components/TestComponent"; // TESTING PURPOSES
@@ -44,16 +44,16 @@ function App() {
           <Route
             path={["/labtech"]}
             render={() => (
-            <Container>
-              <Login />
-            </Container>
+              <Container>
+                <Login />
+              </Container>
             )}
             exact
           />
           <Route
             path="/employee"
             render={() => (
-            <Container>
+              <Container>
                 <EmployeeLogin />
               </Container>
             )}
@@ -73,7 +73,6 @@ function App() {
             path={["/employee-list"]}
             render={() => (
               <Container>
-                <EmployeeModal />
                 <EmployeeList />
               </Container>
             )}
@@ -91,18 +90,20 @@ function App() {
           />
           <Route
             path="/WellTesting"
-            render={() => 
-            <Container>
-               <WellTesting/>
-            </Container>}
+            render={() => (
+              <Container>
+                <WellTesting />
+              </Container>
+            )}
             exact
           />
           <Route
             path="/TestCollection"
-            render={() => 
-            <Container>
+            render={() => (
+              <Container>
                 <TestCollection />
-            </Container>}
+              </Container>
+            )}
             exact
           />
           <Route
