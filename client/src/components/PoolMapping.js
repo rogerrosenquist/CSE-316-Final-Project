@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
 import PropTypes from "prop-types";
+import PoolMappingAddModal from "./PoolMappingAddModal";
 
 const PoolMapping = (props) => {
   let { poolMaps } = props.poolMap;
@@ -14,13 +15,14 @@ const PoolMapping = (props) => {
 
   let onDeleteClickPool = (id) => {
     console.log(id);
-    id.map(element => {
+    id.map((element) => {
       console.log(element._id);
       props.deletePoolMap(element._id);
     });
   };
 
   let onDeleteClick = (id) => {
+    console.log(id);
     props.deletePoolMap(id);
   };
 
@@ -39,6 +41,7 @@ const PoolMapping = (props) => {
 
   return (
     <Container>
+      <PoolMappingAddModal />
       <ListGroup>
         <TransitionGroup className="poolMap-list">
           {
@@ -56,7 +59,8 @@ const PoolMapping = (props) => {
                     >
                       &times;
                     </Button>
-                    Pool: {key} <br /><br />
+                    Pool: {key} <br />
+                    <br />
                     <ListGroup>
                       {values.map(({ _id, testBarcode, poolBarcode }) => (
                         <CSSTransition

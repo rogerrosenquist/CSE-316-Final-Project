@@ -14,6 +14,7 @@ export const getWellTestings = () => (dispatch) => {
 };
 
 export const addWellTesting = (wellTesting) => (dispatch) => {
+  console.log(wellTesting);
   axios.post("/api/well-testings", wellTesting).then((res) =>
     dispatch({
       type: actions.ADD_WELL_TESTING,

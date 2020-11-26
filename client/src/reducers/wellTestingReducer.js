@@ -21,6 +21,7 @@ export default function (state = initialState, action) {
         ),
       };
     case actions.ADD_WELL_TESTING:
+      console.log(action.payload);
       return {
         ...state,
         wellTestings: [action.payload.wellTesting, ...state.wellTestings],

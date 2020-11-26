@@ -16,6 +16,7 @@ const EmployeeList = (props) => {
   }, []);
 
   let onDeleteClick = (id) => {
+    console.log(id);
     props.deleteEmployee(id);
   };
 
@@ -45,6 +46,7 @@ const EmployeeList = (props) => {
 
   return (
     <Container>
+      <EmployeeModal />
       <ListGroup>
         <TransitionGroup className="employee-list">
           {

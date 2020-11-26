@@ -36,7 +36,7 @@ export const updatePoolMap = (poolMap) => (dispatch) => {
 };
 
 export const deletePoolMap = (id) => (dispatch) => {
-  axios.delete(`/api/poolMaps/${id}`).then((res) =>
+  axios.delete(`/api/pool-maps/${id}`).then((res) =>
     dispatch({
       type: actions.DELETE_POOL_MAP,
       payload: {

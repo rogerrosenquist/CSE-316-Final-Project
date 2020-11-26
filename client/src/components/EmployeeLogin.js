@@ -8,14 +8,14 @@ import {
 class EmployeeLogin extends Component {
   render() {
     return (
-      <Container className="App">
+      <Container className="EmployeeLogin">
         <h2>Employee Login Page for Results </h2>
         <Form className="form">
           <Col>
             <FormGroup>
               <Label>Email:</Label>
               <Input
-                type="email"
+                type="text"
                 name="email"
                 id="exampleEmail"
                 placeholder="example@email.com"
@@ -26,7 +26,7 @@ class EmployeeLogin extends Component {
             <FormGroup>
               <Label for="examplePassword">Password:</Label>
               <Input
-                type="password"
+                type="text"
                 name="password"
                 id="examplePassword"
                 placeholder="********"

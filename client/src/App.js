@@ -15,6 +15,7 @@ import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
 import Login from "./components/Login"; //Testing Login layout
 import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin layout
+import LabHome from "./components/LabHome"; // Testing LabHome
 
 // Application screens
 import PoolMapping from "./components/PoolMapping";
@@ -44,16 +45,18 @@ function App() {
           <Route
             path={["/labtech"]}
             render={() => (
-            <Container>
-              <Login />
-            </Container>
+              <Container>
+                <Login />
+                <br></br>
+                <LabHome />
+              </Container>
             )}
             exact
           />
           <Route
             path="/employee"
             render={() => (
-            <Container>
+              <Container>
                 <EmployeeLogin />
               </Container>
             )}
@@ -73,7 +76,6 @@ function App() {
             path={["/employee-list"]}
             render={() => (
               <Container>
-                <EmployeeModal />
                 <EmployeeList />
               </Container>
             )}
@@ -91,18 +93,20 @@ function App() {
           />
           <Route
             path="/WellTesting"
-            render={() => 
-            <Container>
-               <WellTesting/>
-            </Container>}
+            render={() => (
+              <Container>
+                <WellTesting />
+              </Container>
+            )}
             exact
           />
           <Route
             path="/TestCollection"
-            render={() => 
-            <Container>
+            render={() => (
+              <Container>
                 <TestCollection />
-            </Container>}
+              </Container>
+            )}
             exact
           />
           <Route

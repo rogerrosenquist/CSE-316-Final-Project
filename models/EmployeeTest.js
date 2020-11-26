@@ -18,6 +18,10 @@ const EmployeeTestSchema = new Schema({
   collectedBy: {
     type: String,
   },
+  result: {
+    type: String,
+    default: "in progress",
+  },
 });
 
 module.exports = EmployeeTest = mongoose.model(
