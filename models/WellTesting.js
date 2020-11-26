@@ -9,7 +9,7 @@ const WellTestingSchema = new Schema({
   },
   poolBarcode: {
     type: Number,
-    // required: true,
+    required: true,
   },
   testingStartTime: {
     type: Date,
