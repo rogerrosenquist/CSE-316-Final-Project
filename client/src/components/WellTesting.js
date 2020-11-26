@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getWellTestings, deleteWellTesting } from "../actions/wellTestingActions";
 import PropTypes from "prop-types";
+import WellTestingAddModal from "./WellTestingAddModal";
 
 const WellTesting = (props) => {
     const { wellTestings } = props.wellTesting;
@@ -18,6 +19,7 @@ const WellTesting = (props) => {
 
     return (
         <Container>
+          <WellTestingAddModal />
           <ListGroup>
             <TransitionGroup className="wellTesting-list">
               {wellTestings.map(

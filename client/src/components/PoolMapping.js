@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
 import PropTypes from "prop-types";
+import PoolMappingAddModal from "./PoolMappingAddModal";
 
 const PoolMapping = (props) => {
   let { poolMaps } = props.poolMap;
@@ -40,6 +41,7 @@ const PoolMapping = (props) => {
 
   return (
     <Container>
+      <PoolMappingAddModal />
       <ListGroup>
         <TransitionGroup className="poolMap-list">
           {
