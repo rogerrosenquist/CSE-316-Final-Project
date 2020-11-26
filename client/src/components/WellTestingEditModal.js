@@ -33,7 +33,7 @@ const WellTestingEditModal = (props) => {
       //setEmployeeID(employeeTest.employeeID);
       //setTestBarcode(employeeTest.testBarcode);
     }
-  }, [employeeTest]);
+  }, [wellTesting]);
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
