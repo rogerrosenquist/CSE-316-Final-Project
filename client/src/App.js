@@ -43,34 +43,16 @@ function App() {
           <Route
             path={["/labtech"]}
             render={() => (
-              <div>
-                <h4>Labtech page placeholder for a react component</h4>
-              </div>
+            <Container>
+              <Login />
+            </Container>
             )}
             exact
           />
           <Route
             path="/employee"
             render={() => (
-              <div>
-                <h4>Employee page placeholder for a react component</h4>
-              </div>
-            )}
-            exact
-          />
-          <Route
-            path="/Login"
-            render={() => (
-              <Container>
-                <Login />
-              </Container>
-            )}
-            exact
-          />
-          <Route
-            path="/EmployeeLogin"
-            render={() => (
-              <Container>
+            <Container>
                 <EmployeeLogin />
               </Container>
             )}
