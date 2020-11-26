@@ -30,8 +30,8 @@ const WellTestingEditModal = (props) => {
 
   useEffect(() => { //? //Change
     if (wellTesting) {
-      setEmployeeID(employeeTest.employeeID);
-      setTestBarcode(employeeTest.testBarcode);
+      //setEmployeeID(employeeTest.employeeID);
+      //setTestBarcode(employeeTest.testBarcode);
     }
   }, [employeeTest]);
 
