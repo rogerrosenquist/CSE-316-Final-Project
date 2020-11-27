@@ -8,6 +8,7 @@ import {
   FormGroup,
   Label,
   Input,
+  Container,
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addPoolMap } from "../actions/poolMapActions";
@@ -15,7 +16,7 @@ import { addPoolMap } from "../actions/poolMapActions";
 const PoolMappingAddModal = (props) => {
   const [modal, setModal] = useState(false);
   const [poolBarcode, setPoolBarcode] = useState(0);
-  const [testBarcode, setTestBarcode] = useState(0);
+  const [testBarcode, setTestBarcode] = useState([]);
   const toggle = () => setModal(!modal);
 
   let onChange = (e) => {
@@ -33,6 +34,11 @@ const PoolMappingAddModal = (props) => {
     props.addPoolMap(newPoolMap);
     toggle();
   };
+
+  let addRow = () => {
+    testBarcode.push(0);
+    console.log(testBarcode);
+  }
 
   return (
     <div>
@@ -53,16 +59,23 @@ const PoolMappingAddModal = (props) => {
                 placeholder="Pool Barcode"
                 onChange={onChange}
               />
-              <Label for="testBarcode">Test Barcode</Label>
-              <Input
-                type="text"
-                name="TestBarcode"
-                id="testBarcode"
-                placeholder="Test Barcode"
-                onChange={onChange}
-              />
+              {testBarcode.map((val) => ( 
+                <Container>
+                <Label for="testBarcode">Test Barcode</Label>
+                <Input
+                  type="text"
+                  name="TestBarcode"
+                  id="testBarcode"
+                  placeholder="Test Barcode"
+                  onChange={onChange}
+                />
+                </Container>
+              ))}
+              <Button color="light" style={{ marginTop: "2rem" }} block onClick={addRow}>
+                Add more rows
+              </Button>
               <Button color="dark" style={{ marginTop: "2rem" }} block>
-                Add Pool Mapping
+                Submit Pool Mapping
               </Button>
             </FormGroup>
           </Form>
