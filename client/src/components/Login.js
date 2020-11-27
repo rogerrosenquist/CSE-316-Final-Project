@@ -13,9 +13,8 @@ import { connect } from "react-redux";
 import { getEmployees } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 
-
-const EmployeeLogin = (props) => {
-  const [employeeIdInput, setEmployeeID] = useState(0);
+const Login = (props) => {
+  const [employeeIDInput, setEmployeeID] = useState(0);
   const [passcodeInput, setPasscode] = useState("");
 
   let { employees } = props.employee;
@@ -32,7 +31,7 @@ const EmployeeLogin = (props) => {
 
   let onSubmit = (e) => {
     let isCorrect = false;
-    console.log(employeeIdInput, passcodeInput);
+    console.log(employeeIDInput, passcodeInput);
     e.preventDefault();
     employees.map(
       ({
@@ -44,15 +43,23 @@ const EmployeeLogin = (props) => {
         lastName,
         passcode,
       }) => {
-        if (employeeIdInput === employeeID && passcodeInput === passcode && isLabWorker) {
+        if (
+          employeeIDInput == employeeID &&
+          passcodeInput === passcode &&
+          isLabWorker
+        ) {
           isCorrect = true;
-          console.log(employeeIdInput, passcodeInput, isLabWorker);
+          console.log(employeeIDInput, passcodeInput, isLabWorker);
           history.push({
             pathname: "/LabHome",
             search: "",
             state: { currentEmployeeID: employeeID },
           });
-        } else if (employeeIdInput === employeeID && passcodeInput === passcode && !isLabWorker){
+        } else if (
+          employeeIDInput == employeeID &&
+          passcodeInput === passcode &&
+          !isLabWorker
+        ) {
           isCorrect = true;
           alert("Sorry, you're not a lab worker!");
         }
@@ -60,7 +67,7 @@ const EmployeeLogin = (props) => {
     );
 
     if (!isCorrect) {
-      alert("Incorrect email or password");
+      alert("Incorrect labID or password");
     }
   };
 
@@ -98,7 +105,7 @@ const EmployeeLogin = (props) => {
   );
 };
 
-EmployeeLogin.propTypes = {
+Login.propTypes = {
   getEmployees: PropTypes.func.isRequired,
   employee: PropTypes.object.isRequired,
 };
@@ -107,6 +114,4 @@ const mapStateToProps = (state) => ({
   employee: state.employee,
 });
 
-export default withRouter(
-  connect(mapStateToProps, { getEmployees })(EmployeeLogin)
-);
+export default withRouter(connect(mapStateToProps, { getEmployees })(Login));
