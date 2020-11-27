@@ -43,25 +43,6 @@ const Login = (props) => {
         lastName,
         passcode,
       }) => {
-        // console.log(
-        //   "isLabWorker: ",
-        //   isLabWorker,
-        //   "_id: ",
-        //   _id,
-        //   "employeeID: ",
-        //   employeeID,
-        //   "email: ",
-        //   email,
-        //   "firstName: ",
-        //   firstName,
-        //   "lastName: ",
-        //   lastName,
-        //   "passcode: ",
-        //   passcode
-        // );
-        // console.log(employeeIDInput == employeeID);
-        // console.log(passcodeInput === passcode);
-        // console.log(isLabWorker);
         if (
           employeeIDInput == employeeID &&
           passcodeInput === passcode &&
