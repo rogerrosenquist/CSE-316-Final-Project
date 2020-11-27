@@ -59,8 +59,9 @@ const WellTestingEditModal = (props) => {
     }
 
     if (newWellTest.poolBarcode > -1 && newWellTest.wellBarcode > -1) {
-        props.updateWellTesting(newWellTest);
+      props.updateWellTesting(newWellTest);
     }
+    props.updateWellTesting(newWellTest);
     reset();
     toggle();
   };
@@ -85,6 +86,7 @@ const WellTestingEditModal = (props) => {
                 type="select"
                 name="Result"
                 id="result"
+                value={result}
                 onChange={onChange}
               >
                 <option value="in progress">In progress</option>
@@ -97,6 +99,7 @@ const WellTestingEditModal = (props) => {
                 name="PoolBarcode"
                 id="poolBarcode"
                 placeholder="Pool Barcode"
+                value={poolBarcode}
                 onChange={onChange}
               />
               <Label for="wellBarcode">Well Barcode</Label>
@@ -105,6 +108,7 @@ const WellTestingEditModal = (props) => {
                 name="WellBarcode"
                 id="wellBarcode"
                 placeholder="Well Barcode"
+                value={wellBarcode}
                 onChange={onChange}
               />
               <Button color="dark" style={{ marginTop: "2rem" }} block>

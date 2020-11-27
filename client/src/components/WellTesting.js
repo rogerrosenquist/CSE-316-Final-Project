@@ -48,11 +48,11 @@ const WellTesting = (props) => {
                   </Button>{" "}
                   <br />
                   Result: {result} <br />
-                  _id: {_id} <br />
+                  {/* _id: {_id} <br /> */}
                   poolBarcode: {poolBarcode} <br />
                   wellBarcode: {wellBarcode} <br />
-                  testingStartTime: {testingStartTime} <br />
-                  testingEndTime: {testingEndTime} <br />
+                  {/* testingStartTime: {testingStartTime} <br />
+                  testingEndTime: {testingEndTime} <br /> */}
                 </ListGroupItem>
               </CSSTransition>
             )
