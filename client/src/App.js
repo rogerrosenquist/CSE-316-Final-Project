@@ -34,16 +34,7 @@ function App() {
 
         <Switch>
           <Route
-            path={["/"]}
-            render={() => (
-              <div>
-                <h4>Home page placeholder for component</h4>
-              </div>
-            )}
-            exact
-          />
-          <Route
-            path={["/labtech"]}
+            path={["/", "/labtech"]}
             render={() => (
               <Container>
                 <Login />
