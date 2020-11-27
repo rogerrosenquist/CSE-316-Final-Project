@@ -28,15 +28,16 @@ const PoolMappingEditModal = (props) => {
   const toggle = () => setModal(!modal);
 
   let populateRows = () => {
-    console.log("help");
+    let tests = [];
     for (var x of poolMap) {
-      totalTests = totalTests + 1;
-      let obj = {};
-      obj["id"] = "testBarcode" + totalTests;
-      obj["name"] = "TestBarcode" + totalTests;
-      obj["val"] = x.testBarcode;
-      setTestBarcode([...testBarcode, obj]);
+        totalTests = totalTests + 1;
+        let obj = {};
+        obj["id"] = "testBarcode" + totalTests;
+        obj["name"] = "TestBarcode" + totalTests;
+        obj["val"] = x.testBarcode;
+        tests = [...tests, obj];
     }
+    setTestBarcode(tests);
   };
 
   let onChange = (e) => {
