@@ -37,7 +37,7 @@ const WellTesting = (props) => {
             }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
-                  <WellTestingEditModal />
+                  <WellTestingEditModal id={_id} />
                   <Button
                     className="remove-btn"
                     color="danger"

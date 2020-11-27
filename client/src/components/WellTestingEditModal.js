@@ -15,12 +15,14 @@ import { updateWellTesting } from "../actions/wellTestingActions";
 import PropTypes from "prop-types";
 
 const WellTestingEditModal = (props) => {
-  console.log(props);
+  //console.log(props.wellTesting.wellTestings);
 
   const wellTesting = props.wellTesting.wellTestings.filter(
     //this part is problematic
     (wellTesting) => wellTesting._id === props.id
   )[0];
+
+  //console.log(props.wellTesting.wellTestings);
 
   const [modal, setModal] = useState(false);
   const [result, setResult] = useState("");
@@ -57,9 +59,8 @@ const WellTestingEditModal = (props) => {
     }
 
     if (newWellTest.poolBarcode > -1 && newWellTest.wellBarcode > -1) {
-      props.addWellTesting(newWellTest);
+        props.updateWellTesting(newWellTest);
     }
-    props.updateWellTesting(newWellTest);
     reset();
     toggle();
   };
@@ -75,7 +76,7 @@ const WellTestingEditModal = (props) => {
       </Button>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Add a Well Testing</ModalHeader>
+        <ModalHeader toggle={toggle}>Edit a Well Testing</ModalHeader>
         <ModalBody>
           <Form onSubmit={onSubmit}>
             <FormGroup>
@@ -107,7 +108,7 @@ const WellTestingEditModal = (props) => {
                 onChange={onChange}
               />
               <Button color="dark" style={{ marginTop: "2rem" }} block>
-                Add Well Testing
+                Edit Well Testing
               </Button>
             </FormGroup>
           </Form>
