@@ -15,14 +15,9 @@ import { updateWellTesting } from "../actions/wellTestingActions";
 import PropTypes from "prop-types";
 
 const WellTestingEditModal = (props) => {
-  //console.log(props.wellTesting.wellTestings);
-
   const wellTesting = props.wellTesting.wellTestings.filter(
-    //this part is problematic
     (wellTesting) => wellTesting._id === props.id
   )[0];
-
-  //console.log(props.wellTesting.wellTestings);
 
   const [modal, setModal] = useState(false);
   const [result, setResult] = useState("");
@@ -30,39 +25,30 @@ const WellTestingEditModal = (props) => {
   const [wellBarcode, setWellBarcode] = useState(0);
   const toggle = () => setModal(!modal);
 
+  useEffect(() => {
+    if (wellTesting) {
+      setResult(wellTesting.result);
+      setPoolBarcode(wellTesting.poolBarcode);
+      setWellBarcode(wellTesting.wellBarcode);
+    }
+  }, [wellTesting]);
+
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
     change(e.target.value);
   };
 
-  let reset = () => {
-    let change = eval([setResult][0]);
-    change("in progress");
-    change = eval([setPoolBarcode][0]);
-    change(-1);
-    change = eval([setWellBarcode][0]);
-    change(-1);
-  };
-
   let onSubmit = (e) => {
     e.preventDefault();
 
-    const newWellTest = {
+    const updatedWellTest = {
       result: result,
       _id: wellTesting._id,
       poolBarcode: poolBarcode,
       wellBarcode: wellBarcode,
     };
 
-    if (newWellTest.result == "") {
-      newWellTest.result = "in progress";
-    }
-
-    if (newWellTest.poolBarcode > -1 && newWellTest.wellBarcode > -1) {
-      props.updateWellTesting(newWellTest);
-    }
-    props.updateWellTesting(newWellTest);
-    reset();
+    props.updateWellTesting(updatedWellTest);
     toggle();
   };
 
@@ -121,6 +107,8 @@ const WellTestingEditModal = (props) => {
     </div>
   );
 };
+
+WellTestingEditModal.propTypes = {};
 
 const mapStateToProps = (state) => ({
   wellTesting: state.wellTesting,
