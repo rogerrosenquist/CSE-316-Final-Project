@@ -17,9 +17,11 @@ import { v4 as uuid } from "uuid";
 let totalTests = 0;
 
 const PoolMappingEditModal = (props) => {
-  const poolMapping = props.poolMapping.poolMappings.filter(
+  console.log(props);
+  const poolMapping = props.poolMapping.poolMaps.filter(
     (poolMapping) => poolMapping._id === props.id
   )[0];
+  console.log(poolMapping);
 
   const [modal, setModal] = useState(false);
   const [poolBarcode, setPoolBarcode] = useState(0);

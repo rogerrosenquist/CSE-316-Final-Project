@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
 import PropTypes from "prop-types";
 import PoolMappingAddModal from "./PoolMappingAddModal";
+import PoolMappingEditModal from "./PoolMappingEditModal";
 
 const PoolMapping = (props) => {
   let { poolMaps } = props.poolMap;
@@ -61,6 +62,7 @@ const PoolMapping = (props) => {
                     </Button>
                     Pool: {key} <br />
                     <br />
+                    <PoolMappingEditModal id={key} />
                     <ListGroup>
                       {values.map(({ _id, testBarcode, poolBarcode }) => (
                         <CSSTransition
