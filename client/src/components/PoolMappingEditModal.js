@@ -97,6 +97,12 @@ const PoolMappingEditModal = (props) => {
   let onSubmit = (e) => {
     e.preventDefault();
     //delete original pool, then insert all new ones
+    
+    poolMap.map((element) => { //code copied from poolMapping, deletes all of specific pool
+      console.log(element._id);
+      props.deletePoolMap(element._id);
+    });
+
     let newPoolMap = {
       poolBarcode: poolBarcode,
       testBarcode: -1,
