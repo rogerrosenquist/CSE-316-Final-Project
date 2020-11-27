@@ -53,6 +53,8 @@ const PoolMappingEditModal = (props) => {
   }, [modal]);
 
   let testChange = (e) => {
+    e.preventDefault();
+    console.log(testBarcode);
     let currentIndex = 0;
     let index = -1;
     for (var x of testBarcode) {
@@ -66,12 +68,11 @@ const PoolMappingEditModal = (props) => {
       let id = testBarcode[index].id;
       //testBarcode[index] = e.target.value;
       setTestBarcode(
-        testBarcode.filter((test) => {
-          if (test._id == id) {
-            return e.target.val;
-          } else {
-            return test.val;
+        testBarcode.map((test) => {
+          if (test.id == id) {
+            test.val = e.target.value;
           }
+          return test;
         })
       );
       //console.log(e.target.value);
