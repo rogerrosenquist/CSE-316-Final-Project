@@ -39,11 +39,11 @@ const PoolMappingAddModal = (props) => {
     }
     if (index > -1) {
       let id = testBarcode[index].id;
-      let newVal = e.target.value;
+      // let newVal = e.target.value;
       setTestBarcode(
         testBarcode.map((test) => {
           if (test.id == id) {
-            test.val = newVal;
+            test.val = e.target.value;
           }
           return test;
         })

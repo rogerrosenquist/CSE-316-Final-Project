@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -18,15 +18,22 @@ let totalTests = 0;
 
 const PoolMappingEditModal = (props) => {
   console.log(props);
-  const poolMapping = props.poolMapping.poolMaps.filter(
-    (poolMapping) => poolMapping._id === props.id
+  const poolMap = props.poolMap.poolMaps.filter(
+    (poolMap) => poolMap._id === props.id
   )[0];
-  console.log(poolMapping);
+  console.log(poolMap);
 
   const [modal, setModal] = useState(false);
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [testBarcode, setTestBarcode] = useState([]);
   const toggle = () => setModal(!modal);
+
+  useEffect(() => {
+    if (poolMap) {
+      setPoolBarcode(poolMap.poolBarcode);
+      setTestBarcode(poolMap.testBarcode);
+    }
+  }, [poolMap]);
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
@@ -46,14 +53,15 @@ const PoolMappingEditModal = (props) => {
     if (index > -1) {
       let id = testBarcode[index].id;
       //testBarcode[index] = e.target.value;
-      setTestBarcode(testBarcode.filter(test => {
-        if (test._id == id) {
-          return e.target.val;
-        }
-        else {
-          return test.val;
-        }
-      }));
+      setTestBarcode(
+        testBarcode.filter((test) => {
+          if (test._id == id) {
+            return e.target.val;
+          } else {
+            return test.val;
+          }
+        })
+      );
       //console.log(e.target.value);
     }
   };
@@ -69,7 +77,7 @@ const PoolMappingEditModal = (props) => {
       currentIndex++;
     }
     return index;
-  }
+  };
 
   let onSubmit = (e) => {
     e.preventDefault();
@@ -88,8 +96,8 @@ const PoolMappingEditModal = (props) => {
   let addRow = () => {
     totalTests = totalTests + 1;
     let obj = {};
-    obj["id"] = "testBarcode"+totalTests;
-    obj["name"] = "TestBarcode"+totalTests;
+    obj["id"] = "testBarcode" + totalTests;
+    obj["name"] = "TestBarcode" + totalTests;
     obj["val"] = 0;
     setTestBarcode([...testBarcode, obj]);
   };
@@ -97,9 +105,13 @@ const PoolMappingEditModal = (props) => {
   let delRow = (id) => {
     let index = getIndex(id);
     if (index > -1) {
-      setTestBarcode(testBarcode.slice(0,index).concat(testBarcode.slice(index+1,testBarcode.size)));
+      setTestBarcode(
+        testBarcode
+          .slice(0, index)
+          .concat(testBarcode.slice(index + 1, testBarcode.size))
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -158,7 +170,9 @@ const PoolMappingEditModal = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  PoolMapping: state.PoolMapping,
+  poolMap: state.poolMap,
 });
 
-export default connect(mapStateToProps, { addPoolMap, deletePoolMap })(PoolMappingEditModal);
+export default connect(mapStateToProps, { addPoolMap, deletePoolMap })(
+  PoolMappingEditModal
+);

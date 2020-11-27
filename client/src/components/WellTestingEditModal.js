@@ -15,6 +15,7 @@ import { updateWellTesting } from "../actions/wellTestingActions";
 import PropTypes from "prop-types";
 
 const WellTestingEditModal = (props) => {
+  console.log(props);
   const wellTesting = props.wellTesting.wellTestings.filter(
     (wellTesting) => wellTesting._id === props.id
   )[0];
