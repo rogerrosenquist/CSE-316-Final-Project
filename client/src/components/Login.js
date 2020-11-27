@@ -56,7 +56,7 @@ const Login = (props) => {
             state: { currentEmployeeID: employeeID },
           });
         } else if (
-          employeeIDInput === employeeID &&
+          employeeIDInput == employeeID &&
           passcodeInput === passcode &&
           !isLabWorker
         ) {
