@@ -48,12 +48,6 @@ const PoolMappingEditModal = (props) => {
   };
 
   useEffect(() => {
-    if (poolMap) {
-      setPoolBarcode(poolMap.poolBarcode);
-    }
-  }, [poolMap]);
-
-  useEffect(() => {
     populateRows();
     setPoolBarcode(props.id);
   }, [modal]);
@@ -112,7 +106,7 @@ const PoolMappingEditModal = (props) => {
     // console.log(poolBarcode);
     // console.log(props.id);
     let newPoolMap = {
-      poolBarcode: props.id,
+      poolBarcode: poolBarcode,
       testBarcode: -1,
     };
     for (var x of testBarcode) {
