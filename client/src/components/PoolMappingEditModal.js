@@ -30,14 +30,14 @@ const PoolMappingEditModal = (props) => {
   let populateRows = () => {
     console.log("help");
     for (var x of poolMap) {
-        totalTests = totalTests + 1;
-        let obj = {};
-        obj["id"] = "testBarcode" + totalTests;
-        obj["name"] = "TestBarcode" + totalTests;
-        obj["val"] = x.testBarcode;
-        setTestBarcode([...testBarcode, obj]);
+      totalTests = totalTests + 1;
+      let obj = {};
+      obj["id"] = "testBarcode" + totalTests;
+      obj["name"] = "TestBarcode" + totalTests;
+      obj["val"] = x.testBarcode;
+      setTestBarcode([...testBarcode, obj]);
     }
-  }
+  };
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
@@ -49,6 +49,10 @@ const PoolMappingEditModal = (props) => {
       setPoolBarcode(poolMap.poolBarcode);
     }
   }, [poolMap]);
+
+  useEffect(() => {
+    populateRows();
+  }, []);
 
   let testChange = (e) => {
     let currentIndex = 0;
