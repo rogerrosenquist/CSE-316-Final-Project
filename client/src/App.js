@@ -47,8 +47,6 @@ function App() {
             render={() => (
               <Container>
                 <Login />
-                <br></br>
-                <LabHome />
               </Container>
             )}
             exact
@@ -114,6 +112,15 @@ function App() {
             render={() => (
               <Container>
                 <Results />
+              </Container>
+            )}
+            exact
+          />
+          <Route
+            path="/LabHome"
+            render={() => (
+              <Container>
+                <LabHome />
               </Container>
             )}
             exact

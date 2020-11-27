@@ -1,51 +1,112 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from "react";
+import { useHistory, withRouter } from "react-router-dom";
 import {
-  Container, Col, Form,
-  FormGroup, Label, Input,
-  Button, Row,
-} from 'reactstrap';
+  Container,
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
+import { connect } from "react-redux";
+import { getEmployees } from "../actions/employeeActions";
+import PropTypes from "prop-types";
 
 
-class Login extends Component {
-  render() {
-    return (
-      <Container className="Login">
-        <h2>Login Page</h2>
-        <Form className="form">
-          <Col>
-            <FormGroup>
-              <Label>Email</Label>
-              <Input
-                type="text"
-                name="email"
-                id="exampleEmail"
-                placeholder="example@email.com"
-              />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <Label for="examplePassword">Password</Label>
-              <Input
-                type="text"
-                name="password"
-                id="examplePassword"
-                placeholder="********"
-              />
-            </FormGroup>
-          </Col>
-          <Row xs="6">
-            <Col>
-                <Button color="primary">Login Collector</Button>
-            </Col>
-            <Col>
-                <Button color="primary">Lab Login</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Container>
+const EmployeeLogin = (props) => {
+  const [employeeIdInput, setEmployeeID] = useState(0);
+  const [passcodeInput, setPasscode] = useState("");
+
+  let { employees } = props.employee;
+  const history = useHistory();
+
+  useEffect(() => {
+    props.getEmployees();
+  }, []);
+
+  let onChange = (e) => {
+    let change = eval(["set" + e.target.name][0]);
+    change(e.target.value);
+  };
+
+  let onSubmit = (e) => {
+    let isCorrect = false;
+    console.log(employeeIdInput, passcodeInput);
+    e.preventDefault();
+    employees.map(
+      ({
+        isLabWorker,
+        _id,
+        employeeID,
+        email,
+        firstName,
+        lastName,
+        passcode,
+      }) => {
+        if (employeeIdInput === employeeID && passcodeInput === passcode && isLabWorker) {
+          isCorrect = true;
+          console.log(employeeIdInput, passcodeInput, isLabWorker);
+          history.push({
+            pathname: "/LabHome",
+            search: "",
+            state: { currentEmployeeID: employeeID },
+          });
+        } else if (employeeIdInput === employeeID && passcodeInput === passcode && !isLabWorker){
+          isCorrect = true;
+          alert("Sorry, you're not a lab worker!");
+        }
+      }
     );
-  }
-}
 
-export default Login;
+    if (!isCorrect) {
+      alert("Incorrect email or password");
+    }
+  };
+
+  return (
+    <Container className="Login">
+      <h2>Login Page</h2>
+      <Form className="form" onSubmit={onSubmit}>
+        <Col>
+          <FormGroup>
+            <Label>Lab ID:</Label>
+            <Input
+              type="text"
+              name="EmployeeID"
+              id="exampleEmployeeID"
+              placeholder="Lab ID"
+              onChange={onChange}
+            />
+          </FormGroup>
+        </Col>
+        <Col>
+          <FormGroup>
+            <Label for="examplePassword">Password</Label>
+            <Input
+              type="password"
+              name="Passcode"
+              id="examplePassword"
+              placeholder="********"
+              onChange={onChange}
+            />
+          </FormGroup>
+        </Col>
+        <Button color="primary">Lab Login</Button>
+      </Form>
+    </Container>
+  );
+};
+
+EmployeeLogin.propTypes = {
+  getEmployees: PropTypes.func.isRequired,
+  employee: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  employee: state.employee,
+});
+
+export default withRouter(
+  connect(mapStateToProps, { getEmployees })(EmployeeLogin)
+);
