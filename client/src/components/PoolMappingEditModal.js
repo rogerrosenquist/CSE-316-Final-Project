@@ -17,28 +17,38 @@ import { v4 as uuid } from "uuid";
 let totalTests = 0;
 
 const PoolMappingEditModal = (props) => {
-  console.log(props);
+  const oldPool = props.id;
   const poolMap = props.poolMap.poolMaps.filter(
-    (poolMap) => poolMap._id === props.id
-  )[0];
-  console.log(poolMap);
+    (poolMap) => poolMap.poolBarcode == props.id
+  );
 
   const [modal, setModal] = useState(false);
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [testBarcode, setTestBarcode] = useState([]);
   const toggle = () => setModal(!modal);
 
-  useEffect(() => {
-    if (poolMap) {
-      setPoolBarcode(poolMap.poolBarcode);
-      setTestBarcode(poolMap.testBarcode);
+  let populateRows = () => {
+    console.log("help");
+    for (var x of poolMap) {
+        totalTests = totalTests + 1;
+        let obj = {};
+        obj["id"] = "testBarcode" + totalTests;
+        obj["name"] = "TestBarcode" + totalTests;
+        obj["val"] = x.testBarcode;
+        setTestBarcode([...testBarcode, obj]);
     }
-  }, [poolMap]);
+  }
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
     change(e.target.value);
   };
+
+  useEffect(() => {
+    if (poolMap) {
+      setPoolBarcode(poolMap.poolBarcode);
+    }
+  }, [poolMap]);
 
   let testChange = (e) => {
     let currentIndex = 0;
@@ -140,6 +150,7 @@ const PoolMappingEditModal = (props) => {
                     name={val.name}
                     id={val.id}
                     placeholder={val.name}
+                    value={testBarcode[getIndex(val.id)].val}
                     onChange={testChange}
                   />
                   <Button
