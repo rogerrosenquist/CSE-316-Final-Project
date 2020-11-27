@@ -15,7 +15,11 @@ const LabHome = (props) => {
 
   let changePaths = (e, path) => {
     e.preventDefault();
-    history.push(path);
+    history.push({
+      pathname: path,
+      search: "",
+      state: { currentEmployeeID: props.location.state.currentEmployeeID },
+    });
   };
 
   if (!props.location.state) {

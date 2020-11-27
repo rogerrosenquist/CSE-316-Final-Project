@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory, Redirect, withRouter } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
@@ -11,11 +12,20 @@ import WellTestingAddModal from "./WellTestingAddModal";
 import WellTestingEditModal from "./WellTestingEditModal";
 
 const WellTesting = (props) => {
+  const history = useHistory();
+  console.log(props);
+
   const { wellTestings } = props.wellTesting;
 
   useEffect(() => {
     props.getWellTestings();
   }, []);
+
+  
+  if (!props.location.state) {
+    console.log(props);
+    return <Redirect to="/labtech" />;
+  }
 
   let onDeleteClick = (id) => {
     props.deleteWellTesting(id);
@@ -73,6 +83,6 @@ const mapStateToProps = (state) => ({
   wellTesting: state.wellTesting,
 });
 
-export default connect(mapStateToProps, { getWellTestings, deleteWellTesting })(
-  WellTesting
+export default withRouter(
+  connect(mapStateToProps, { getWellTestings, deleteWellTesting })(WellTesting)
 );

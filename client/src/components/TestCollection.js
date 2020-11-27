@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useHistory, Redirect, withRouter } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getEmployeeTests, deleteEmployeeTest } from "../actions/employeeTestActions";
@@ -9,6 +10,8 @@ import EmployeeTestModal from "./EmployeeTestModal";
 
 const TestCollection = (props) => {
     const { employeeTests } = props.employeeTest;
+    const history = useHistory();
+    console.log(props);
 
     useEffect(() => {
         props.getEmployeeTests();
@@ -18,7 +21,10 @@ const TestCollection = (props) => {
         props.deleteEmployeeTest(id);
       };
 
-    
+    if (!props.location.state) {
+      console.log(props);
+      return <Redirect to="/labtech" />;
+    }
 
     return (
         <Container>
@@ -67,6 +73,6 @@ const mapStateToProps = (state) => ({
     employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, { getEmployeeTests, deleteEmployeeTest })(
-    TestCollection
+export default withRouter(
+  connect(mapStateToProps, { getEmployeeTests, deleteEmployeeTest })(TestCollection)
 );
