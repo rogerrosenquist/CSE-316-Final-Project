@@ -40,6 +40,14 @@ const LabHome = (props) => {
       >
         Well Testing
       </Button>
+      <Button
+        color="primary"
+        size="lg"
+        block
+        onClick={(e) => changePaths(e, "testcollection")}
+      >
+        Test Collection
+      </Button>
     </Container>
   );
 };
