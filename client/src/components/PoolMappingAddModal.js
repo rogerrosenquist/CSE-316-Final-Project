@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addPoolMap } from "../actions/poolMapActions";
+import { v4 as uuid } from "uuid";
 
 const PoolMappingAddModal = (props) => {
   const [modal, setModal] = useState(false);
@@ -36,9 +37,9 @@ const PoolMappingAddModal = (props) => {
   };
 
   let addRow = () => {
-    testBarcode.push(0);
+    setTestBarcode([...testBarcode, 0]);
     console.log(testBarcode);
-  }
+  };
 
   return (
     <div>
@@ -59,19 +60,24 @@ const PoolMappingAddModal = (props) => {
                 placeholder="Pool Barcode"
                 onChange={onChange}
               />
-              {testBarcode.map((val) => ( 
-                <Container>
-                <Label for="testBarcode">Test Barcode</Label>
-                <Input
-                  type="text"
-                  name="TestBarcode"
-                  id="testBarcode"
-                  placeholder="Test Barcode"
-                  onChange={onChange}
-                />
+              {testBarcode.map((val) => (
+                <Container style={{ margin: 0, padding: 0 }} key={uuid()}>
+                  <Label for="testBarcode">Test Barcode</Label>
+                  <Input
+                    type="text"
+                    name="TestBarcode"
+                    id="testBarcode"
+                    placeholder="Test Barcode"
+                    onChange={onChange}
+                  />
                 </Container>
               ))}
-              <Button color="light" style={{ marginTop: "2rem" }} block onClick={addRow}>
+              <Button
+                color="light"
+                style={{ marginTop: "2rem" }}
+                block
+                onClick={addRow}
+              >
                 Add more rows
               </Button>
               <Button color="dark" style={{ marginTop: "2rem" }} block>
