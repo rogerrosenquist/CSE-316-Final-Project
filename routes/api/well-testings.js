@@ -41,4 +41,31 @@ router.delete("/:id", (req, res) => {
     .catch((err) => res.status(404).json({ message: "unsuccessful delete" }));
 });
 
+// @route PUT api/well-testings
+// @desc Update a WellTesting
+// @access Public
+router.put("/:id", (req, res) => {
+  const updatedWellTesting = req.body;
+
+  WellTesting.findByIdAndUpdate(
+    updatedWellTesting._id,
+    updatedWellTesting,
+    (err, updatedValue) => {
+      if (err) {
+        res.json({
+          updatedWellTesting,
+          success: false,
+          msg: "Failed to update WellTesting",
+        });
+      } else {
+        res.json({
+          updatedWellTesting,
+          success: true,
+          msg: "WellTesting updated",
+        });
+      }
+    }
+  );
+});
+
 module.exports = router;
