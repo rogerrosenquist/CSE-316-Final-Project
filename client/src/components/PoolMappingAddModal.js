@@ -39,16 +39,16 @@ const PoolMappingAddModal = (props) => {
     }
     if (index > -1) {
       let id = testBarcode[index].id;
-      //testBarcode[index] = e.target.value;
-      setTestBarcode(testBarcode.filter(test => {
-        if (test._id == id) {
-          return e.target.val;
-        }
-        else {
-          return test.val;
-        }
-      }));
-      //console.log(e.target.value);
+      let newVal = e.target.value;
+      setTestBarcode(
+        testBarcode.map((test) => {
+          if (test.id == id) {
+            test.val = newVal;
+          }
+          return test;
+        })
+      );
+      console.log(testBarcode);
     }
   };
 
@@ -63,7 +63,7 @@ const PoolMappingAddModal = (props) => {
       currentIndex++;
     }
     return index;
-  }
+  };
 
   let onSubmit = (e) => {
     e.preventDefault();
@@ -81,8 +81,8 @@ const PoolMappingAddModal = (props) => {
   let addRow = () => {
     totalTests = totalTests + 1;
     let obj = {};
-    obj["id"] = "testBarcode"+totalTests;
-    obj["name"] = "TestBarcode"+totalTests;
+    obj["id"] = "testBarcode" + totalTests;
+    obj["name"] = "TestBarcode" + totalTests;
     obj["val"] = 0;
     setTestBarcode([...testBarcode, obj]);
   };
@@ -90,9 +90,13 @@ const PoolMappingAddModal = (props) => {
   let delRow = (id) => {
     let index = getIndex(id);
     if (index > -1) {
-      setTestBarcode(testBarcode.slice(0,index).concat(testBarcode.slice(index+1,testBarcode.size)));
+      setTestBarcode(
+        testBarcode
+          .slice(0, index)
+          .concat(testBarcode.slice(index + 1, testBarcode.size))
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -121,6 +125,7 @@ const PoolMappingAddModal = (props) => {
                     name={val.name}
                     id={val.id}
                     placeholder={val.name}
+                    value={testBarcode[getIndex(val.id)].val}
                     onChange={testChange}
                   />
                   <Button

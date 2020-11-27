@@ -36,4 +36,31 @@ router.delete("/:id", (req, res) => {
     .catch((err) => res.status(404).json({ message: "unsuccessful delete" }));
 });
 
+// @route PUT api/pool-maps
+// @desc Update a PoolMap
+// @access Public
+router.put("/:id", (req, res) => {
+  const updatedPoolMap = req.body;
+
+  PoolMap.findByIdAndUpdate(
+    updatedPoolMap._id,
+    updatedPoolMap,
+    (err, updatedValue) => {
+      if (err) {
+        res.json({
+          updatedPoolMap,
+          success: false,
+          msg: "Failed to update PoolMap",
+        });
+      } else {
+        res.json({
+          updatedPoolMap,
+          success: true,
+          msg: "PoolMap updated",
+        });
+      }
+    }
+  );
+});
+
 module.exports = router;
