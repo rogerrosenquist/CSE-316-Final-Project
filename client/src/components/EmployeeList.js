@@ -6,7 +6,6 @@ import { getEmployees, deleteEmployee } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 import EmployeeModal from "./EmployeeModal";
 import EmployeeEditModal from "./EmployeeEditModal";
-import store from "../store";
 
 const EmployeeList = (props) => {
   let { employees } = props.employee;

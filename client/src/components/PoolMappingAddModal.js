@@ -118,7 +118,7 @@ const PoolMappingAddModal = (props) => {
                 onChange={onChange}
               />
               {testBarcode.map((val) => (
-                <Container style={{ margin: 0, padding: 0 }} key={uuid()}>
+                <Container style={{ margin: 0, padding: 0 }} key={val.id}>
                   <Label for={val.id}>Test Barcode</Label>
                   <Input
                     type="text"

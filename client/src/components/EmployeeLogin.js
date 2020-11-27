@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Redirect, Route, withRouter } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import {
   Container,
-  ListGroup,
-  ListGroupItem,
   Button,
   Col,
   Form,
@@ -11,12 +9,9 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getEmployees } from "../actions/employeeActions";
 import PropTypes from "prop-types";
-import store from "../store";
-import Results from "./Results";
 
 const EmployeeLogin = (props) => {
   const [emailInput, setEmail] = useState("");

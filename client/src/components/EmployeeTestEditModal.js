@@ -1,8 +1,4 @@
-/**
- * THIS FILE IS FOR TESTING PURPOSES ONLY
- */
-
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -14,10 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import {
-  setEmployeeTestsLoading,
-  updateEmployeeTest,
-} from "../actions/employeeTestActions";
+import { updateEmployeeTest } from "../actions/employeeTestActions";
 
 import PropTypes from "prop-types";
 
@@ -48,17 +41,17 @@ const EmployeeTestEditModal = (props) => {
     const updatedEmployeeTest = {
       _id: employeeTest._id,
       employeeID: employeeID,
-      testBarcode: testBarcode
+      testBarcode: testBarcode,
     };
 
     props.updateEmployeeTest(updatedEmployeeTest);
     toggle();
   };
 
-// probably not needed
-//   let checkboxHandler = (e) => {
-//     setIsLabWorker(!isLabWorker);
-//   };
+  // probably not needed
+  //   let checkboxHandler = (e) => {
+  //     setIsLabWorker(!isLabWorker);
+  //   };
 
   return (
     <div style={{ float: "right" }}>
@@ -95,7 +88,7 @@ const EmployeeTestEditModal = (props) => {
                 value={testBarcode}
                 onChange={onChange}
               />
-              </FormGroup>
+            </FormGroup>
             <Button color="dark" style={{ marginTop: "2rem" }} block>
               Update EmployeeTest
             </Button>
@@ -112,4 +105,6 @@ const mapStateToProps = (state) => ({
   employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, { updateEmployeeTest })(EmployeeTestEditModal);
+export default connect(mapStateToProps, { updateEmployeeTest })(
+  EmployeeTestEditModal
+);

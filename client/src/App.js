@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AppNavbar from "./components/AppNavbar";
 import ItemModal from "./components/ItemModal"; // TESTING PURPOSES
 import ItemList from "./components/ItemList"; // TESTING PURPOSES
-import EmployeeModal from "./components/EmployeeModal";
 import EmployeeList from "./components/EmployeeList";
 import Login from "./components/Login"; //Testing Login layout
 import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin layout

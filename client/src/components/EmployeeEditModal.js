@@ -2,7 +2,7 @@
  * THIS FILE IS FOR TESTING PURPOSES ONLY
  */
 
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Modal,
@@ -14,10 +14,7 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import {
-  setEmployeesLoading,
-  updateEmployee,
-} from "../actions/employeeActions";
+import { updateEmployee } from "../actions/employeeActions";
 
 import PropTypes from "prop-types";
 
@@ -147,7 +144,10 @@ const EmployeeEditModal = (props) => {
   );
 };
 
-EmployeeEditModal.propTypes = {};
+EmployeeEditModal.propTypes = {
+  updateEmployee: PropTypes.func.isRequired,
+  employee: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   employee: state.employee,
