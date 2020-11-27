@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { useHistory, Redirect, withRouter } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
@@ -13,6 +14,11 @@ const PoolMapping = (props) => {
   useEffect(() => {
     props.getPoolMaps();
   }, []);
+
+  if (!props.location.state) {
+    console.log(props);
+    return <Redirect to="/labtech" />;
+  }
 
   let onDeleteClickPool = (id) => {
     console.log(id);
@@ -108,6 +114,6 @@ const mapStateToProps = (state) => ({
   poolMap: state.poolMap,
 });
 
-export default connect(mapStateToProps, { getPoolMaps, deletePoolMap })(
-  PoolMapping
+export default withRouter(
+  connect(mapStateToProps, { getPoolMaps, deletePoolMap })(PoolMapping)
 );
