@@ -14,6 +14,8 @@ import { connect } from "react-redux";
 import { addPoolMap } from "../actions/poolMapActions";
 import { v4 as uuid } from "uuid";
 
+let totalTests = 0;
+
 const PoolMappingAddModal = (props) => {
   const [modal, setModal] = useState(false);
   const [poolBarcode, setPoolBarcode] = useState(0);
@@ -25,21 +27,58 @@ const PoolMappingAddModal = (props) => {
     change(e.target.value);
   };
 
+  let testChange = (e) => {
+    let currentIndex = 0;
+    let index = -1;
+    for (var x of testBarcode) {
+      if (x.id == e.target.id) {
+        index = currentIndex;
+        break;
+      }
+      currentIndex++;
+    }
+    if (index > -1) {
+      testBarcode[index].val = e.target.value;
+      console.log(e.target.value);
+    }
+  }
+
   let onSubmit = (e) => {
     e.preventDefault();
-    const newPoolMap = {
+    let newPoolMap = {
       poolBarcode: poolBarcode,
-      testBarcode: testBarcode,
+      testBarcode: -1,
     };
-
-    props.addPoolMap(newPoolMap);
+    for (var x of testBarcode) {
+      newPoolMap["testBarcode"] = x.val;
+      props.addPoolMap(newPoolMap);
+    }
     toggle();
   };
 
   let addRow = () => {
-    setTestBarcode([...testBarcode, 0]);
-    console.log(testBarcode);
+    totalTests = totalTests + 1;
+    let obj = {};
+    obj["id"] = "testBarcode"+totalTests;
+    obj["name"] = "TestBarcode"+totalTests;
+    obj["val"] = 0;
+    setTestBarcode([...testBarcode, obj]);
   };
+
+  let delRow = (id) => {
+    let currentIndex = 0;
+    let index = -1;
+    for (var x of testBarcode) {
+      if (x.id == id) {
+        index = currentIndex;
+        break;
+      }
+      currentIndex++;
+    }
+    if (index > -1) {
+      setTestBarcode(testBarcode.slice(0,index).concat(testBarcode.slice(index+1,testBarcode.size)));
+    }
+  }
 
   return (
     <div>
@@ -62,14 +101,20 @@ const PoolMappingAddModal = (props) => {
               />
               {testBarcode.map((val) => (
                 <Container style={{ margin: 0, padding: 0 }} key={uuid()}>
-                  <Label for="testBarcode">Test Barcode</Label>
+                  <Label for={val.id}>Test Barcode</Label>
                   <Input
                     type="text"
-                    name="TestBarcode"
-                    id="testBarcode"
-                    placeholder="Test Barcode"
-                    onChange={onChange}
+                    name={val.name}
+                    id={val.id}
+                    placeholder={val.name}
+                    onChange={testChange}
                   />
+                  <Button
+                    className="remove-btn"
+                    color="danger"
+                    size="sm"
+                    onClick={delRow.bind(this, val.id)}
+                  ></Button>
                 </Container>
               ))}
               <Button
