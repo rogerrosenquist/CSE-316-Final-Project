@@ -17,6 +17,8 @@ import { v4 as uuid } from "uuid";
 let totalTests = 0;
 
 const PoolMappingEditModal = (props) => {
+  // console.log(props);
+
   const oldPool = props.id;
   const poolMap = props.poolMap.poolMaps.filter(
     (poolMap) => poolMap.poolBarcode == props.id
@@ -53,6 +55,7 @@ const PoolMappingEditModal = (props) => {
 
   useEffect(() => {
     populateRows();
+    setPoolBarcode(props.id);
   }, [modal]);
 
   let testChange = (e) => {
@@ -97,14 +100,19 @@ const PoolMappingEditModal = (props) => {
   let onSubmit = (e) => {
     e.preventDefault();
     //delete original pool, then insert all new ones
-    
-    poolMap.map((element) => { //code copied from poolMapping, deletes all of specific pool
+
+    poolMap.map((element) => {
+      //code copied from poolMapping, deletes all of specific pool
       console.log(element._id);
       props.deletePoolMap(element._id);
     });
 
+    // console.log(testBarcode);
+    // setPoolBarcode(props.id);
+    // console.log(poolBarcode);
+    // console.log(props.id);
     let newPoolMap = {
-      poolBarcode: poolBarcode,
+      poolBarcode: props.id,
       testBarcode: -1,
     };
     for (var x of testBarcode) {
