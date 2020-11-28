@@ -119,7 +119,7 @@ function App() {
             path="/"
             render={() => (
               <div>
-                <h4>404 Page not found component placeholder</h4>
+                <h4>404 Page not found </h4>
               </div>
             )}
           />

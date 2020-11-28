@@ -25,16 +25,23 @@ const EmployeeEditModal = (props) => {
   const [email, setEmail] = useState("");
   const [passcode, setPasscode] = useState("");
   const [isLabWorker, setIsLabWorker] = useState(false);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+    resetModalInput();
+  };
+
+  let resetModalInput = () => {
+    setEmployeeID(employee.employeeID);
+    setFirstName(employee.firstName);
+    setLastName(employee.lastName);
+    setEmail(employee.email);
+    setPasscode(employee.passcode);
+    setIsLabWorker(employee.isLabWorker);
+  };
 
   useEffect(() => {
     if (employee) {
-      setEmployeeID(employee.employeeID);
-      setFirstName(employee.firstName);
-      setLastName(employee.lastName);
-      setEmail(employee.email);
-      setPasscode(employee.passcode);
-      setIsLabWorker(employee.isLabWorker);
+      resetModalInput();
     }
   }, [employee]);
 

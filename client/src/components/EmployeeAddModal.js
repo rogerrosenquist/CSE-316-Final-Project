@@ -10,7 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addEmployee } from "../actions/employeeActions";
+import { addEmployee, setEmployeesLoading } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 
 const EmployeeAddModal = (props) => {
@@ -19,7 +19,17 @@ const EmployeeAddModal = (props) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [passcode, setPasscode] = useState("");
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+    resetModalInput();
+  };
+
+  let resetModalInput = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPasscode("");
+  };
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
