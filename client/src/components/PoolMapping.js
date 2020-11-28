@@ -27,10 +27,17 @@ const PoolMapping = (props) => {
     poolGroup.map((poolMap) => {
       props.deletePoolMap(poolMap._id);
     });
+
+    // cascade delete: look into delete flags.
   };
 
   let onDeleteClickPoolMap = (id) => {
     props.deletePoolMap(id);
+
+    // check if the poolBarcode of this poolMap still exists
+    // if not, cascade delete pool
+    // delete all wellTesting with the same poolBarcode
+    // delete that well
   };
 
   // Group data by key
@@ -67,7 +74,7 @@ const PoolMapping = (props) => {
                     Pool: {key} <br />
                     <br />
                     <ListGroup>
-                      {values.map(({ _id, testBarcode, poolBarcode }) => (
+                      {values.map(({ _id, testBarcode }) => (
                         <CSSTransition
                           key={_id}
                           timeout={500}
