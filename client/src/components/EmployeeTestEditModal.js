@@ -18,7 +18,7 @@ import {
 import PropTypes from "prop-types";
 
 let isTestBarcodeSameAsBefore = (employeeTest, testBarcode) => {
-  if (employeeTest.testBarcode == testBarcode) {
+  if (employeeTest.testBarcode === testBarcode) {
     return true;
   }
   return false;
@@ -26,7 +26,7 @@ let isTestBarcodeSameAsBefore = (employeeTest, testBarcode) => {
 
 const EmployeeTestEditModal = (props) => {
   // debug output
-  console.log(props);
+  // console.log(props);
 
   const { employees } = props.employee;
   const { employeeTests } = props.employeeTest;
@@ -43,6 +43,11 @@ const EmployeeTestEditModal = (props) => {
     resetModalInput();
   };
 
+  let resetModalInput = () => {
+    setEmployeeID(employeeTest.employeeID);
+    setTestBarcode(employeeTest.testBarcode);
+  };
+
   useEffect(() => {
     props.getEmployees();
   }, []);
@@ -52,11 +57,6 @@ const EmployeeTestEditModal = (props) => {
       resetModalInput();
     }
   }, [employeeTest]);
-
-  let resetModalInput = () => {
-    setEmployeeID(employeeTest.employeeID);
-    setTestBarcode(employeeTest.testBarcode);
-  };
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);

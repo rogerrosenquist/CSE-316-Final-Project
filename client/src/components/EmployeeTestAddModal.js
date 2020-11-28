@@ -27,7 +27,15 @@ const EmployeeTestAddModal = (props) => {
   const [modal, setModal] = useState(false);
   const [employeeID, setEmployeeID] = useState(0);
   const [testBarcode, setTestBarcode] = useState(0);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+    resetModalInput();
+  };
+
+  let resetModalInput = () => {
+    setEmployeeID(0);
+    setTestBarcode(0);
+  };
 
   useEffect(() => {
     props.getEmployees();
@@ -40,10 +48,6 @@ const EmployeeTestAddModal = (props) => {
 
   let onSubmit = (e) => {
     e.preventDefault();
-
-    // sake of using it
-    // setEmployeeID(employeeID);
-    // setTestBarcode(testBarcode);
 
     // integrity check: does employee exist
     let exist = props.doesEmployeeExist(employees, employeeID);

@@ -32,6 +32,9 @@ let isTestBarcodeUnique = (employeeTests, testBarcode) => {
 };
 
 const TestCollection = (props) => {
+  // debug output
+  // console.log(props);
+
   const { employeeTests } = props.employeeTest;
 
   useEffect(() => {
