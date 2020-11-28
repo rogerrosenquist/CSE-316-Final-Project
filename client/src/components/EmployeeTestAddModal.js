@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -10,28 +10,83 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addEmployeeTest } from "../actions/employeeTestActions";
+import {
+  getEmployeeTests,
+  addEmployeeTest,
+} from "../actions/employeeTestActions";
+import { getEmployees } from "../actions/employeeActions";
+import PropTypes from "prop-types";
 
-const EmployeeTestModal = (props) => {
+const EmployeeTestAddModal = (props) => {
+  // global
+  const { employees } = props.employee;
+  const { employeeTests } = props.employeeTest;
+
+  // local
   const [modal, setModal] = useState(false);
   const [employeeID, setEmployeeID] = useState(0);
   const [testBarcode, setTestBarcode] = useState(0);
   const toggle = () => setModal(!modal);
 
+  // get employees
+  useEffect(() => {
+    props.getEmployees();
+  }, []);
+
+  // update local state
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
     change(e.target.value);
   };
 
+  // handle add new employee test
   let onSubmit = (e) => {
     e.preventDefault();
+
+    // integrity check: does employee exist
+    let exist = doesEmployeeExist();
+    if (!exist) {
+      alert("Employee does not exist! Please input a valid Employee ID.");
+      return;
+    }
+
+    // integrity check: is newly input testbarcode unique
+    let unique = isTestBarcodeUnique();
+    if (!unique) {
+      alert("Test barcode is not unique! Please input a unique test barcode.");
+      return;
+    }
+
     const newEmployeeTest = {
       employeeID: employeeID,
       testBarcode: testBarcode,
     };
-    console.log(newEmployeeTest);
+
+    // debug output
+    // console.log("Added new employee test: ", newEmployeeTest);
+
     props.addEmployeeTest(newEmployeeTest);
     toggle();
+  };
+
+  let doesEmployeeExist = () => {
+    let exist = false;
+    employees.forEach((employee) => {
+      if (employee.employeeID == employeeID) {
+        exist = true;
+      }
+    });
+    return exist;
+  };
+
+  let isTestBarcodeUnique = () => {
+    let unique = true;
+    employeeTests.forEach((employeeTest) => {
+      if (employeeTest.testBarcode == testBarcode) {
+        unique = false;
+      }
+    });
+    return unique;
   };
 
   return (
@@ -72,8 +127,20 @@ const EmployeeTestModal = (props) => {
   );
 };
 
+EmployeeTestAddModal.propTypes = {
+  employee: PropTypes.object.isRequired,
+  getEmployees: PropTypes.func.isRequired,
+  employeeTest: PropTypes.object.isRequired,
+  getEmployeeTests: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
+  employee: state.employee,
   employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, { addEmployeeTest })(EmployeeTestModal);
+export default connect(mapStateToProps, {
+  getEmployees,
+  getEmployeeTests,
+  addEmployeeTest,
+})(EmployeeTestAddModal);
