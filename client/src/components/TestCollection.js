@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory, Redirect, withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import {
@@ -8,12 +8,31 @@ import {
 } from "../actions/employeeTestActions";
 import { connect } from "react-redux";
 import EmployeeTestEditModal from "./EmployeeTestEditModal";
-import EmployeeTestModal from "./EmployeeTestAddModal";
+import EmployeeTestAddModal from "./EmployeeTestAddModal";
 import PropTypes from "prop-types";
+
+let doesEmployeeExist = (employees, employeeID) => {
+  let exist = false;
+  employees.forEach((employee) => {
+    if (employee.employeeID == employeeID) {
+      exist = true;
+    }
+  });
+  return exist;
+};
+
+let isTestBarcodeUnique = (employeeTests, testBarcode) => {
+  let unique = true;
+  employeeTests.forEach((employeeTest) => {
+    if (employeeTest.testBarcode == testBarcode) {
+      unique = false;
+    }
+  });
+  return unique;
+};
 
 const TestCollection = (props) => {
   const { employeeTests } = props.employeeTest;
-  const history = useHistory();
 
   useEffect(() => {
     props.getEmployeeTests();
@@ -24,19 +43,25 @@ const TestCollection = (props) => {
   };
 
   if (!props.location.state) {
-    console.log(props);
     return <Redirect to="/labtech" />;
   }
 
   return (
     <Container>
-      <EmployeeTestModal />
+      <EmployeeTestAddModal
+        doesEmployeeExist={doesEmployeeExist}
+        isTestBarcodeUnique={isTestBarcodeUnique}
+      />
       <ListGroup>
         <TransitionGroup className="test-collection">
           {employeeTests.map(({ _id, employeeID, testBarcode }) => (
             <CSSTransition key={_id} timeout={500} classNames="fade">
               <ListGroupItem>
-                <EmployeeTestEditModal id={_id} />
+                <EmployeeTestEditModal
+                  _id={_id}
+                  doesEmployeeExist={doesEmployeeExist}
+                  isTestBarcodeUnique={isTestBarcodeUnique}
+                />
                 &nbsp;
                 <Button
                   className="remove-btn"
@@ -59,9 +84,9 @@ const TestCollection = (props) => {
 };
 
 TestCollection.propTypes = {
+  employeeTest: PropTypes.object.isRequired,
   getEmployeeTests: PropTypes.func.isRequired,
   deleteEmployeeTest: PropTypes.func.isRequired,
-  employeeTest: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

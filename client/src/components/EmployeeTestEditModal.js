@@ -10,26 +10,53 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { updateEmployeeTest } from "../actions/employeeTestActions";
-
+import { getEmployees } from "../actions/employeeActions";
+import {
+  getEmployeeTests,
+  updateEmployeeTest,
+} from "../actions/employeeTestActions";
 import PropTypes from "prop-types";
 
+let isTestBarcodeSameAsBefore = (employeeTest, testBarcode) => {
+  if (employeeTest.testBarcode == testBarcode) {
+    return true;
+  }
+  return false;
+};
+
 const EmployeeTestEditModal = (props) => {
-  const employeeTest = props.employeeTest.employeeTests.filter(
-    (employeeTest) => employeeTest._id === props.id
+  // debug output
+  console.log(props);
+
+  const { employees } = props.employee;
+  const { employeeTests } = props.employeeTest;
+
+  const employeeTest = employeeTests.filter(
+    (employeeTest) => employeeTest._id === props._id
   )[0];
 
   const [modal, setModal] = useState(false);
   const [employeeID, setEmployeeID] = useState(0);
   const [testBarcode, setTestBarcode] = useState(0);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+    resetModalInput();
+  };
+
+  useEffect(() => {
+    props.getEmployees();
+  }, []);
 
   useEffect(() => {
     if (employeeTest) {
-      setEmployeeID(employeeTest.employeeID);
-      setTestBarcode(employeeTest.testBarcode);
+      resetModalInput();
     }
   }, [employeeTest]);
+
+  let resetModalInput = () => {
+    setEmployeeID(employeeTest.employeeID);
+    setTestBarcode(employeeTest.testBarcode);
+  };
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
@@ -38,6 +65,22 @@ const EmployeeTestEditModal = (props) => {
 
   let onSubmit = (e) => {
     e.preventDefault();
+
+    // integrity check: does employee exist
+    let exist = props.doesEmployeeExist(employees, employeeID);
+    if (!exist) {
+      alert("Employee does not exist! Please input a valid Employee ID.");
+      return;
+    }
+
+    // integrity check: is newly input testbarcode unique
+    let unique = props.isTestBarcodeUnique(employeeTests, testBarcode);
+    let sameAsBefore = isTestBarcodeSameAsBefore(employeeTest, testBarcode);
+    if (!unique && !sameAsBefore) {
+      alert("Test barcode is not unique! Please input a unique test barcode.");
+      return;
+    }
+
     const updatedEmployeeTest = {
       _id: employeeTest._id,
       employeeID: employeeID,
@@ -47,11 +90,6 @@ const EmployeeTestEditModal = (props) => {
     props.updateEmployeeTest(updatedEmployeeTest);
     toggle();
   };
-
-  // probably not needed
-  //   let checkboxHandler = (e) => {
-  //     setIsLabWorker(!isLabWorker);
-  //   };
 
   return (
     <div style={{ float: "right" }}>
@@ -99,12 +137,20 @@ const EmployeeTestEditModal = (props) => {
   );
 };
 
-EmployeeTestEditModal.propTypes = {};
+EmployeeTestEditModal.propTypes = {
+  employee: PropTypes.object.isRequired,
+  getEmployees: PropTypes.func.isRequired,
+  employeeTest: PropTypes.object.isRequired,
+  getEmployeeTests: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
+  employee: state.employee,
   employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, { updateEmployeeTest })(
-  EmployeeTestEditModal
-);
+export default connect(mapStateToProps, {
+  getEmployees,
+  getEmployeeTests,
+  updateEmployeeTest,
+})(EmployeeTestEditModal);

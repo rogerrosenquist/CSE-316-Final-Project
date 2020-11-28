@@ -10,14 +10,17 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
+import { getEmployees } from "../actions/employeeActions";
 import {
   getEmployeeTests,
   addEmployeeTest,
 } from "../actions/employeeTestActions";
-import { getEmployees } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 
 const EmployeeTestAddModal = (props) => {
+  // debug output
+  // console.log(props);
+
   const { employees } = props.employee;
   const { employeeTests } = props.employeeTest;
 
@@ -38,15 +41,19 @@ const EmployeeTestAddModal = (props) => {
   let onSubmit = (e) => {
     e.preventDefault();
 
+    // sake of using it
+    // setEmployeeID(employeeID);
+    // setTestBarcode(testBarcode);
+
     // integrity check: does employee exist
-    let exist = doesEmployeeExist();
+    let exist = props.doesEmployeeExist(employees, employeeID);
     if (!exist) {
       alert("Employee does not exist! Please input a valid Employee ID.");
       return;
     }
 
     // integrity check: is newly input testbarcode unique
-    let unique = isTestBarcodeUnique();
+    let unique = props.isTestBarcodeUnique(employeeTests, testBarcode);
     if (!unique) {
       alert("Test barcode is not unique! Please input a unique test barcode.");
       return;
@@ -62,26 +69,6 @@ const EmployeeTestAddModal = (props) => {
 
     props.addEmployeeTest(newEmployeeTest);
     toggle();
-  };
-
-  let doesEmployeeExist = () => {
-    let exist = false;
-    employees.forEach((employee) => {
-      if (employee.employeeID == employeeID) {
-        exist = true;
-      }
-    });
-    return exist;
-  };
-
-  let isTestBarcodeUnique = () => {
-    let unique = true;
-    employeeTests.forEach((employeeTest) => {
-      if (employeeTest.testBarcode == testBarcode) {
-        unique = false;
-      }
-    });
-    return unique;
   };
 
   return (
