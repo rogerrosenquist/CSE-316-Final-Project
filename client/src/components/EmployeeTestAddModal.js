@@ -18,28 +18,23 @@ import { getEmployees } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 
 const EmployeeTestAddModal = (props) => {
-  // global
   const { employees } = props.employee;
   const { employeeTests } = props.employeeTest;
 
-  // local
   const [modal, setModal] = useState(false);
   const [employeeID, setEmployeeID] = useState(0);
   const [testBarcode, setTestBarcode] = useState(0);
   const toggle = () => setModal(!modal);
 
-  // get employees
   useEffect(() => {
     props.getEmployees();
   }, []);
 
-  // update local state
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
     change(e.target.value);
   };
 
-  // handle add new employee test
   let onSubmit = (e) => {
     e.preventDefault();
 

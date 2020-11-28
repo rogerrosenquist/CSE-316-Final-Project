@@ -11,8 +11,9 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addEmployee } from "../actions/employeeActions";
+import PropTypes from "prop-types";
 
-const EmployeeModal = (props) => {
+const EmployeeAddModal = (props) => {
   const [modal, setModal] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -93,8 +94,13 @@ const EmployeeModal = (props) => {
   );
 };
 
+EmployeeAddModal.propTypes = {
+  employee: PropTypes.object.isRequired,
+  addEmployee: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   employee: state.employee,
 });
 
-export default connect(mapStateToProps, { addEmployee })(EmployeeModal);
+export default connect(mapStateToProps, { addEmployee })(EmployeeAddModal);

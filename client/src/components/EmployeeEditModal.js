@@ -1,7 +1,3 @@
-/**
- * THIS FILE IS FOR TESTING PURPOSES ONLY
- */
-
 import React, { useEffect, useState } from "react";
 import {
   Button,
@@ -15,7 +11,6 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { updateEmployee } from "../actions/employeeActions";
-
 import PropTypes from "prop-types";
 
 const EmployeeEditModal = (props) => {
@@ -145,8 +140,8 @@ const EmployeeEditModal = (props) => {
 };
 
 EmployeeEditModal.propTypes = {
-  updateEmployee: PropTypes.func.isRequired,
   employee: PropTypes.object.isRequired,
+  updateEmployee: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

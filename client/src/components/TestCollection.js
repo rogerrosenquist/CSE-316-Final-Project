@@ -1,7 +1,3 @@
-/**
- * Also called TestCollection.js
- */
-
 import React, { useEffect } from "react";
 import { useHistory, Redirect, withRouter } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";

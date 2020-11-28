@@ -3,9 +3,9 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getEmployees, deleteEmployee } from "../actions/employeeActions";
-import PropTypes from "prop-types";
-import EmployeeModal from "./EmployeeModal";
+import EmployeeModal from "./EmployeeAddModal";
 import EmployeeEditModal from "./EmployeeEditModal";
+import PropTypes from "prop-types";
 
 const EmployeeList = (props) => {
   let { employees } = props.employee;
@@ -103,9 +103,9 @@ const EmployeeList = (props) => {
 };
 
 EmployeeList.propTypes = {
+  employee: PropTypes.object.isRequired,
   getEmployees: PropTypes.func.isRequired,
   deleteEmployee: PropTypes.func.isRequired,
-  employee: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
