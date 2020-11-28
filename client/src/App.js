@@ -12,15 +12,15 @@ import AppNavbar from "./components/AppNavbar";
 import ItemModal from "./components/ItemModal"; // TESTING PURPOSES
 import ItemList from "./components/ItemList"; // TESTING PURPOSES
 import EmployeeList from "./components/EmployeeList";
-import Login from "./components/Login"; //Testing Login layout
-import EmployeeLogin from "./components/EmployeeLogin"; // Testing EmployeeLogin layout
-import LabHome from "./components/LabHome"; // Testing LabHome
 
 // Application screens
 import PoolMapping from "./components/PoolMapping";
 import Results from "./components/Results.js";
 import TestCollection from "./components/TestCollection.js";
 import WellTesting from "./components/WellTesting.js";
+import Login from "./components/Login";
+import EmployeeLogin from "./components/EmployeeLogin";
+import LabHome from "./components/LabHome";
 
 // Redux testing component
 import TestComponent from "./components/TestComponent"; // TESTING PURPOSES
