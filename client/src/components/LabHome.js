@@ -1,17 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory, Redirect, withRouter } from "react-router-dom";
 import { Container, Button } from "reactstrap";
-import { connect } from "react-redux";
-import { getEmployeeTests } from "../actions/employeeTestActions";
-import PropTypes from "prop-types";
 
 const LabHome = (props) => {
-  const history = useHistory();
-  console.log(props);
+  // debug output
+  // console.log(props);
 
-  useEffect(() => {
-    props.getEmployeeTests();
-  }, []);
+  const history = useHistory();
 
   let changePaths = (e, path) => {
     e.preventDefault();
@@ -56,12 +51,4 @@ const LabHome = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  employeeTest: state.employeeTest,
-});
-
-export default withRouter(
-  connect(mapStateToProps, {
-    getEmployeeTests,
-  })(LabHome)
-);
+export default withRouter(LabHome);
