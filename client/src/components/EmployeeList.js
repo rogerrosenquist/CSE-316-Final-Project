@@ -3,7 +3,7 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getEmployees, deleteEmployee } from "../actions/employeeActions";
-import EmployeeModal from "./EmployeeAddModal";
+import EmployeeAddModal from "./EmployeeAddModal";
 import EmployeeEditModal from "./EmployeeEditModal";
 import PropTypes from "prop-types";
 
@@ -45,7 +45,7 @@ const EmployeeList = (props) => {
 
   return (
     <Container>
-      <EmployeeModal />
+      <EmployeeAddModal />
       <ListGroup>
         <TransitionGroup className="employee-list">
           {

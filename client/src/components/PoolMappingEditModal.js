@@ -139,7 +139,11 @@ const PoolMappingEditModal = (props) => {
 
   return (
     <div>
-      <Button color="dark" style={{ marginBottom: "2rem" }} onClick={toggle}>
+      <Button
+        color="dark"
+        style={{ marginBottom: "2rem", float: "right" }}
+        onClick={toggle}
+      >
         Edit Pool Mapping
       </Button>
 

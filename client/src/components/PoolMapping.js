@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
-import { useHistory, Redirect, withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
@@ -9,27 +9,27 @@ import PoolMappingAddModal from "./PoolMappingAddModal";
 import PoolMappingEditModal from "./PoolMappingEditModal";
 
 const PoolMapping = (props) => {
-  let { poolMaps } = props.poolMap;
+  // debug output
+  // console.log(props);
+
+  const { poolMaps } = props.poolMap;
+  let groupedPoolMaps = poolMaps;
 
   useEffect(() => {
     props.getPoolMaps();
   }, []);
 
   if (!props.location.state) {
-    console.log(props);
     return <Redirect to="/labtech" />;
   }
 
-  let onDeleteClickPool = (id) => {
-    console.log(id);
-    id.map((element) => {
-      console.log(element._id);
-      props.deletePoolMap(element._id);
+  let onDeleteClickPool = (poolGroup) => {
+    poolGroup.map((poolMap) => {
+      props.deletePoolMap(poolMap._id);
     });
   };
 
-  let onDeleteClick = (id) => {
-    console.log(id);
+  let onDeleteClickPoolMap = (id) => {
     props.deletePoolMap(id);
   };
 
@@ -43,20 +43,18 @@ const PoolMapping = (props) => {
     }, {});
   };
 
-  let grouped = groupBy(poolMaps, "poolBarcode");
-  //console.log(grouped);
-
   return (
     <Container>
       <PoolMappingAddModal />
       <ListGroup>
-        <TransitionGroup className="poolMap-list">
+        <TransitionGroup className="poolMap">
           {
-            ((poolMaps = groupBy(poolMaps, "poolBarcode")),
-            Object.entries(poolMaps).map(([key, values]) => {
+            ((groupedPoolMaps = groupBy(poolMaps, "poolBarcode")),
+            Object.entries(groupedPoolMaps).map(([key, values]) => {
               return (
                 <CSSTransition key={key} timeout={500} classNames="fade">
                   <ListGroupItem>
+                    <PoolMappingEditModal id={key} />
                     &nbsp;
                     <Button
                       className="remove-btn"
@@ -68,7 +66,6 @@ const PoolMapping = (props) => {
                     </Button>
                     Pool: {key} <br />
                     <br />
-                    <PoolMappingEditModal id={key} />
                     <ListGroup>
                       {values.map(({ _id, testBarcode, poolBarcode }) => (
                         <CSSTransition
@@ -81,7 +78,7 @@ const PoolMapping = (props) => {
                               className="remove-btn"
                               color="danger"
                               size="sm"
-                              onClick={onDeleteClick.bind(this, _id)}
+                              onClick={onDeleteClickPoolMap.bind(this, _id)}
                             >
                               &times;
                             </Button>
@@ -101,13 +98,10 @@ const PoolMapping = (props) => {
   );
 };
 
-//{poolMaps.aggregate(({$group:{"_id":"$poolBarcode", "testBarcodes":{$push:"$testBarcode"}}}) => (
-//export default PoolMapping;
-
 PoolMapping.propTypes = {
+  poolMap: PropTypes.object.isRequired,
   getPoolMaps: PropTypes.func.isRequired,
   deletePoolMap: PropTypes.func.isRequired,
-  poolMap: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
