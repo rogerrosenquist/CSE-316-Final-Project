@@ -10,7 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addEmployee, setEmployeesLoading } from "../actions/employeeActions";
+import { addEmployee } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 
 const EmployeeAddModal = (props) => {
