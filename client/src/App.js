@@ -69,7 +69,7 @@ function App() {
             )}
             exact
           />
-          <Route path="/PoolMapping" render={() => <PoolMapping />} exact />
+          <Route path="/poolmapping" render={() => <PoolMapping />} exact />
           <Route
             path="/Zhen"
             render={() => (
@@ -80,7 +80,7 @@ function App() {
             exact
           />
           <Route
-            path="/WellTesting"
+            path="/welltesting"
             render={() => (
               <Container>
                 <WellTesting />
@@ -89,7 +89,7 @@ function App() {
             exact
           />
           <Route
-            path="/TestCollection"
+            path="/testcollection"
             render={() => (
               <Container>
                 <TestCollection />
@@ -98,7 +98,7 @@ function App() {
             exact
           />
           <Route
-            path="/Results"
+            path="/results"
             render={() => (
               <Container>
                 <Results />
@@ -107,7 +107,7 @@ function App() {
             exact
           />
           <Route
-            path="/LabHome"
+            path="/labhome"
             render={() => (
               <Container>
                 <LabHome />
