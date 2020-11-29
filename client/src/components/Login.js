@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Col,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-} from "reactstrap";
+import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { connect } from "react-redux";
 import { getEmployees } from "../actions/employeeActions";
 import PropTypes from "prop-types";
 
 const Login = (props) => {
+  const history = useHistory();
+
+  let { employees } = props.employee;
+
   const [employeeIDInput, setEmployeeID] = useState(0);
   const [passcodeInput, setPasscode] = useState("");
 
-  let { employees } = props.employee;
-  const history = useHistory();
+  // let resetInput = () => {
+  //   setEmployeeID(0);
+  //   setPasscode("");
+  // };
 
   useEffect(() => {
     props.getEmployees();
@@ -73,41 +71,40 @@ const Login = (props) => {
 
   return (
     <Container className="Login">
-      <h2>Login Page</h2>
+      <legend>Login Page</legend>
+      <hr />
       <Form className="form" onSubmit={onSubmit}>
-        <Col>
-          <FormGroup>
-            <Label>Lab ID:</Label>
-            <Input
-              type="text"
-              name="EmployeeID"
-              id="exampleEmployeeID"
-              placeholder="Lab ID"
-              onChange={onChange}
-            />
-          </FormGroup>
-        </Col>
-        <Col>
-          <FormGroup>
-            <Label for="examplePassword">Password</Label>
-            <Input
-              type="password"
-              name="Passcode"
-              id="examplePassword"
-              placeholder="********"
-              onChange={onChange}
-            />
-          </FormGroup>
-        </Col>
-        <Button color="primary">Lab Login</Button>
+        <FormGroup>
+          <Label for="employeeID">Lab ID</Label>
+          <Input
+            type="text"
+            name="EmployeeID"
+            id="employeeID"
+            placeholder="Lab ID"
+            onChange={onChange}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">Password</Label>
+          <Input
+            type="password"
+            name="Passcode"
+            id="password"
+            placeholder="********"
+            onChange={onChange}
+          />
+        </FormGroup>
+        <Button className="btn" color="dark">
+          Lab Login
+        </Button>
       </Form>
     </Container>
   );
 };
 
 Login.propTypes = {
-  getEmployees: PropTypes.func.isRequired,
   employee: PropTypes.object.isRequired,
+  getEmployees: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Col,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-} from "reactstrap";
+import { Container, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { connect } from "react-redux";
 import { getEmployees } from "../actions/employeeActions";
 import PropTypes from "prop-types";
@@ -62,41 +54,41 @@ const EmployeeLogin = (props) => {
 
   return (
     <Container className="EmployeeLogin">
-      <h2>Employee Login Page for Results </h2>
+      <legend>Employee Login Page for Results</legend>
+      <hr />
       <Form className="form" onSubmit={onSubmit}>
-        <Col>
-          <FormGroup>
-            <Label>Email:</Label>
-            <Input
-              type="email"
-              name="Email"
-              id="exampleEmail"
-              placeholder="example@email.com"
-              onChange={onChange}
-            />
-          </FormGroup>
-        </Col>
-        <Col>
-          <FormGroup>
-            <Label for="examplePassword">Password:</Label>
-            <Input
-              type="password"
-              name="Passcode"
-              id="examplePassword"
-              placeholder="********"
-              onChange={onChange}
-            />
-          </FormGroup>
-        </Col>
-        <Button color="primary">Login</Button>
+        <FormGroup>
+          <Label for="email">Email</Label>
+          <Input
+            type="email"
+            name="Email"
+            id="email"
+            placeholder="example@email.com"
+            onChange={onChange}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Label for="password">Password</Label>
+          <Input
+            type="password"
+            name="Passcode"
+            id="password"
+            placeholder="********"
+            onChange={onChange}
+          />
+        </FormGroup>
+        <Button className="btn" color="dark">
+          Login
+        </Button>
       </Form>
     </Container>
   );
 };
 
 EmployeeLogin.propTypes = {
-  getEmployees: PropTypes.func.isRequired,
   employee: PropTypes.object.isRequired,
+  getEmployees: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
