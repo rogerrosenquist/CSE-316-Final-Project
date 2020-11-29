@@ -31,6 +31,13 @@ let isTestBarcodeUnique = (employeeTests, testBarcode) => {
   return unique;
 };
 
+let isTestBarcodeSameAsBefore = (employeeTest, testBarcode) => {
+  if (parseInt(employeeTest.testBarcode) === parseInt(testBarcode)) {
+    return true;
+  }
+  return false;
+};
+
 const TestCollection = (props) => {
   // debug output
   // console.log(props);
@@ -54,6 +61,7 @@ const TestCollection = (props) => {
       <EmployeeTestAddModal
         doesEmployeeExist={doesEmployeeExist}
         isTestBarcodeUnique={isTestBarcodeUnique}
+        isTestBarcodeSameAsBefore={isTestBarcodeSameAsBefore}
       />
       <ListGroup>
         <TransitionGroup className="test-collection">
@@ -64,6 +72,7 @@ const TestCollection = (props) => {
                   _id={_id}
                   doesEmployeeExist={doesEmployeeExist}
                   isTestBarcodeUnique={isTestBarcodeUnique}
+                  isTestBarcodeSameAsBefore={isTestBarcodeSameAsBefore}
                 />
                 &nbsp;
                 <Button

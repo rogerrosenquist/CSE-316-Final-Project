@@ -17,13 +17,6 @@ import {
 } from "../actions/employeeTestActions";
 import PropTypes from "prop-types";
 
-let isTestBarcodeSameAsBefore = (employeeTest, testBarcode) => {
-  if (employeeTest.testBarcode === testBarcode) {
-    return true;
-  }
-  return false;
-};
-
 const EmployeeTestEditModal = (props) => {
   // debug output
   // console.log(props);
@@ -75,7 +68,10 @@ const EmployeeTestEditModal = (props) => {
 
     // integrity check: is newly input testbarcode unique
     let unique = props.isTestBarcodeUnique(employeeTests, testBarcode);
-    let sameAsBefore = isTestBarcodeSameAsBefore(employeeTest, testBarcode);
+    let sameAsBefore = props.isTestBarcodeSameAsBefore(
+      employeeTest,
+      testBarcode
+    );
     if (!unique && !sameAsBefore) {
       alert("Test barcode is not unique! Please input a unique test barcode.");
       return;

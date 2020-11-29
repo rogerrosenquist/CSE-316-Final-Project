@@ -12,12 +12,8 @@ import {
 import { connect } from "react-redux";
 import { getPools } from "../actions/poolActions";
 import { getWellTestings, addWellTesting } from "../actions/wellTestingActions";
-import { addWell } from "../actions/wellActions";
+import { getWells, addWell } from "../actions/wellActions";
 import PropTypes from "prop-types";
-
-const IN_PROGRESS = "in progress";
-const POSITIVE = "positive";
-const NEGATIVE = "negative";
 
 const WellTestingAddModal = (props) => {
   // debug output
@@ -25,9 +21,10 @@ const WellTestingAddModal = (props) => {
 
   const { pools } = props.pool;
   const { wellTestings } = props.wellTesting;
+  const { wells } = props.well;
 
   const [modal, setModal] = useState(false);
-  const [result, setResult] = useState(IN_PROGRESS);
+  const [result, setResult] = useState(props.IN_PROGRESS);
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [wellBarcode, setWellBarcode] = useState(0);
   const toggle = () => {
@@ -36,7 +33,7 @@ const WellTestingAddModal = (props) => {
   };
 
   let resetModalInput = () => {
-    setResult(IN_PROGRESS);
+    setResult(props.IN_PROGRESS);
     setPoolBarcode(0);
     setWellBarcode(0);
   };
@@ -48,6 +45,7 @@ const WellTestingAddModal = (props) => {
   let updateState = () => {
     props.getPools();
     props.getWellTestings();
+    props.getWells();
   };
 
   let onChange = (e) => {
@@ -59,14 +57,23 @@ const WellTestingAddModal = (props) => {
     e.preventDefault();
 
     // integrity check: does poolBarcode exist
-    let exist = props.doesPoolBarcodeExist(pools, poolBarcode);
+    let exist = props.doesNumberExist(pools, poolBarcode, "poolBarcode");
     if (!exist) {
       alert("Pool barcode does not exist! Please input a valid pool barcode.");
       return;
     }
 
+    // integrity check: is this poolBarcode already used by another well
+    let used = props.isNumberUsed(wellTestings, poolBarcode, "poolBarcode");
+    if (used) {
+      alert(
+        "Pool barcode is already used by another well! Please input a valid & unused pool barcode."
+      );
+      return;
+    }
+
     // integrity check: is the wellBarcode unique
-    let unique = props.isWellBarcodeUnique(wellTestings, wellBarcode);
+    let unique = props.isNumberUnique(wells, wellBarcode, "wellBarcode");
     if (!unique) {
       alert("Well barcode is not unique! Please input a unique well barcode.");
       return;
@@ -106,9 +113,9 @@ const WellTestingAddModal = (props) => {
                 id="result"
                 onChange={onChange}
               >
-                <option value={IN_PROGRESS}>{IN_PROGRESS}</option>
-                <option value={NEGATIVE}>{NEGATIVE}</option>
-                <option value={POSITIVE}>{POSITIVE}</option>
+                <option value={props.IN_PROGRESS}>{props.IN_PROGRESS}</option>
+                <option value={props.NEGATIVE}>{props.NEGATIVE}</option>
+                <option value={props.POSITIVE}>{props.POSITIVE}</option>
               </Input>
               <Label for="poolBarcode">Pool Barcode</Label>
               <Input
@@ -143,17 +150,21 @@ WellTestingAddModal.propTypes = {
   wellTesting: PropTypes.object.isRequired,
   addWellTesting: PropTypes.func.isRequired,
   getWellTestings: PropTypes.func.isRequired,
+  well: PropTypes.object.isRequired,
   addWell: PropTypes.func.isRequired,
+  getWells: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   pool: state.pool,
   wellTesting: state.wellTesting,
+  well: state.well,
 });
 
 export default connect(mapStateToProps, {
   getPools,
   getWellTestings,
   addWellTesting,
+  getWells,
   addWell,
 })(WellTestingAddModal);

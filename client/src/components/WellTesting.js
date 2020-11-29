@@ -11,24 +11,78 @@ import WellTestingAddModal from "./WellTestingAddModal";
 import WellTestingEditModal from "./WellTestingEditModal";
 import PropTypes from "prop-types";
 
-let doesPoolBarcodeExist = (pools, poolBarcode) => {
+const IN_PROGRESS = "in progress";
+const POSITIVE = "positive";
+const NEGATIVE = "negative";
+
+let doesNumberExist = (array, value, property) => {
   let exist = false;
-  pools.forEach((pool) => {
-    if (parseInt(pool.poolBarcode) === parseInt(poolBarcode)) {
+  array.forEach((element) => {
+    if (parseInt(element[property]) === parseInt(value)) {
       exist = true;
     }
   });
   return exist;
 };
 
-let isWellBarcodeUnique = (wellTestings, wellBarcode) => {
+let isNumberUnique = (array, value, property) => {
   let unique = true;
-  wellTestings.forEach((wellTesting) => {
-    if (parseInt(wellTesting.wellBarcode) === parseInt(wellBarcode)) {
+  array.forEach((element) => {
+    if (parseInt(element[property]) === parseInt(value)) {
       unique = false;
     }
   });
   return unique;
+};
+
+let isNumberUniqueExcept = (array, value, property, initialValue) => {
+  let unique = true;
+
+  // same value, treated as unique
+  if (parseInt(value) === parseInt(initialValue)) {
+    return unique;
+  }
+
+  array.forEach((element) => {
+    if (parseInt(element[property]) === parseInt(value)) {
+      unique = false;
+    }
+  });
+  return unique;
+};
+
+let isNumberUsed = (array, value, property) => {
+  let used = false;
+  array.forEach((element) => {
+    if (parseInt(element[property]) === parseInt(value)) {
+      used = true;
+    }
+  });
+  return used;
+};
+
+let isNumberUsedExcept = (array, value, property, initialValue) => {
+  let used = false;
+
+  // same value, treat as unused
+  if (parseInt(value) === parseInt(initialValue)) {
+    return used;
+  }
+
+  array.forEach((element) => {
+    if (parseInt(element[property]) === parseInt(value)) {
+      used = true;
+    }
+  });
+  return used;
+};
+
+let isNumberUpdated = (array, value, property) => {
+  let updated = false;
+  if (parseInt(array[property] === parseInt(value))) {
+    updated = true;
+  }
+  return updated;
 };
 
 const WellTesting = (props) => {
@@ -53,8 +107,12 @@ const WellTesting = (props) => {
   return (
     <Container>
       <WellTestingAddModal
-        doesPoolBarcodeExist={doesPoolBarcodeExist}
-        isWellBarcodeUnique={isWellBarcodeUnique}
+        doesNumberExist={doesNumberExist}
+        isNumberUnique={isNumberUnique}
+        isNumberUsed={isNumberUsed}
+        IN_PROGRESS={IN_PROGRESS}
+        POSITIVE={POSITIVE}
+        NEGATIVE={NEGATIVE}
       />
       <ListGroup>
         <TransitionGroup className="wellTesting-list">
@@ -69,7 +127,16 @@ const WellTesting = (props) => {
             }) => (
               <CSSTransition key={_id} timeout={500} classNames="fade">
                 <ListGroupItem>
-                  <WellTestingEditModal id={_id} />
+                  <WellTestingEditModal
+                    id={_id}
+                    doesNumberExist={doesNumberExist}
+                    isNumberUniqueExcept={isNumberUniqueExcept}
+                    isNumberUsedExcept={isNumberUsedExcept}
+                    isNumberUpdated={isNumberUpdated}
+                    IN_PROGRESS={IN_PROGRESS}
+                    POSITIVE={POSITIVE}
+                    NEGATIVE={NEGATIVE}
+                  />
                   <Button
                     className="remove-btn"
                     color="danger"

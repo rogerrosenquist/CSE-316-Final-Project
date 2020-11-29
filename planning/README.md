@@ -137,3 +137,6 @@ Some extra stuff that I should do.
 
 The code that does a `.forEach` runs through all of the values in the collection. It would be better to `break` out of the forEach once the value is found.
 https://stackoverflow.com/questions/2641347/short-circuit-array-foreach-like-calling-break
+
+Place repeated functions in the store.
+`doesNumberExist`, `isNumberUnique`, `isNumberUsed`
