@@ -4,40 +4,101 @@ import { Redirect, withRouter } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 import { getPoolMaps, deletePoolMap } from "../actions/poolMapActions";
-import PropTypes from "prop-types";
+import { getPools, deletePool } from "../actions/poolActions";
+import {
+  getWellTestings,
+  deleteWellTesting,
+} from "../actions/wellTestingActions";
+import { getWells, deleteWell } from "../actions/wellActions";
 import PoolMappingAddModal from "./PoolMappingAddModal";
 import PoolMappingEditModal from "./PoolMappingEditModal";
+import PropTypes from "prop-types";
 
 const PoolMapping = (props) => {
   // debug output
-  // console.log(props);
+  console.log(props);
 
   const { poolMaps } = props.poolMap;
+  const { pools } = props.pool;
+  const { wellTestings } = props.wellTesting;
+  const { wells } = props.well;
   let groupedPoolMaps = poolMaps;
 
   useEffect(() => {
-    props.getPoolMaps();
+    updateState();
   }, []);
+
+  let updateState = () => {
+    props.getPoolMaps();
+    props.getPools();
+    props.getWellTestings();
+    props.getWells();
+  };
 
   if (!props.location.state) {
     return <Redirect to="/labtech" />;
   }
 
   let onDeleteClickPool = (poolGroup) => {
+    let poolBarcode = poolGroup[0].poolBarcode;
+
+    // delete poolmaps
     poolGroup.map((poolMap) => {
       props.deletePoolMap(poolMap._id);
     });
 
-    // cascade delete: look into delete flags.
+    // cascade delete pool and well testing
+    cascadeDelete(poolBarcode);
+
+    // update state after delete
+    updateState();
   };
 
-  let onDeleteClickPoolMap = (id) => {
+  let onDeleteClickPoolMap = (id, poolBarcode) => {
+    // count number of poolMaps left with the associated poolBarcode
+    let count = 0;
+    poolMaps.forEach((poolMap) => {
+      if (poolMap.poolBarcode === poolBarcode) {
+        count++;
+      }
+    });
+
     props.deletePoolMap(id);
 
     // check if the poolBarcode of this poolMap still exists
-    // if not, cascade delete pool
-    // delete all wellTesting with the same poolBarcode
-    // delete that well
+    let exist = count > 1;
+
+    if (!exist) {
+      cascadeDelete(poolBarcode);
+    }
+
+    // update state after delete
+    updateState();
+  };
+
+  let cascadeDelete = (poolBarcode) => {
+    // delete pool
+    pools.forEach((pool) => {
+      if (pool.poolBarcode === poolBarcode) {
+        props.deletePool(pool._id);
+      }
+    });
+
+    // delete well testing
+    let wellBarcode = -1;
+    wellTestings.forEach((wellTesting) => {
+      if (wellTesting.poolBarcode === poolBarcode) {
+        props.deleteWellTesting(wellTesting._id);
+        wellBarcode = wellTesting.wellBarcode;
+      }
+    });
+
+    // delete well
+    wells.forEach((well) => {
+      if (well.wellBarcode === wellBarcode) {
+        props.deleteWell(well._id);
+      }
+    });
   };
 
   // Group data by key
@@ -74,7 +135,7 @@ const PoolMapping = (props) => {
                     Pool: {key} <br />
                     <br />
                     <ListGroup>
-                      {values.map(({ _id, testBarcode }) => (
+                      {values.map(({ _id, testBarcode, poolBarcode }) => (
                         <CSSTransition
                           key={_id}
                           timeout={500}
@@ -85,7 +146,11 @@ const PoolMapping = (props) => {
                               className="remove-btn"
                               color="danger"
                               size="sm"
-                              onClick={onDeleteClickPoolMap.bind(this, _id)}
+                              onClick={onDeleteClickPoolMap.bind(
+                                this,
+                                _id,
+                                poolBarcode
+                              )}
                             >
                               &times;
                             </Button>
@@ -109,12 +174,33 @@ PoolMapping.propTypes = {
   poolMap: PropTypes.object.isRequired,
   getPoolMaps: PropTypes.func.isRequired,
   deletePoolMap: PropTypes.func.isRequired,
+  pool: PropTypes.object.isRequired,
+  getPools: PropTypes.func.isRequired,
+  deletePool: PropTypes.func.isRequired,
+  wellTesting: PropTypes.object.isRequired,
+  getWellTestings: PropTypes.func.isRequired,
+  deleteWellTesting: PropTypes.func.isRequired,
+  well: PropTypes.object.isRequired,
+  getWells: PropTypes.func.isRequired,
+  deleteWell: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   poolMap: state.poolMap,
+  pool: state.pool,
+  wellTesting: state.wellTesting,
+  well: state.well,
 });
 
 export default withRouter(
-  connect(mapStateToProps, { getPoolMaps, deletePoolMap })(PoolMapping)
+  connect(mapStateToProps, {
+    getPoolMaps,
+    deletePoolMap,
+    getPools,
+    deletePool,
+    getWellTestings,
+    deleteWellTesting,
+    getWells,
+    deleteWell,
+  })(PoolMapping)
 );

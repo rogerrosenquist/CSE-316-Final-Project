@@ -36,7 +36,7 @@ export const updatePool = (pool) => (dispatch) => {
 };
 
 export const deletePool = (id) => (dispatch) => {
-  axios.delete(`/api/pool/${id}`).then((res) =>
+  axios.delete(`/api/pools/${id}`).then((res) =>
     dispatch({
       type: actions.DELETE_POOL,
       payload: {

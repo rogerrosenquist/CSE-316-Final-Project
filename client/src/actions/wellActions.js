@@ -36,7 +36,7 @@ export const updateWell = (well) => (dispatch) => {
 };
 
 export const deleteWell = (id) => (dispatch) => {
-  axios.delete(`/api/well/${id}`).then((res) =>
+  axios.delete(`/api/wells/${id}`).then((res) =>
     dispatch({
       type: actions.DELETE_WELL,
       payload: {
