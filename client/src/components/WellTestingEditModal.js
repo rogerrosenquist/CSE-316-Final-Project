@@ -113,9 +113,6 @@ const WellTestingEditModal = (props) => {
 
     let wellBarcodeID = -1;
     wells.forEach((well) => {
-      console.log(parseInt(well.wellBarcode));
-      console.log(parseInt(wellTesting.wellBarcode));
-
       if (parseInt(well.wellBarcode) === parseInt(wellTesting.wellBarcode)) {
         wellBarcodeID = well._id;
       }
