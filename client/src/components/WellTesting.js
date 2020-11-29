@@ -7,6 +7,7 @@ import {
   getWellTestings,
   deleteWellTesting,
 } from "../actions/wellTestingActions";
+import { getWells, deleteWell } from "../actions/wellActions";
 import WellTestingAddModal from "./WellTestingAddModal";
 import WellTestingEditModal from "./WellTestingEditModal";
 import PropTypes from "prop-types";
@@ -90,9 +91,11 @@ const WellTesting = (props) => {
   // console.log(props);
 
   const { wellTestings } = props.wellTesting;
+  const { wells } = props.well;
 
   useEffect(() => {
     props.getWellTestings();
+    props.getWells();
   }, []);
 
   if (!props.location.state) {
@@ -100,8 +103,19 @@ const WellTesting = (props) => {
     return <Redirect to="/labtech" />;
   }
 
-  let onDeleteClick = (id) => {
+  let onDeleteClick = (id, wellBarcode) => {
     props.deleteWellTesting(id);
+
+    // delete associated well
+    let wellBarcodeID = -1;
+    wells.forEach((well) => {
+      if (parseInt(well.wellBarcode) === parseInt(wellBarcode)) {
+        wellBarcodeID = well._id;
+      }
+    });
+    if (parseInt(wellBarcodeID) !== -1) {
+      props.deleteWell(wellBarcodeID);
+    }
   };
 
   return (
@@ -141,7 +155,7 @@ const WellTesting = (props) => {
                     className="remove-btn"
                     color="danger"
                     size="sm"
-                    onClick={onDeleteClick.bind(this, _id)}
+                    onClick={onDeleteClick.bind(this, _id, wellBarcode)}
                   >
                     &times;
                   </Button>{" "}
@@ -166,12 +180,21 @@ WellTesting.propTypes = {
   wellTesting: PropTypes.object.isRequired,
   getWellTestings: PropTypes.func.isRequired,
   deleteWellTesting: PropTypes.func.isRequired,
+  well: PropTypes.object.isRequired,
+  getWells: PropTypes.func.isRequired,
+  deleteWell: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   wellTesting: state.wellTesting,
+  well: state.well,
 });
 
 export default withRouter(
-  connect(mapStateToProps, { getWellTestings, deleteWellTesting })(WellTesting)
+  connect(mapStateToProps, {
+    getWellTestings,
+    deleteWellTesting,
+    getWells,
+    deleteWell,
+  })(WellTesting)
 );

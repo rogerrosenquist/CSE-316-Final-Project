@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -12,7 +12,6 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addPoolMap, deletePoolMap } from "../actions/poolMapActions";
-import { v4 as uuid } from "uuid";
 
 let totalTests = 0;
 

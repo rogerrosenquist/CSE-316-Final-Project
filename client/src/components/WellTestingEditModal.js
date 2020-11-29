@@ -31,7 +31,7 @@ const WellTestingEditModal = (props) => {
   )[0];
 
   const [modal, setModal] = useState(false);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState(props.IN_PROGRESS);
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [wellBarcode, setWellBarcode] = useState(0);
   const toggle = () => {
@@ -110,9 +110,13 @@ const WellTestingEditModal = (props) => {
     }
 
     // delete old well
+
     let wellBarcodeID = -1;
     wells.forEach((well) => {
-      if (parseInt(well.wellBarcode) === parseInt(wellBarcode)) {
+      console.log(parseInt(well.wellBarcode));
+      console.log(parseInt(wellTesting.wellBarcode));
+
+      if (parseInt(well.wellBarcode) === parseInt(wellTesting.wellBarcode)) {
         wellBarcodeID = well._id;
       }
     });
@@ -160,9 +164,9 @@ const WellTestingEditModal = (props) => {
                 value={result}
                 onChange={onChange}
               >
-                <option value="in progress">In progress</option>
-                <option value="negative">Negative</option>
-                <option value="postive">Positive</option>
+                <option value={props.IN_PROGRESS}>{props.IN_PROGRESS}</option>
+                <option value={props.NEGATIVE}>{props.NEGATIVE}</option>
+                <option value={props.POSITIVE}>{props.POSITIVE}</option>
               </Input>
               <Label for="poolBarcode">Pool Barcode</Label>
               <Input
