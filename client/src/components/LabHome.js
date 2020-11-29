@@ -24,7 +24,8 @@ const LabHome = (props) => {
   return (
     <Container className="LabHome">
       <Button
-        color="primary"
+        className="btn"
+        color="dark"
         size="lg"
         block
         onClick={(e) => changePaths(e, "poolmapping")}
@@ -32,7 +33,8 @@ const LabHome = (props) => {
         Pool Mapping
       </Button>
       <Button
-        color="primary"
+        className="btn"
+        color="dark"
         size="lg"
         block
         onClick={(e) => changePaths(e, "welltesting")}
@@ -40,7 +42,8 @@ const LabHome = (props) => {
         Well Testing
       </Button>
       <Button
-        color="primary"
+        className="btn"
+        color="dark"
         size="lg"
         block
         onClick={(e) => changePaths(e, "testcollection")}
