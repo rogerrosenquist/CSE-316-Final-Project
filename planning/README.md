@@ -124,6 +124,11 @@ Here are all the things to do.
 - [x] Working backend example.
 - [x] Prepare repo for meeting.
 - [x] Go to sleep 11/20/2020.
-- [ ] Client side pages.
-- [ ] Learn about login and authentication (maybe).
-- [ ] Complete.
+- [x] Client side pages.
+- [x] Initial submission.
+- [x] Integrity for employee tests.
+- [ ] Integrity for well testing.
+- [ ] Integrity for pool maps.
+- [ ] Consistent naming & format.
+- [ ] Learn about login and authentication.
+- [ ] Fully complete.
