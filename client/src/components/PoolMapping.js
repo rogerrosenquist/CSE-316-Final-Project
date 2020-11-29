@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 
 const PoolMapping = (props) => {
   // debug output
-  console.log(props);
+  // console.log(props);
 
   const { poolMaps } = props.poolMap;
   const { pools } = props.pool;

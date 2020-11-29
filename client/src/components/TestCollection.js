@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 let doesEmployeeExist = (employees, employeeID) => {
   let exist = false;
   employees.forEach((employee) => {
-    if (employee.employeeID == employeeID) {
+    if (parseInt(employee.employeeID) === parseInt(employeeID)) {
       exist = true;
     }
   });
@@ -24,7 +24,7 @@ let doesEmployeeExist = (employees, employeeID) => {
 let isTestBarcodeUnique = (employeeTests, testBarcode) => {
   let unique = true;
   employeeTests.forEach((employeeTest) => {
-    if (employeeTest.testBarcode == testBarcode) {
+    if (parseInt(employeeTest.testBarcode) === parseInt(testBarcode)) {
       unique = false;
     }
   });

@@ -10,7 +10,9 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
+import { getPools } from "../actions/poolActions";
 import { getWellTestings, addWellTesting } from "../actions/wellTestingActions";
+import { addWell } from "../actions/wellActions";
 import PropTypes from "prop-types";
 
 const IN_PROGRESS = "in progress";
@@ -21,6 +23,7 @@ const WellTestingAddModal = (props) => {
   // debug output
   // console.log(props);
 
+  const { pools } = props.pool;
   const { wellTestings } = props.wellTesting;
 
   const [modal, setModal] = useState(false);
@@ -39,8 +42,13 @@ const WellTestingAddModal = (props) => {
   };
 
   useEffect(() => {
-    props.getWellTestings();
+    updateState();
   }, []);
+
+  let updateState = () => {
+    props.getPools();
+    props.getWellTestings();
+  };
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
@@ -50,9 +58,25 @@ const WellTestingAddModal = (props) => {
   let onSubmit = (e) => {
     e.preventDefault();
 
-    // TODO - integrity check: does poolBarcode exist
-    // TODO - integrity check: is the wellBarcode unique
-    // TODO - integrity constraint: create well for this wellbarcode
+    // integrity check: does poolBarcode exist
+    let exist = props.doesPoolBarcodeExist(pools, poolBarcode);
+    if (!exist) {
+      alert("Pool barcode does not exist! Please input a valid pool barcode.");
+      return;
+    }
+
+    // integrity check: is the wellBarcode unique
+    let unique = props.isWellBarcodeUnique(wellTestings, wellBarcode);
+    if (!unique) {
+      alert("Well barcode is not unique! Please input a unique well barcode.");
+      return;
+    }
+
+    // integrity constraint: create well for this new/unique wellBarcode
+    const newWell = {
+      wellBarcode: wellBarcode,
+    };
+    props.addWell(newWell);
 
     const newWellTest = {
       result: result,
@@ -114,15 +138,22 @@ const WellTestingAddModal = (props) => {
 };
 
 WellTestingAddModal.propTypes = {
+  pool: PropTypes.object.isRequired,
+  getPools: PropTypes.func.isRequired,
   wellTesting: PropTypes.object.isRequired,
   addWellTesting: PropTypes.func.isRequired,
   getWellTestings: PropTypes.func.isRequired,
+  addWell: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  pool: state.pool,
   wellTesting: state.wellTesting,
 });
 
-export default connect(mapStateToProps, { getWellTestings, addWellTesting })(
-  WellTestingAddModal
-);
+export default connect(mapStateToProps, {
+  getPools,
+  getWellTestings,
+  addWellTesting,
+  addWell,
+})(WellTestingAddModal);

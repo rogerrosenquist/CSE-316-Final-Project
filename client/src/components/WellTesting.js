@@ -11,6 +11,26 @@ import WellTestingAddModal from "./WellTestingAddModal";
 import WellTestingEditModal from "./WellTestingEditModal";
 import PropTypes from "prop-types";
 
+let doesPoolBarcodeExist = (pools, poolBarcode) => {
+  let exist = false;
+  pools.forEach((pool) => {
+    if (parseInt(pool.poolBarcode) === parseInt(poolBarcode)) {
+      exist = true;
+    }
+  });
+  return exist;
+};
+
+let isWellBarcodeUnique = (wellTestings, wellBarcode) => {
+  let unique = true;
+  wellTestings.forEach((wellTesting) => {
+    if (parseInt(wellTesting.wellBarcode) === parseInt(wellBarcode)) {
+      unique = false;
+    }
+  });
+  return unique;
+};
+
 const WellTesting = (props) => {
   // debug output
   // console.log(props);
@@ -22,7 +42,7 @@ const WellTesting = (props) => {
   }, []);
 
   if (!props.location.state) {
-    console.log(props);
+    // console.log(props);
     return <Redirect to="/labtech" />;
   }
 
@@ -32,7 +52,10 @@ const WellTesting = (props) => {
 
   return (
     <Container>
-      <WellTestingAddModal />
+      <WellTestingAddModal
+        doesPoolBarcodeExist={doesPoolBarcodeExist}
+        isWellBarcodeUnique={isWellBarcodeUnique}
+      />
       <ListGroup>
         <TransitionGroup className="wellTesting-list">
           {wellTestings.map(
