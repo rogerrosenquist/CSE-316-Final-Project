@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory, Redirect, withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
@@ -7,13 +7,13 @@ import {
   getWellTestings,
   deleteWellTesting,
 } from "../actions/wellTestingActions";
-import PropTypes from "prop-types";
 import WellTestingAddModal from "./WellTestingAddModal";
 import WellTestingEditModal from "./WellTestingEditModal";
+import PropTypes from "prop-types";
 
 const WellTesting = (props) => {
-  const history = useHistory();
-  console.log(props);
+  // debug output
+  // console.log(props);
 
   const { wellTestings } = props.wellTesting;
 
@@ -21,7 +21,6 @@ const WellTesting = (props) => {
     props.getWellTestings();
   }, []);
 
-  
   if (!props.location.state) {
     console.log(props);
     return <Redirect to="/labtech" />;
@@ -57,7 +56,7 @@ const WellTesting = (props) => {
                     &times;
                   </Button>{" "}
                   <br />
-                  Result: {result} <br />
+                  result: {result} <br />
                   {/* _id: {_id} <br /> */}
                   poolBarcode: {poolBarcode} <br />
                   wellBarcode: {wellBarcode} <br />
@@ -74,9 +73,9 @@ const WellTesting = (props) => {
 };
 
 WellTesting.propTypes = {
+  wellTesting: PropTypes.object.isRequired,
   getWellTestings: PropTypes.func.isRequired,
   deleteWellTesting: PropTypes.func.isRequired,
-  wellTesting: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

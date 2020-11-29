@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -10,14 +10,37 @@ import {
   Input,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addWellTesting } from "../actions/wellTestingActions";
+import { getWellTestings, addWellTesting } from "../actions/wellTestingActions";
+import PropTypes from "prop-types";
+
+const IN_PROGRESS = "in progress";
+const POSITIVE = "positive";
+const NEGATIVE = "negative";
 
 const WellTestingAddModal = (props) => {
+  // debug output
+  // console.log(props);
+
+  const { wellTestings } = props.wellTesting;
+
   const [modal, setModal] = useState(false);
-  const [result, setResult] = useState("in progress");
+  const [result, setResult] = useState(IN_PROGRESS);
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [wellBarcode, setWellBarcode] = useState(0);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+    resetModalInput();
+  };
+
+  let resetModalInput = () => {
+    setResult(IN_PROGRESS);
+    setPoolBarcode(0);
+    setWellBarcode(0);
+  };
+
+  useEffect(() => {
+    props.getWellTestings();
+  }, []);
 
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
@@ -26,6 +49,10 @@ const WellTestingAddModal = (props) => {
 
   let onSubmit = (e) => {
     e.preventDefault();
+
+    // TODO - integrity check: does poolBarcode exist
+    // TODO - integrity check: is the wellBarcode unique
+    // TODO - integrity constraint: create well for this wellbarcode
 
     const newWellTest = {
       result: result,
@@ -55,9 +82,9 @@ const WellTestingAddModal = (props) => {
                 id="result"
                 onChange={onChange}
               >
-                <option value="in progress">In progress</option>
-                <option value="negative">Negative</option>
-                <option value="postive">Positive</option>
+                <option value={IN_PROGRESS}>{IN_PROGRESS}</option>
+                <option value={NEGATIVE}>{NEGATIVE}</option>
+                <option value={POSITIVE}>{POSITIVE}</option>
               </Input>
               <Label for="poolBarcode">Pool Barcode</Label>
               <Input
@@ -86,10 +113,16 @@ const WellTestingAddModal = (props) => {
   );
 };
 
+WellTestingAddModal.propTypes = {
+  wellTesting: PropTypes.object.isRequired,
+  addWellTesting: PropTypes.func.isRequired,
+  getWellTestings: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
-  WellTesting: state.WellTesting,
+  wellTesting: state.wellTesting,
 });
 
-export default connect(mapStateToProps, { addWellTesting })(
+export default connect(mapStateToProps, { getWellTestings, addWellTesting })(
   WellTestingAddModal
 );

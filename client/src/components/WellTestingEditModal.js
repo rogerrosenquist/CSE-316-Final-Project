@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { updateWellTesting } from "../actions/wellTestingActions";
-
 import PropTypes from "prop-types";
 
 const WellTestingEditModal = (props) => {
