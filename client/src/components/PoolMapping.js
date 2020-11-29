@@ -122,19 +122,21 @@ const PoolMapping = (props) => {
               return (
                 <CSSTransition key={key} timeout={500} classNames="fade">
                   <ListGroupItem>
-                    <PoolMappingEditModal id={key} />
-                    &nbsp;
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={onDeleteClickPool.bind(this, values)}
-                    >
-                      &times;
-                    </Button>
-                    Pool: {key} <br />
-                    <br />
-                    <ListGroup>
+                    <Container style={{ margin: 0, padding: 0 }}>
+                      <PoolMappingEditModal id={key} />
+                      &nbsp;
+                      <Button
+                        className="remove-btn"
+                        color="danger"
+                        size="sm"
+                        onClick={onDeleteClickPool.bind(this, values)}
+                      >
+                        &times;
+                      </Button>
+                      Pool: {key}
+                    </Container>
+
+                    <ListGroup style={{ width: "100%" }}>
                       {values.map(({ _id, testBarcode, poolBarcode }) => (
                         <CSSTransition
                           key={_id}
