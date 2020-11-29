@@ -58,7 +58,7 @@ const PoolMapping = (props) => {
     // count number of poolMaps left with the associated poolBarcode
     let count = 0;
     poolMaps.forEach((poolMap) => {
-      if (poolMap.poolBarcode === poolBarcode) {
+      if (parseInt(poolMap.poolBarcode) === parseInt(poolBarcode)) {
         count++;
       }
     });
@@ -79,7 +79,7 @@ const PoolMapping = (props) => {
   let cascadeDelete = (poolBarcode) => {
     // delete pool
     pools.forEach((pool) => {
-      if (pool.poolBarcode === poolBarcode) {
+      if (parseInt(pool.poolBarcode) === parseInt(poolBarcode)) {
         props.deletePool(pool._id);
       }
     });
@@ -87,7 +87,7 @@ const PoolMapping = (props) => {
     // delete well testing
     let wellBarcode = -1;
     wellTestings.forEach((wellTesting) => {
-      if (wellTesting.poolBarcode === poolBarcode) {
+      if (parseInt(wellTesting.poolBarcode) === parseInt(poolBarcode)) {
         props.deleteWellTesting(wellTesting._id);
         wellBarcode = wellTesting.wellBarcode;
       }
@@ -95,7 +95,7 @@ const PoolMapping = (props) => {
 
     // delete well
     wells.forEach((well) => {
-      if (well.wellBarcode === wellBarcode) {
+      if (parseInt(well.wellBarcode) === parseInt(wellBarcode)) {
         props.deleteWell(well._id);
       }
     });

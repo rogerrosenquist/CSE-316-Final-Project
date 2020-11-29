@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addPoolMap } from "../actions/poolMapActions";
+import { addPool } from "../actions/poolActions";
 import PropTypes from "prop-types";
 
 let totalTests = 0;
@@ -34,6 +35,28 @@ const PoolMappingAddModal = (props) => {
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
     change(e.target.value);
+  };
+
+  let onSubmit = (e) => {
+    e.preventDefault();
+
+    // create poolmap
+    let newPoolMap = {
+      poolBarcode: poolBarcode,
+      testBarcode: -1,
+    };
+    for (var x of testBarcodes) {
+      newPoolMap["testBarcode"] = x.val;
+      props.addPoolMap(newPoolMap);
+    }
+
+    // create pool
+    let newPool = {
+      poolBarcode: poolBarcode,
+    };
+    props.addPool(newPool);
+
+    toggle();
   };
 
   let testChange = (e) => {
@@ -71,19 +94,6 @@ const PoolMappingAddModal = (props) => {
       currentIndex++;
     }
     return index;
-  };
-
-  let onSubmit = (e) => {
-    e.preventDefault();
-    let newPoolMap = {
-      poolBarcode: poolBarcode,
-      testBarcode: -1,
-    };
-    for (var x of testBarcodes) {
-      newPoolMap["testBarcode"] = x.val;
-      props.addPoolMap(newPoolMap);
-    }
-    toggle();
   };
 
   let addRow = () => {
@@ -180,10 +190,13 @@ PoolMappingAddModal.propTypes = {
   // poolMap: PropTypes.object.isRequired,
   // getPoolMaps: PropTypes.func.isRequired,
   addPoolMap: PropTypes.func.isRequired,
+  addPool: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   poolMap: state.poolMap,
 });
 
-export default connect(mapStateToProps, { addPoolMap })(PoolMappingAddModal);
+export default connect(mapStateToProps, { addPoolMap, addPool })(
+  PoolMappingAddModal
+);
