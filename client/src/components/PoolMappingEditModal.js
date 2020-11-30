@@ -9,16 +9,21 @@ import {
   Label,
   Input,
   Container,
+  InputGroup,
 } from "reactstrap";
 import { connect } from "react-redux";
+import { getPools } from "../actions/poolActions";
 import { addPoolMap, deletePoolMap } from "../actions/poolMapActions";
+import { addPool } from "../actions/poolActions";
+import { getEmployeeTests } from "../actions/employeeTestActions";
+import PropTypes from "prop-types";
 
 let totalTests = 0;
 
 const PoolMappingEditModal = (props) => {
+  // debug output
   // console.log(props);
 
-  const oldPool = props.id;
   const poolMap = props.poolMap.poolMaps.filter(
     (poolMap) => poolMap.poolBarcode == props.id
   );
@@ -160,22 +165,35 @@ const PoolMappingEditModal = (props) => {
                 onChange={onChange}
               />
               {testBarcode.map((val) => (
-                <Container style={{ margin: 0, padding: 0 }} key={val.id}>
+                <Container
+                  style={{
+                    marginLeft: 0,
+                    marginRight: 0,
+                    marginTop: "0.5rem",
+                    padding: 0,
+                  }}
+                  key={val.id}
+                >
                   <Label for={val.id}>Test Barcode</Label>
-                  <Input
-                    type="text"
-                    name={val.name}
-                    id={val.id}
-                    placeholder={val.name}
-                    value={testBarcode[getIndex(val.id)].val}
-                    onChange={testChange}
-                  />
-                  <Button
-                    className="remove-btn"
-                    color="danger"
-                    size="sm"
-                    onClick={delRow.bind(this, val.id)}
-                  ></Button>
+                  <InputGroup>
+                    <Button
+                      className="btn remove-btn"
+                      color="danger"
+                      size="sm"
+                      onClick={delRow.bind(this, val.id)}
+                    >
+                      &times;
+                    </Button>
+
+                    <Input
+                      type="text"
+                      name={val.name}
+                      id={val.id}
+                      placeholder={val.name}
+                      // value={testBarcodes[getIndex(val.id)].val}
+                      onChange={testChange}
+                    />
+                  </InputGroup>
                 </Container>
               ))}
               <Button
@@ -186,7 +204,7 @@ const PoolMappingEditModal = (props) => {
               >
                 Add more rows
               </Button>
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
+              <Button color="dark" style={{ marginTop: "1rem" }} block>
                 Submit Pool Mapping
               </Button>
             </FormGroup>
@@ -197,10 +215,26 @@ const PoolMappingEditModal = (props) => {
   );
 };
 
+PoolMappingEditModal.propTypes = {
+  pool: PropTypes.object.isRequired,
+  getPools: PropTypes.func.isRequired,
+  addPoolMap: PropTypes.func.isRequired,
+  deletePoolMap: PropTypes.func.isRequired,
+  addPool: PropTypes.func.isRequired,
+  employeeTest: PropTypes.object.isRequired,
+  getEmployeeTests: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
+  pool: state.pool,
   poolMap: state.poolMap,
+  employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, { addPoolMap, deletePoolMap })(
-  PoolMappingEditModal
-);
+export default connect(mapStateToProps, {
+  getPools,
+  addPoolMap,
+  deletePoolMap,
+  addPool,
+  getEmployeeTests,
+})(PoolMappingEditModal);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -12,13 +12,44 @@ import {
   InputGroup,
 } from "reactstrap";
 import { connect } from "react-redux";
+import { getPools } from "../actions/poolActions";
 import { addPoolMap } from "../actions/poolMapActions";
 import { addPool } from "../actions/poolActions";
+import { getEmployeeTests } from "../actions/employeeTestActions";
 import PropTypes from "prop-types";
+
+let areTestBarcodesValid = (testBarcodes, employeeTests) => {
+  // create set of test barcodes in the database
+  let testBarcodesDatabaseSet = [];
+  employeeTests.forEach((employeeTest) => {
+    testBarcodesDatabaseSet.push(employeeTest.testBarcode);
+  });
+
+  let testBarcodesDatabaseSetUsed = [];
+  let isValid = true;
+  testBarcodes.forEach((testBarcode) => {
+    let testBarcodeVal = parseInt(testBarcode.val);
+    if (testBarcodesDatabaseSetUsed.includes(testBarcodeVal)) {
+      isValid = false;
+    }
+    if (!testBarcodesDatabaseSet.includes(testBarcodeVal)) {
+      isValid = false;
+    }
+    testBarcodesDatabaseSetUsed.push(testBarcodeVal);
+  });
+
+  return isValid;
+};
 
 let totalTests = 0;
 
 const PoolMappingAddModal = (props) => {
+  // debug output
+  // console.log(props);
+
+  const { pools } = props.pool;
+  const { employeeTests } = props.employeeTest;
+
   const [modal, setModal] = useState(false);
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [testBarcodes, setTestBarcodes] = useState([]);
@@ -32,6 +63,15 @@ const PoolMappingAddModal = (props) => {
     setTestBarcodes([]);
   };
 
+  useEffect(() => {
+    updateState();
+  }, []);
+
+  let updateState = () => {
+    props.getPools();
+    props.getEmployeeTests();
+  };
+
   let onChange = (e) => {
     let change = eval(["set" + e.target.name][0]);
     change(e.target.value);
@@ -40,13 +80,29 @@ const PoolMappingAddModal = (props) => {
   let onSubmit = (e) => {
     e.preventDefault();
 
+    // integrity check: is poolBarcode unique
+    let unique = props.isNumberUnique(pools, poolBarcode, "poolBarcode");
+    if (!unique) {
+      alert("Pool barcode is not unique! Please input a unique pool barcode.");
+      return;
+    }
+
+    // integrity check: are all testBarcodes valid
+    let isValid = areTestBarcodesValid(testBarcodes, employeeTests);
+    if (!isValid) {
+      alert(
+        "Not all test barcodes are valid or unique! Please input valid and unique test barcodes."
+      );
+      return;
+    }
+
     // create poolmap
     let newPoolMap = {
       poolBarcode: poolBarcode,
       testBarcode: -1,
     };
-    for (var x of testBarcodes) {
-      newPoolMap["testBarcode"] = x.val;
+    for (let x of testBarcodes) {
+      newPoolMap["testBarcode"] = parseInt(x.val);
       props.addPoolMap(newPoolMap);
     }
 
@@ -62,7 +118,7 @@ const PoolMappingAddModal = (props) => {
   let testChange = (e) => {
     let currentIndex = 0;
     let index = -1;
-    for (var x of testBarcodes) {
+    for (let x of testBarcodes) {
       if (x.id == e.target.id) {
         index = currentIndex;
         break;
@@ -86,7 +142,7 @@ const PoolMappingAddModal = (props) => {
   let getIndex = (id) => {
     let currentIndex = 0;
     let index = -1;
-    for (var x of testBarcodes) {
+    for (let x of testBarcodes) {
       if (x.id == id) {
         index = currentIndex;
         break;
@@ -187,16 +243,23 @@ const PoolMappingAddModal = (props) => {
 };
 
 PoolMappingAddModal.propTypes = {
-  // poolMap: PropTypes.object.isRequired,
-  // getPoolMaps: PropTypes.func.isRequired,
+  pool: PropTypes.object.isRequired,
+  getPools: PropTypes.func.isRequired,
   addPoolMap: PropTypes.func.isRequired,
   addPool: PropTypes.func.isRequired,
+  employeeTest: PropTypes.object.isRequired,
+  getEmployeeTests: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  pool: state.pool,
   poolMap: state.poolMap,
+  employeeTest: state.employeeTest,
 });
 
-export default connect(mapStateToProps, { addPoolMap, addPool })(
-  PoolMappingAddModal
-);
+export default connect(mapStateToProps, {
+  getPools,
+  addPoolMap,
+  addPool,
+  getEmployeeTests,
+})(PoolMappingAddModal);

@@ -14,6 +14,16 @@ import PoolMappingAddModal from "./PoolMappingAddModal";
 import PoolMappingEditModal from "./PoolMappingEditModal";
 import PropTypes from "prop-types";
 
+let isNumberUnique = (array, value, property) => {
+  let unique = true;
+  array.forEach((element) => {
+    if (parseInt(element[property]) === parseInt(value)) {
+      unique = false;
+    }
+  });
+  return unique;
+};
+
 const PoolMapping = (props) => {
   // debug output
   // console.log(props);
@@ -113,7 +123,7 @@ const PoolMapping = (props) => {
 
   return (
     <Container>
-      <PoolMappingAddModal />
+      <PoolMappingAddModal isNumberUnique={isNumberUnique} />
       <ListGroup>
         <TransitionGroup className="poolMap">
           {
