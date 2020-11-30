@@ -24,6 +24,8 @@ const PoolMappingEditModal = (props) => {
   // debug output
   // console.log(props);
 
+  const { pools } = props.pool;
+
   const poolMap = props.poolMap.poolMaps.filter(
     (poolMap) => poolMap.poolBarcode == props.id
   );
@@ -31,7 +33,84 @@ const PoolMappingEditModal = (props) => {
   const [modal, setModal] = useState(false);
   const [poolBarcode, setPoolBarcode] = useState(0);
   const [testBarcode, setTestBarcode] = useState([]);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+    resetModalInput();
+  };
+
+  let resetModalInput = () => {
+    populateRows();
+  };
+
+  useEffect(() => {
+    populateRows();
+    setPoolBarcode(props.id);
+  }, [modal]);
+
+  let onChange = (e) => {
+    let change = eval(["set" + e.target.name][0]);
+    change(e.target.value);
+  };
+
+  let onSubmit = (e) => {
+    e.preventDefault();
+
+    // delete original pool, then insert all new ones
+    poolMap.map((element) => {
+      // code copied from poolMapping, deletes all of specific pool
+      // console.log(element._id);
+      props.deletePoolMap(element._id);
+    });
+
+    // integrity check: is poolBarcode unique
+    // preventing changing poolBarcode to existing one. Must only edit via the edit button of the existing pool.
+    // let unique = props.isNumberUnique(pools, poolBarcode, "poolBarcode");
+    // if (!unique) {
+    //   alert("Pool barcode is not unique! Please input a unique pool barcode.");
+
+    //   console.log(poolMap);
+    //   // reinsert
+    //   poolMap.map((element) => {
+    //     let newPoolMap = {
+    //       poolBarcode: element.poolBarcode,
+    //       testBarcode: element.testBarcode,
+    //     };
+    //     props.addPoolMap(newPoolMap);
+    //   });
+
+    //   return;
+    // }
+
+    let newPoolMap = {
+      poolBarcode: poolBarcode,
+      testBarcode: -1,
+    };
+    for (var x of testBarcode) {
+      newPoolMap["testBarcode"] = x.val;
+      props.addPoolMap(newPoolMap);
+    }
+    toggle();
+  };
+
+  let addRow = () => {
+    totalTests = totalTests + 1;
+    let obj = {};
+    obj["id"] = "testBarcode" + totalTests;
+    obj["name"] = "TestBarcode" + totalTests;
+    obj["val"] = 0;
+    setTestBarcode([...testBarcode, obj]);
+  };
+
+  let delRow = (id) => {
+    let index = getIndex(id);
+    if (index > -1) {
+      setTestBarcode(
+        testBarcode
+          .slice(0, index)
+          .concat(testBarcode.slice(index + 1, testBarcode.size))
+      );
+    }
+  };
 
   let populateRows = () => {
     let tests = [];
@@ -45,16 +124,6 @@ const PoolMappingEditModal = (props) => {
     }
     setTestBarcode(tests);
   };
-
-  let onChange = (e) => {
-    let change = eval(["set" + e.target.name][0]);
-    change(e.target.value);
-  };
-
-  useEffect(() => {
-    populateRows();
-    setPoolBarcode(props.id);
-  }, [modal]);
 
   let testChange = (e) => {
     e.preventDefault();
@@ -94,51 +163,6 @@ const PoolMappingEditModal = (props) => {
       currentIndex++;
     }
     return index;
-  };
-
-  let onSubmit = (e) => {
-    e.preventDefault();
-    //delete original pool, then insert all new ones
-
-    poolMap.map((element) => {
-      //code copied from poolMapping, deletes all of specific pool
-      console.log(element._id);
-      props.deletePoolMap(element._id);
-    });
-
-    // console.log(testBarcode);
-    // setPoolBarcode(props.id);
-    // console.log(poolBarcode);
-    // console.log(props.id);
-    let newPoolMap = {
-      poolBarcode: poolBarcode,
-      testBarcode: -1,
-    };
-    for (var x of testBarcode) {
-      newPoolMap["testBarcode"] = x.val;
-      props.addPoolMap(newPoolMap);
-    }
-    toggle();
-  };
-
-  let addRow = () => {
-    totalTests = totalTests + 1;
-    let obj = {};
-    obj["id"] = "testBarcode" + totalTests;
-    obj["name"] = "TestBarcode" + totalTests;
-    obj["val"] = 0;
-    setTestBarcode([...testBarcode, obj]);
-  };
-
-  let delRow = (id) => {
-    let index = getIndex(id);
-    if (index > -1) {
-      setTestBarcode(
-        testBarcode
-          .slice(0, index)
-          .concat(testBarcode.slice(index + 1, testBarcode.size))
-      );
-    }
   };
 
   return (
@@ -190,7 +214,7 @@ const PoolMappingEditModal = (props) => {
                       name={val.name}
                       id={val.id}
                       placeholder={val.name}
-                      // value={testBarcodes[getIndex(val.id)].val}
+                      value={testBarcode[getIndex(val.id)].val}
                       onChange={testChange}
                     />
                   </InputGroup>

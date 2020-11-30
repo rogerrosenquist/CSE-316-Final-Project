@@ -133,7 +133,10 @@ const PoolMapping = (props) => {
                 <CSSTransition key={key} timeout={500} classNames="fade">
                   <ListGroupItem>
                     <Container style={{ margin: 0, padding: 0 }}>
-                      <PoolMappingEditModal id={key} />
+                      <PoolMappingEditModal
+                        id={key}
+                        isNumberUnique={isNumberUnique}
+                      />
                       &nbsp;
                       <Button
                         className="remove-btn"
